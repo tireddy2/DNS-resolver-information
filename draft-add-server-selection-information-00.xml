@@ -458,8 +458,8 @@
             URI Template form of the DNS server identity.</t>
 
             <t>As a reminder, if DoH is supported by the DNS server, the DNS
-            client uses the https URI scheme and URI Template (Section 3 of
-            <xref target="RFC8484"></xref>).</t>
+            client uses the URI Template (Section 3 of <xref
+            target="RFC8484"></xref>).</t>
           </section>
         </section>
 

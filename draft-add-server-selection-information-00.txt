@@ -5,12 +5,12 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                                 D. Wing
-Expires: February 22, 2021                                        Citrix
+Expires: February 23, 2021                                        Citrix
                                                            M. Richardson
                                                 Sandelman Software Works
                                                             M. Boucadair
                                                                   Orange
-                                                         August 21, 2020
+                                                         August 22, 2020
 
 
    DNS Server Selection: DNS Server Information with Assertion Token
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 22, 2021.
+   This Internet-Draft will expire on February 23, 2021.
 
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 1]
+Reddy, et al.           Expires February 23, 2021               [Page 1]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 2]
+Reddy, et al.           Expires February 23, 2021               [Page 2]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -165,7 +165,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 3]
+Reddy, et al.           Expires February 23, 2021               [Page 3]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -221,7 +221,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 4]
+Reddy, et al.           Expires February 23, 2021               [Page 4]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -277,7 +277,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 5]
+Reddy, et al.           Expires February 23, 2021               [Page 5]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -333,7 +333,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 6]
+Reddy, et al.           Expires February 23, 2021               [Page 6]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -389,7 +389,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 7]
+Reddy, et al.           Expires February 23, 2021               [Page 7]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -445,7 +445,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 8]
+Reddy, et al.           Expires February 23, 2021               [Page 8]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -501,7 +501,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021               [Page 9]
+Reddy, et al.           Expires February 23, 2021               [Page 9]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -519,7 +519,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
    the claim value is the URI Template form of the DNS server identity.
 
    As a reminder, if DoH is supported by the DNS server, the DNS client
-   uses the https URI scheme and URI Template (Section 3 of [RFC8484]).
+   uses the URI Template (Section 3 of [RFC8484]).
 
 6.2.2.  'policyinfo' (Policy Information) Claim
 
@@ -557,7 +557,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 10]
+Reddy, et al.           Expires February 23, 2021              [Page 10]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -613,7 +613,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 11]
+Reddy, et al.           Expires February 23, 2021              [Page 11]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -669,7 +669,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 12]
+Reddy, et al.           Expires February 23, 2021              [Page 12]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -725,7 +725,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 13]
+Reddy, et al.           Expires February 23, 2021              [Page 13]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -781,7 +781,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 14]
+Reddy, et al.           Expires February 23, 2021              [Page 14]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -837,7 +837,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 15]
+Reddy, et al.           Expires February 23, 2021              [Page 15]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -893,7 +893,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 16]
+Reddy, et al.           Expires February 23, 2021              [Page 16]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -949,7 +949,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 17]
+Reddy, et al.           Expires February 23, 2021              [Page 17]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 18]
+Reddy, et al.           Expires February 23, 2021              [Page 18]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 19]
+Reddy, et al.           Expires February 23, 2021              [Page 19]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 20]
+Reddy, et al.           Expires February 23, 2021              [Page 20]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1173,7 +1173,7 @@ Appendix A.  Example ES256 based PAT JWS Serialization and Signature
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 21]
+Reddy, et al.           Expires February 23, 2021              [Page 21]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 22]
+Reddy, et al.           Expires February 23, 2021              [Page 22]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1285,7 +1285,7 @@ A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 23]
+Reddy, et al.           Expires February 23, 2021              [Page 23]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1341,7 +1341,7 @@ Appendix B.  Complete JWS JSON Serialization Representation with
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 24]
+Reddy, et al.           Expires February 23, 2021              [Page 24]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1397,7 +1397,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 25]
+Reddy, et al.           Expires February 23, 2021              [Page 25]
 
 Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
@@ -1453,4 +1453,4 @@ Internet-Draft    DNS Server Info with Assertion Token       August 2020
 
 
 
-Reddy, et al.           Expires February 22, 2021              [Page 26]
+Reddy, et al.           Expires February 23, 2021              [Page 26]
