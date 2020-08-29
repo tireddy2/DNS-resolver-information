@@ -123,8 +123,8 @@
       client needs evidence about the encrypted server to assess its
       trustworthiness and a way to appraise such evidence. The mechanism
       specified in this document can be used by the DNS client to
-      cryptographically identify it is connecting to an encrypted DNS server
-      hosted by a specific organization (e.g., ISP or Enterprise).</t>
+      cryptographically identify if it is connecting to an encrypted DNS
+      server hosted by a specific organization (e.g., ISP or Enterprise).</t>
 
       <t>The DNS Recursive Operator Privacy (DROP) statement explained in
       <xref target="I-D.ietf-dprive-bcp-op"></xref> outlines the recommended
@@ -195,10 +195,10 @@
           policy of the local DNS server. If the discovered encrypted DNS
           server does not meet the privacy preserving data policy and
           filtering requirements of the user, the DNS client can take
-          appropriate actions. For example, the action can be to use the
+          appropriate actions. For example, the action can be: use the
           discovered DNS server only to access internal-only DNS names and use
-          another DNS server (adhering with the user's expectations) for
-          public domains.</t>
+          another DNS server for public domains. Such a policy would adhere to
+          the user's expectations.</t>
 
           <t>The policy information signals the presence of DNS-based content
           filtering in the attached network. If the network is well-known to
@@ -207,23 +207,23 @@
           encrypted connection with the local encrypted DNS server. If the
           error code returned by the DNS server indicates access to the domain
           is blocked because of internal security policy <xref
-          target="I-D.ietf-dnsop-extended-error"></xref>, the DNS client can
-          securely identify access to the domain is censored by the
+          target="I-D.ietf-dnsop-extended-error"/>, the DNS client can
+          securely identify that access to the domain is censored by the
           network.</t>
 
           <t>The signed policy contains an URL that points to a human-readable
-          privacy policy information of the DNS server for the user to review
-          and can make an informed decision whether the DNS server is
-          trustworthy to honor the privacy of the user. The DNS Push
-          Notifications mechanism defined in <xref target="RFC8765"></xref>
-          can be used by the DNS client to be asynchronously notified when the
-          policy change occurs. The client automatically learns updates to the
-          policy of the DNS server, and whenever the privacy statement of the
-          DNS server changes, the client can notify the user to re-evaluate
-          the updated privacy statement. As a reminder, DNS Push Notification
-          is only defined for TLS over TCP. DNS client implementations that do
-          not support DNS Push Notifications can use the mechanism discussed
-          in <xref target="exp-header-parameter"></xref> to identify policy
+          privacy policy information of the DNS server for the user to review.
+          The user can then make an informed decision whether the DNS server
+          is trustworthy to honor the privacy of the user. The DNS Push
+          Notifications mechanism defined in <xref target="RFC8765"/> can be
+          used by the DNS client to be asynchronously notified when the policy
+          change occurs. The client automatically learns updates to the policy
+          of the DNS server. Should the privacy statement of the DNS server
+          change, the client can notify the user to re-evaluate the updated
+          privacy statement. As a reminder, DNS Push Notification is only
+          defined for TLS over TCP. DNS client implementations that do not
+          support DNS Push Notifications can use the mechanism discussed in
+          <xref target="exp-header-parameter"/> to identify policy
           updates.</t>
         </list></t>
     </section>
@@ -232,45 +232,54 @@
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
       "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
       "OPTIONAL" in this document are to be interpreted as described in BCP 14
-      <xref target="RFC2119"></xref><xref target="RFC8174"></xref> when, and
-      only when, they appear in all capitals, as shown here.</t>
+      <xref target="RFC2119"/><xref target="RFC8174"/> when, and only when,
+      they appear in all capitals, as shown here.</t>
 
       <t>This document makes use of the terms defined in <xref
-      target="RFC8499"></xref> and <xref
-      target="I-D.ietf-dnsop-terminology-ter"></xref>.</t>
+      target="RFC8499"/> and <xref
+      target="I-D.ietf-dnsop-terminology-ter"/>.</t>
 
       <t>'Encrypted DNS' refers to a DNS protocol that provides an encrypted
       channel between a DNS client and server (e.g., DoT, DoH, or DoQ).</t>
+
+      <t>The terms Evidence, Verifier, Background Check, Relying Party,
+      Attestation Results and Appraisal Policy are from <xref
+      target="I-D.ietf-rats-architecture"/></t>
     </section>
 
     <section anchor="PAT" title="Policy Assertion Token (PAT): Overview">
       <t>The mechanism used in this specification resembles the
       Background-Check Model discussed in Section 5.2 and Section 5.3 of
       Remote attestation procedure (RATS) Architecture <xref
-      target="I-D.ietf-rats-architecture"></xref>. RATS enables a relying
-      party to establish a level of confidence in the trustworthiness of a
-      remote peer through the creation of attestation evidence to assess the
-      peer's trustworthiness, and a way to appraise such evidence. In this
-      document, the relying party is the DNS client and remote peer is the
-      encrypted DNS server. The operator of the DNS server attests to its own
-      claims using the OV/EV certificate provided by the public CA and an
-      (optional) external endorser (e.g.., an Auditor who performed security
-      and privacy audit of the Encrypted DNS server) can provide higher
-      confidence. The back-ground check of the organization hosting the
-      Encrypted DNS server is done by a public CA and an OV/EV certificate is
-      issued only after verification of the requesting organization's legal
-      identity. As usual, Encrypted DNS servers continue to use "Domain
-      Validation" (DV) certificates. </t>
+      target="I-D.ietf-rats-architecture"/>. RATS enables a relying party to
+      establish a level of confidence in the trustworthiness of a remote peer
+      through the creation of Evidence to assess the peer's trustworthiness,
+      and a Apprasal Policy for such Evidence. In this document, the Relying
+      Party is the DNS client and Attester is the encrypted DNS server. The
+      Encrypted DNS servers MAY use "Domain Validation" (DV) certificates.</t>
 
-      <t>JSON Web Token (JWT) <xref target="RFC7519"></xref> and JSON Web
-      Signature (JWS) <xref target="RFC7515"></xref> and related
-      specifications define a standard token format that can be used as a way
-      of encapsulating claimed or asserted information with an associated
-      digital signature using X.509 based certificates. JWT provides a set of
-      claims in JSON format that can accommodate asserted policy information
-      of the Encrypted DNS server. Additionally, JWS provides a path for
-      updating methods and cryptographic algorithms used for the associated
-      digital signatures.</t>
+      <t>In a simpler situation, the Verifier is also the operator of the DNS
+      server. It creates Attestation Results based upon its own claims,
+      signing them using an OV (or EV) certificate provided by a public CA.
+      </t>
+
+      <t> A more trustworthy situation, the Evidence is reviewed by an
+      external Verifier, (e.g.., an Auditor who performed security and privacy
+      audit of the Encrypted DNS server), and this Verifier produces higher
+      confidence Attestation Results.</t>
+
+      <t>The back-ground check of the organization hosting the Encrypted DNS
+      server is done by a public CA and an OV/EV certificate is issued only
+      after verification of the requesting organization's legal identity. </t>
+
+      <t>JSON Web Token (JWT) <xref target="RFC7519"/> and JSON Web Signature
+      (JWS) <xref target="RFC7515"/> and related specifications define a
+      standard token format that can be used as a way of encapsulating claimed
+      or asserted information with an associated digital signature using X.509
+      based certificates. JWT provides a set of claims in JSON format that can
+      accommodate asserted policy information of the Encrypted DNS server.
+      Additionally, JWS provides a path for updating methods and cryptographic
+      algorithms used for the associated digital signatures.</t>
 
       <t>JWS defines the use of JSON data structures in a specified canonical
       format for signing data corresponding to JOSE header, JWS Payload, and
@@ -279,15 +288,18 @@
 
       <t>The Policy Assertion Token (PAT) specifically uses this token format
       and defines claims that convey the policy information of Encrypted DNS
-      server. If the DoT session is established, the client can retrieve the
-      PAT object using the RESINFO RRtype defined in <xref
-      target="I-D.pp-add-resinfo"></xref> and QNAME of the domain name that is
-      used to authenticate the privacy-enabling DNS server (referred to as ADN
-      in <xref target="RFC8310"></xref>). If the DoH session is established,
-      the DoH client can retrieve the PAT object using the the well-known URI
-      defined in <xref target="I-D.btw-add-rfc8484-clarification"></xref>. If
-      the special-use domain name "resolver-info.arpa/IN" defined in <xref
-      target="I-D.pp-add-resinfo"></xref> is used to discover the Encrypted
+      server.</t>
+
+      <t> If the DoT session is established, the client can retrieve the PAT
+      object using the RESINFO RRtype defined in <xref
+      target="I-D.pp-add-resinfo"/> and QNAME of the domain name that is used
+      to authenticate the privacy-enabling DNS server (referred to as ADN in
+      <xref target="RFC8310"/>). If the DoH session is established, the DoH
+      client can retrieve the PAT object using the the well-known URI defined
+      in <xref target="I-D.btw-add-rfc8484-clarification"/>.</t>
+
+      <t>If the special-use domain name "resolver-info.arpa/IN" defined in
+      <xref target="I-D.pp-add-resinfo"/> is used to discover the Encrypted
       DNS server, the client can retrieve the PAT object using the RESINFO
       RRtype and QNAME of the special-use domain name.</t>
 
