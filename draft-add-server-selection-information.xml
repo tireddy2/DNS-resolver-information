@@ -100,8 +100,8 @@
       and filtering policy.</t>
 
       <t>This assertion is useful for encrypted DNS (e.g., DNS-over-TLS,
-      DNS-over-HTTPS and DNS-over-QUIC) servers that are either public
-      resolvers or are discovered in a local network.</t>
+      DNS-over-HTTPS, DNS-over-QUIC) servers that are either public
+      resolvers or discovered in a local network.</t>
     </abstract>
   </front>
 
@@ -113,11 +113,10 @@
       contexts. Examples of protocols that provide encrypted channels between
       DNS clients and servers are DNS-over-HTTPS (DoH) <xref
       target="RFC8484"></xref>, DNS-over-TLS (DoT) <xref
-      target="RFC7858"></xref> and DNS-over-QUIC (DoQ) <xref
+      target="RFC7858"></xref>, and DNS-over-QUIC (DoQ) <xref
       target="I-D.ietf-dprive-dnsoquic"></xref>.</t>
 
-      <t>DNS clients can discover and authenticate encrypted DNS (e.g., DoH
-      and DoT) servers provided by a local network, for example using the
+      <t>DNS clients can discover and authenticate encrypted DNS servers provided by a local network, for example using the
       techniques proposed in <xref target="I-D.btw-add-home"></xref>. If the
       mechanism used to discover the encrypted DNS server is insecure, the DNS
       client needs evidence about the encrypted server to assess its
@@ -132,7 +131,7 @@
       users to evaluate the privacy properties of a given DNS service. While a
       human can review the privacy statement of a DNS server operator, the
       challenge is the user has to search to find the URL that points to the
-      human readable privacy policy information of the DNS server. Also, a
+      human-readable privacy policy information of the DNS server. Also, a
       user does not know if a DNS server (public or local) performs DNS-based
       content filtering.</t>
 
@@ -175,17 +174,17 @@
     <section anchor="scope" title="Sample Use Cases ">
       <t>The mechanism for a DNS server to communicate its cryptographically
       signed policies to DNS clients contributes to solve the following
-      problems in various deployments:<list style="symbols">
-          <t>The encrypted DNS server advertised using DHCP/RA in Home and
-          Mobile networks is insecure, the mechanism specified in this
+      problems encountered in various deployments:<list style="symbols">
+          <t>The encrypted DNS server discovered using DHCP/RA in Home and
+          Mobile networks is insecure. The mechanism specified in this
           document can be used by the DNS client to validate the signatory
           (e.g., cryptographically attested by the ISP).</t>
 
-          <t>Typically Enterprise networks do not assume that all devices in
+          <t>Typically, Enterprise networks do not assume that all devices in
           their network are managed by the IT team or Mobile Device Management
-          (MDM) devices, especially in the quite common BYOD (Bring Your Own
+          (MDM), especially in the quite common BYOD (Bring Your Own
           Device) scenario. The mechanism specified in this document can be
-          used by users of the BYOD devices to determine if the DNS server on
+          used by users of BYOD devices to determine if the DNS server on
           the local network complies with their user's privacy policy and DNS
           filtering expectations.</t>
 
@@ -204,7 +203,7 @@
           filtering in the attached network. If the network is well-known to
           the DNS client and the local DNS server meets the privacy
           requirements of the user, the DNS client can continue to use
-          encrypted connection with the local encrypted DNS server. If the
+          an encrypted connection with the local encrypted DNS server. If the
           error code returned by the DNS server indicates access to the domain
           is blocked because of internal security policy <xref
           target="I-D.ietf-dnsop-extended-error"/>, the DNS client can
@@ -214,9 +213,9 @@
           <t>The signed policy contains an URL that points to a human-readable
           privacy policy information of the DNS server for the user to review.
           The user can then make an informed decision whether the DNS server
-          is trustworthy to honor the privacy of the user. The DNS Push
+          is trustworthy to honor the privacy requirements as set by the user. The DNS Push
           Notifications mechanism defined in <xref target="RFC8765"/> can be
-          used by the DNS client to be asynchronously notified when the policy
+          used by the DNS client to be asynchronously notified when a policy
           change occurs. The client automatically learns updates to the policy
           of the DNS server. Should the privacy statement of the DNS server
           change, the client can notify the user to re-evaluate the updated
@@ -243,20 +242,20 @@
       channel between a DNS client and server (e.g., DoT, DoH, or DoQ).</t>
 
       <t>The terms Evidence, Verifier, Background Check, Relying Party,
-      Attestation Results and Appraisal Policy are from <xref
+      Attestation Results, and Appraisal Policy are defined in <xref
       target="I-D.ietf-rats-architecture"/></t>
     </section>
 
     <section anchor="PAT" title="Policy Assertion Token (PAT): Overview">
       <t>The mechanism used in this specification resembles the
-      Background-Check Model discussed in Section 5.2 and Section 5.3 of
+      Background-Check Model discussed in Sections 5.2 and 5.3 of
       Remote attestation procedure (RATS) Architecture <xref
       target="I-D.ietf-rats-architecture"/>. RATS enables a relying party to
       establish a level of confidence in the trustworthiness of a remote peer
       through the creation of Evidence to assess the peer's trustworthiness,
-      and a Apprasal Policy for such Evidence. In this document, the Relying
-      Party is the DNS client and Attester is the encrypted DNS server. The
-      Encrypted DNS servers MAY use "Domain Validation" (DV) certificates.</t>
+      and an Apprasal Policy for such Evidence. In this document, the Relying
+      Party is the DNS client and the Attester is the encrypted DNS server. The
+      Encrypted DNS servers may use "Domain Validation" (DV) certificates.</t>
 
       <t>In a simpler situation, the Verifier is also the operator of the DNS
       server. It creates Attestation Results based upon its own claims,
@@ -264,12 +263,12 @@
       </t>
 
       <t> A more trustworthy situation, the Evidence is reviewed by an
-      external Verifier, (e.g.., an Auditor who performed security and privacy
+      external Verifier, (e.g., an Auditor who performed security and privacy
       audit of the Encrypted DNS server), and this Verifier produces higher
       confidence Attestation Results.</t>
 
-      <t>The back-ground check of the organization hosting the Encrypted DNS
-      server is done by a public CA and an OV/EV certificate is issued only
+      <t>The background check of the organization hosting the Encrypted DNS
+      server is done by a public CA. An OV/EV certificate is issued only
       after verification of the requesting organization's legal identity. </t>
 
       <t>JSON Web Token (JWT) <xref target="RFC7519"/> and JSON Web Signature
@@ -294,7 +293,7 @@
       object using the RESINFO RRtype defined in <xref
       target="I-D.pp-add-resinfo"/> and QNAME of the domain name that is used
       to authenticate the privacy-enabling DNS server (referred to as ADN in
-      <xref target="RFC8310"/>). If the DoH session is established, the DoH
+      <xref target="RFC8310"/>). If a DoH session is established, the DoH
       client can retrieve the PAT object using the the well-known URI defined
       in <xref target="I-D.btw-add-rfc8484-clarification"/>.</t>
 
@@ -305,7 +304,7 @@
 
       <t>The signature of PAT object can be validated by the DNS client. If
       the signer and the contents of the PAT object comply with the user's
-      requirements, the user's client software can use that DNS server.</t>
+      requirements, the user's client can use that DNS server.</t>
 
       <t>The PAT object is signed by the DNS server's domain that is
       authoritative to assert the DNS server policy information. This
@@ -324,7 +323,7 @@
       target="RFC7515"></xref>) that defines the type and encryption algorithm
       used in the token.</t>
 
-      <t>PAT header MUST include, at a minimum, the header parameters defined
+      <t>The PAT header MUST include, at a minimum, the header parameters defined
       in Sections <xref format="counter"
       target="typ-type-header-parameter"></xref>, <xref format="counter"
       target="alg-algorithm-header-parameter"></xref>, and <xref
@@ -332,7 +331,7 @@
 
       <section anchor="typ-type-header-parameter"
                title="'typ' (Type) Header Parameter">
-        <t>The 'typ' (Type) Header Parameter is defined Section 4.1.9 of <xref
+        <t>The 'typ' (Type) Header Parameter is defined in Section 4.1.9 of <xref
         target="RFC7515"></xref> to declare the media type of the complete
         JWS.</t>
 
@@ -392,8 +391,8 @@
     </section>
 
     <section anchor="pat_payload" title="PAT Payload">
-      <t>The token claims consists of the policy information of the DNS server
-      which needs to be verified at the DNS client. These claims follow the
+      <t>The token claims consist of the policy information of the DNS server
+      that needs to be verified at the DNS client. These claims follow the
       definition of a JWT claim (Secion 4 of <xref target="RFC7519"></xref>)
       and are encoded as defined by the JWS Payload (Section 3 of <xref
       target="RFC7515"></xref>).</t>
