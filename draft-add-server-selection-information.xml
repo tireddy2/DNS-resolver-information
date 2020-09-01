@@ -101,7 +101,7 @@
 
       <t>This assertion is useful for encrypted DNS (e.g., DNS-over-TLS,
       DNS-over-HTTPS, DNS-over-QUIC) servers that are either public resolvers
-      or are discovered in a local network.</t>
+      or discovered in a local network.</t>
     </abstract>
   </front>
 
@@ -176,7 +176,7 @@
       <t>The mechanism for a DNS server to communicate its cryptographically
       signed policies to DNS clients contributes to solve the following
       problems encountered in various deployments:<list style="symbols">
-          <t>The encrypted DNS server advertised using DHCP/RA in Home and
+          <t>The encrypted DNS server discovered using DHCP/RA in Home and
           Mobile networks is insecure. The mechanism specified in this
           document can be used by the DNS client to validate the signatory
           (e.g., cryptographically attested by the ISP).</t>
