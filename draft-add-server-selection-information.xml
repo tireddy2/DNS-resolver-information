@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-reddy-add-server-policy-selection-05"
+<rfc category="std" docName="draft-reddy-add-server-policy-selection-06"
      ipr="trust200902">
   <front>
     <title abbrev="DNS Server Info with Assertion Token">DNS Server Selection:
@@ -243,9 +243,9 @@
       <t>'Encrypted DNS' refers to a DNS protocol that provides an encrypted
       channel between a DNS client and server (e.g., DoT, DoH, or DoQ).</t>
 
-      <t>The terms Evidence, Verifier, Background Check, Relying Party,
-      Attestation Results, and Appraisal Policy are defined in <xref
-      target="I-D.ietf-rats-architecture"></xref>. </t>
+      <t>The terms Evidence, Verifier, Background Check, Relying Party and
+      Attestation Results are defined in <xref
+      target="I-D.ietf-rats-architecture"></xref>.</t>
     </section>
 
     <section anchor="PAT" title="Policy Assertion Token (PAT): Overview">
@@ -255,24 +255,44 @@
       target="I-D.ietf-rats-architecture"></xref>. RATS enables a relying
       party to establish a level of confidence in the trustworthiness of a
       remote peer through the creation of Evidence to assess the peer's
-      trustworthiness, and an Apprasal Policy for such Evidence. In this
-      document, the Relying Party is the DNS client and the Attester is the
-      encrypted DNS server. The Encrypted DNS servers may use "Domain
-      Validation" (DV) certificates.</t>
+      trustworthiness, and an Apprasal Policy for such Evidence.</t>
 
-      <t>In a simpler situation, the Verifier is also the operator of the DNS
-      server. It creates Attestation Results based upon its own claims,
-      signing them using an OV (or EV) certificate provided by a public
-      CA.</t>
+      <t>In this document, the Relying Party is the DNS client and the
+      Attester is the encrypted DNS server. The Encrypted DNS servers MAY use
+      "Domain Validation" (DV) certificates for certificate-based server
+      authentication in TLS connections.</t>
 
-      <t>A more trustworthy situation, the Evidence is reviewed by an external
-      Verifier (e.g., an Auditor who performed security and privacy audit of
-      the Encrypted DNS server), and this Verifier produces higher confidence
-      Attestation Results.</t>
+      <t>The DNS server's privacy claim needs to be validated and signed. This
+      signature is called an <xref
+      target="I-D.ietf-rats-architecture">Attestation Result</xref>. This
+      validation can be performed by the DNS operator itself (signed by the
+      DNS operator's certificate) acting as a verifier or performed by an
+      external Verifier (signed by that external Verifier). In both cases, the
+      signing certificate MUST be an Validation (OV) certificate or Extended
+      Validation (EV) certificate issued by a public CA. An OV/EV certificate
+      is issued by the public CA after a background check to verifiy the
+      requesting organization's legal identity. The use of OV or EV
+      certificates solves the following problems:</t>
 
-      <t>The background check of the organization hosting the Encrypted DNS
-      server is done by a public CA. An OV/EV certificate is issued only after
-      verification of the requesting organization's legal identity.</t>
+      <t><list style="symbols">
+          <t>It helps the client to avoid sending DNS queries to an Encrypted
+          DNS server hosted by an attacker. For example, an attacker can get a
+          domain name, domain-validated public certificate from a CA, host a
+          Encrypted DNS server and claim the best DNS privacy preservation
+          policy. Futher, an attacker can use a public IP address, get an 'IP
+          address'-validated public certificate from a CA, host a Encrypted
+          DNS server and claim the best DNS privacy preservation policy.</t>
+
+          <t>It assists humans who may be unfamiliar with the domain name but
+          are familiar with the trade name ("Doing Business As") of the DNS
+          server operator or the Verifier. For example, an DNS operator and
+          external Verifier might have trade names of "Example, Inc." and
+          "Example Audiors, GmbH" which are more familiar than example.org and
+          example.com.</t>
+
+          <t>It can be used by the client to identify the Encrypted DNS server
+          is hosted by a legal organization.</t>
+        </list></t>
 
       <t>JSON Web Token (JWT) <xref target="RFC7519"></xref> and JSON Web
       Signature (JWS) <xref target="RFC7515"></xref> and related
@@ -306,20 +326,31 @@
       Encrypted DNS server, the client can retrieve the PAT object using the
       RESINFO RRtype and QNAME of the special-use domain name.</t>
 
-      <t>The signature of PAT object can be validated by the DNS client. If
-      the signer and the contents of the PAT object comply with the user's
-      requirements, the user's client can use that DNS server.</t>
+      <t>The signature of PAT object MUST be validated by the DNS client. If
+      signature is invalid, the PAT object is rejected. If signature is valid,
+      and the signer and the contents of the PAT object comply with the user's
+      requirements, the user's DNS client MAY use that encrypted DNS server.
+      The result of this determination SHOULD be remembered by the DNS client
+      to avoid prompting the user again when re-joining that same network.</t>
 
-      <t>The PAT object is signed by the DNS server's domain that is
-      authoritative to assert the DNS server policy information. This
-      authority is represented by the certificate credentials and the
-      signature.</t>
-
-      <t>For example, the PAT object could be created by the organization
-      hosting the Encrypted DNS server and optionally by a third party who
-      performed privacy and security audit of the Encrypted DNS server. The
-      DNS client needs to have the capability to verify the digital signature
-      and to parse the PAT object.</t>
+      <t><list>
+          <t>Note for author discussion: We could have the home router do all
+          this work on behalf of the devices in the home. That way, whoever
+          administers the home router makes decisions for everyone in the home
+          -- which is usually what happens (dad or the kid are effectively the
+          "home IT department"). For example, if changing the ISP today, only
+          the home router changes (maybe from using PPP to using DHCP) while
+          all devices behind it are unaware of the ISP change. To preserve
+          that operation tomorrow with this I-D, the home router needs to
+          attest that the DoH server is "good", and all home devices believe
+          whatever the home router says, forever until that home router is
+          physically replaced, even if the upstream ISP is changed from DSL to
+          cable to LTE. This also allows the upstream ISP to change
+          dynamically due to network availability (e.g., DOCSIS is broken so
+          home router switches to using LTE, causing the DoH resolver to
+          change because ISP changed -- but in-home devices don't need to
+          know/care about that change). Thoughts??</t>
+        </list></t>
     </section>
 
     <section anchor="pat_header" title="PAT Header">
@@ -855,7 +886,9 @@
                title="JSON Web Token Claims Registration">
         <section anchor="registry-contents-additions-requested"
                  title="Registry Contents Additions Requested">
-          <t><list style="symbols">
+          <t>IANA is requested to assign the following claims in the registry
+          maintained in: https://www.iana.org/assignments/jwt/jwt.xhtml.<list
+              style="symbols">
               <t>Claim Name: 'server'</t>
 
               <t>Claim Description: DNS server identity</t>
