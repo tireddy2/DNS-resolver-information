@@ -268,20 +268,25 @@
       validation can be performed by the DNS operator itself (signed by the
       DNS operator's certificate) acting as a verifier or performed by an
       external Verifier (signed by that external Verifier). In both cases, the
-      signing certificate MUST be an Validation (OV) certificate or Extended
+      signing certificate can be an Validation (OV) certificate or Extended
       Validation (EV) certificate issued by a public CA. An OV/EV certificate
       is issued by the public CA after a background check to verifiy the
-      requesting organization's legal identity. The use of OV or EV
-      certificates solves the following problems:</t>
+      requesting organization's legal identity.</t>
+
+      <t>The use of OV or EV certificate is needed in the following
+      scenarios:</t>
 
       <t><list style="symbols">
           <t>It helps the client to avoid sending DNS queries to an Encrypted
-          DNS server hosted by an attacker. For example, an attacker can get a
-          domain name, domain-validated public certificate from a CA, host a
-          Encrypted DNS server and claim the best DNS privacy preservation
-          policy. Futher, an attacker can use a public IP address, get an 'IP
-          address'-validated public certificate from a CA, host a Encrypted
-          DNS server and claim the best DNS privacy preservation policy.</t>
+          DNS server hosted by an attacker discovered insecurely (e.g., using
+          DHCP/RA <xref target="I-D.btw-add-home"></xref>, special-use domain
+          name <xref target="I-D.pp-add-resinfo"></xref>). For example, an
+          attacker can get a domain name, domain-validated public certificate
+          from a CA, host a Encrypted DNS server and claim the best DNS
+          privacy preservation policy. Futher, an attacker can use a public IP
+          address, get an 'IP address'-validated public certificate from a CA,
+          host a Encrypted DNS server and claim the best DNS privacy
+          preservation policy.</t>
 
           <t>It assists humans who may be unfamiliar with the domain name but
           are familiar with the trade name ("Doing Business As") of the DNS
@@ -292,6 +297,26 @@
 
           <t>It can be used by the client to identify the Encrypted DNS server
           is hosted by a legal organization.</t>
+        </list></t>
+
+      <t>The use of OV or EV certificates is not required in the following
+      scenarios:</t>
+
+      <t><list style="symbols">
+          <t>If the Encrypted DNS server can only be discovered securely
+          (e.g., using IKEv2 <xref target="I-D.btw-add-ipsecme-ike"></xref>),
+          the signing certificate need not be an OV/EV certificate.</t>
+
+          <t>Another scenario is bootstrapping a networking device to use the
+          encrypted DNS server in the local network. Secure Zero Touch
+          Provisioning <xref target="RFC8572"></xref> defines a bootstrapping
+          strategy for enabling a networking device to securely obtain the
+          required configuration information with no user input. If the
+          encrypted DNS server is insecurely discovered and not pre-configured
+          in the networking device, the DNS client on the networking device
+          can validate the Policy Assertion Token signature using the owner
+          certificate as per Section 3.2 of <xref target="RFC8572"></xref>.
+          </t>
         </list></t>
 
       <t>JSON Web Token (JWT) <xref target="RFC7519"></xref> and JSON Web
@@ -332,25 +357,6 @@
       requirements, the user's DNS client MAY use that encrypted DNS server.
       The result of this determination SHOULD be remembered by the DNS client
       to avoid prompting the user again when re-joining that same network.</t>
-
-      <t><list>
-          <t>Note for author discussion: We could have the home router do all
-          this work on behalf of the devices in the home. That way, whoever
-          administers the home router makes decisions for everyone in the home
-          -- which is usually what happens (dad or the kid are effectively the
-          "home IT department"). For example, if changing the ISP today, only
-          the home router changes (maybe from using PPP to using DHCP) while
-          all devices behind it are unaware of the ISP change. To preserve
-          that operation tomorrow with this I-D, the home router needs to
-          attest that the DoH server is "good", and all home devices believe
-          whatever the home router says, forever until that home router is
-          physically replaced, even if the upstream ISP is changed from DSL to
-          cable to LTE. This also allows the upstream ISP to change
-          dynamically due to network availability (e.g., DOCSIS is broken so
-          home router switches to using LTE, causing the DoH resolver to
-          change because ISP changed -- but in-home devices don't need to
-          know/care about that change). Thoughts??</t>
-        </list></t>
     </section>
 
     <section anchor="pat_header" title="PAT Header">
@@ -974,7 +980,10 @@
 
       <?rfc include='reference.I-D.ietf-rats-architecture'?>
 
-      <?rfc include='reference.I-D.ietf-dprive-dnsoquic'?>
+      <?rfc include='reference.I-D.ietf-dprive-dnsoquic' 
+?>
+
+      <?rfc include='reference.I-D.btw-add-ipsecme-ike"?>
 
       <?rfc include='reference.RFC.8765'?>
 
