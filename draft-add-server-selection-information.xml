@@ -88,20 +88,20 @@
     <workgroup>ADD WG</workgroup>
 
     <abstract>
-      <t>The document defines a mechanism that allows communication of DNS
-      resolver information to DNS clients for use in server selection
-      decisions. In particular, the document defines a mechanism for a DNS
-      server to communicate its filtering policy and privacy statement URL to
-      DNS clients. This information is cryptographically signed to attest its
-      authenticity. Such information is used for the selection of DNS
-      resolvers. Typically, evaluating the filtering policy and the signatory,
-      DNS clients with minimum human intervention can select the DNS server
-      that best supports the end user's desired privacy and filtering
-      policy.</t>
+      <t>The document defines a mechanism that is meant to communicate DNS
+      resolver information to DNS clients for use as a criterai for server
+      selection decisions. In particular, the document defines a mechanism for
+      a DNS server to communicate its filtering behavior and privacy statement
+      URL to DNS clients. Such an information that is cryptographically signed
+      to attest its authenticity is used for the selection of DNS resolvers.
+      Typically, evaluating the filtering behavior and the signatory, DNS
+      clients with minimum human intervention can select the DNS server that
+      best supports the end user's desired privacy and filtering
+      behaviors.</t>
 
       <t>This assertion is useful for encrypted DNS (e.g., DNS-over-TLS,
-      DNS-over-HTTPS, DNS-over-QUIC) servers that are either public resolvers
-      or discovered in a local network.</t>
+      DNS-over-HTTPS, or DNS-over-QUIC) servers that are either public
+      resolvers or discovered in a local network.</t>
     </abstract>
   </front>
 
@@ -144,7 +144,7 @@
       filtering.</t>
 
       <t>This document also defines a mechanism for DNS clients to gather a
-      set of information related to discovered (or pre-configured) servers and
+      set of information related to discovered (or preconfigured) servers and
       use that information to feed a DNS server selection procedure. The
       following parameters are supported in this version:<list style="hanging">
           <t hangText="Malware blocking:">Indicates whether the DNS server
@@ -180,13 +180,13 @@
           <t>The encrypted DNS server discovered using DHCP/RA or DNS in Home
           and Mobile networks is insecure. The mechanism specified in this
           document can be used by the DNS client to validate the signatory
-          (e.g., cryptographically attested by the ISP). This empowers the
-          client to reject connections to encrypted DNS servers hosted by
-          attackers.</t>
+          (e.g., cryptographically attested by the ISP). This strengthens the
+          protection as clients can detect and reject connections to encrypted
+          DNS servers hosted by attackers.</t>
 
-          <t>Typically, Enterprise networks do not assume that all devices in
-          their network are managed by the IT team or Mobile Device Management
-          (MDM), especially in the quite common BYOD (Bring Your Own Device)
+          <t>Enterprise networks do not assume that all devices in their
+          network are managed by the IT team or Mobile Device Management
+          (MDM), especially in the quite common Bring Your Own Device (BYOD)
           scenario. The mechanism specified in this document can be used by
           users of BYOD devices to determine if the DNS server on the local
           network complies with the user's privacy policy and DNS filtering
@@ -210,9 +210,8 @@
           encrypted connection with the local encrypted DNS server. If the
           error code returned by the DNS server indicates access to the domain
           is blocked because of internal security policy <xref
-          target="I-D.ietf-dnsop-extended-error"></xref>, the DNS client can
-          securely identify that access to the domain is censored by the
-          network.</t>
+          target="RFC8914"></xref>, the DNS client can securely identify that
+          access to the domain is censored by the network.</t>
 
           <t>The signed policy contains an URL that points to a human-readable
           privacy policy information of the DNS server for the end user to
@@ -246,9 +245,9 @@
       <t>'Encrypted DNS' refers to a DNS protocol that provides an encrypted
       channel between a DNS client and server (e.g., DoT, DoH, or DoQ).</t>
 
-      <t>The terms Evidence, Verifier, Background Check, Relying Party and
-      Attestation Results are defined in <xref
-      target="I-D.ietf-rats-architecture"></xref>.</t>
+      <t>The terms 'Evidence', 'Verifier', 'Background Check', 'Relying
+      Party', 'Appraisal Policy', and 'Attestation Results' are defined in
+      <xref target="I-D.ietf-rats-architecture"></xref>.</t>
     </section>
 
     <section anchor="PAT" title="Policy Assertion Token (PAT): Overview">
@@ -258,7 +257,7 @@
       target="I-D.ietf-rats-architecture"></xref>. RATS enables a relying
       party to establish a level of confidence in the trustworthiness of a
       remote peer through the creation of Evidence to assess the peer's
-      trustworthiness, and an Apprasal Policy for such Evidence.</t>
+      trustworthiness, and an Appraisal Policy for such Evidence.</t>
 
       <t>In this document, the Relying Party is the DNS client and the
       Attester is the encrypted DNS server. The Encrypted DNS servers MAY use
@@ -273,7 +272,7 @@
       external Verifier (signed by that external Verifier). In both cases, the
       signing certificate has to be an Extended Validation (EV) certificate
       issued by a public CA. An EV certificate is issued by the public CA
-      after a thorough background check to verifiy the requesting
+      after a thorough background check to verify the requesting
       organization's legal identity.</t>
 
       <t>The use of EV certificate is needed in the following scenarios:</t>
@@ -283,8 +282,8 @@
           DNS server hosted by an attacker discovered insecurely (e.g., using
           DHCP/RA or DNS). For example, an attacker can get a domain name,
           domain-validated public certificate from a CA, host a Encrypted DNS
-          server and claim the best DNS privacy preservation policy. Futher,
-          an attacker can use a public IP address, get an 'IP
+          server and claim the best DNS privacy preservation policy.
+          Furthermore, an attacker can use a public IP address, get an 'IP
           address'-validated public certificate from a CA, host a Encrypted
           DNS server and claim the best DNS privacy preservation policy.</t>
 
@@ -292,8 +291,8 @@
           are familiar with the trade name of the DNS server operator or the
           external Verifier (or the third party auditor). For example, an DNS
           operator and external Verifier might have trade names of "Example,
-          Inc." and "Example Audiors, GmbH" which are more familiar than
-          example.org and example.com.</t>
+          Inc." and "Example Auditors, GmbH" which are more familiar than
+          "example.org" and "example.com".</t>
 
           <t>It can be used by the client to identify the Encrypted DNS server
           is hosted by a legal organization.</t>
@@ -311,7 +310,7 @@
           defines a bootstrapping strategy for enabling a networking device to
           securely obtain the required configuration information with no user
           input. If the encrypted DNS server is insecurely discovered and not
-          pre-configured in the networking device, the DNS client on the
+          preconfigured in the networking device, the DNS client on the
           networking device can validate the Policy Assertion Token signature
           using the owner certificate as per Section 3.2 of <xref
           target="RFC8572"></xref>.</t>
@@ -343,7 +342,7 @@
       special-use domain name "resolver-info.arpa/IN" defined in <xref
       target="I-D.pp-add-resinfo"></xref> is used to discover the Encrypted
       DNS server, the client can retrieve the PAT object using the RESINFO
-      RRtype and QNAME of the special-use domain name. </t>
+      RRtype and QNAME of the special-use domain name.</t>
 
       <t>The signature of PAT object MUST be validated by the DNS client. If
       signature is invalid, the PAT object is rejected. If signature is valid,
@@ -428,7 +427,7 @@
     <section anchor="pat_payload" title="PAT Payload">
       <t>The token claims consist of the policy information of the DNS server
       that needs to be verified at the DNS client. These claims follow the
-      definition of a JWT claim (Secion 4 of <xref target="RFC7519"></xref>)
+      definition of a JWT claim (Section 4 of <xref target="RFC7519"></xref>)
       and are encoded as defined by the JWS Payload (Section 3 of <xref
       target="RFC7515"></xref>).</t>
 
@@ -461,7 +460,7 @@
           outdated policy information. If the DNS client knows the PAT object
           has expired, it should make another request to get the new PAT
           object from the DNS server. For example, the client can compute a
-          hash of the resolver information, retreive the information after the
+          hash of the resolver information, retrieve the information after the
           expiration time, computes the hash of the newly retrieved resolver
           information, and compares with the old hash to detect policy
           updates. A quality implementation can perform automatic analysis and
@@ -498,7 +497,7 @@
           </section>
 
           <section anchor="uri-identity" title="'uri' - URI Identity">
-            <t>If the DNS server identity is of the form URI Tempate, as
+            <t>If the DNS server identity is of the form URI Template, as
             defined in <xref target="RFC6570"></xref>, the claim name
             representing the identity MUST be 'uri' and the claim value is the
             URI Template form of the DNS server identity.</t>
@@ -535,23 +534,22 @@
                   <t hangText="policyblocking:">If access to domains is
                   blocked due to an internal policy imposed by the operator of
                   the DNS server, the parameter value is set to 'true'. Note
-                  that the extended error code "Blocking" defined in Section
-                  4.16 of <xref target="I-D.ietf-dnsop-extended-error"></xref>
-                  identifies access to domains is blocked due to an policy by
-                  the operator of the DNS server.</t>
+                  that the extended error code "Blocked" defined in Section
+                  4.16 of <xref target="RFC8914"></xref> identifies access to
+                  domains is blocked due to an policy by the operator of the
+                  DNS server.</t>
 
                   <t hangText="censoredblocking:">If access to domains is
                   blocked due to an external requirement imposed by an
                   external entity, the parameter value is set to 'true'. Note
                   that the extended error code "Censored" defined in Section
-                  4.17 of <xref target="I-D.ietf-dnsop-extended-error"></xref>
-                  identifies access to domains is blocked based on a
-                  requirement from an external entity. Similar to the
-                  definition of "Censored" blocking in <xref
-                  target="I-D.ietf-dnsop-extended-error"></xref>, this version
-                  of the specification does not distinguish blocking from
-                  regulatory bodies (e.g., Law Enforcement Agency) vs.
-                  arbitrary blocking. Such differentiation may be defined if
+                  4.17 of <xref target="RFC8914"></xref> identifies access to
+                  domains is blocked based on a requirement from an external
+                  entity. Similar to the definition of "Censored" blocking in
+                  <xref target="RFC8914"></xref>, this version of the
+                  specification does not distinguish blocking from regulatory
+                  bodies (e.g., Law Enforcement Agency) vs. arbitrary
+                  blocking. Such differentiation may be defined if
                   required.</t>
                 </list></t>
 
@@ -563,7 +561,7 @@
               <t hangText="clientauth:">If the DNS server policy requires
               client authentication, the parameter value is set to true. For
               example, when not on the enterprise network (e.g., at home or
-              coffeeshop) yet needing to access the enterprise Encrypted DNS
+              coffee shop) yet needing to access the enterprise Encrypted DNS
               server, roaming users can use client authentication to access
               the Enterprise provided Encrypted DNS server. This is an
               optional attribute.</t>
@@ -578,7 +576,7 @@
             </list></t>
         </section>
 
-        <section anchor="pat_payload_example" title="Example">
+        <section anchor="pat_payload_example" title="An Example">
           <t><xref target="poex"></xref> shows an example of policy
           information.</t>
 
@@ -735,7 +733,7 @@
       </section>
     </section>
 
-    <section anchor="Identity" title="Using RESINFO responses">
+    <section anchor="Identity" title="Using RESINFO Responses">
       <t>This document defines the following entries for the IANA DNS Resolver
       Information Registry that is defined in <xref
       target="I-D.pp-add-resinfo"></xref>.</t>
@@ -752,12 +750,12 @@
           contained in the "server" attribute is used to specify the DNS
           server identity in the form of URI template.</t>
 
-          <t>The "filtering", "qnameminimization", "privacyurl" and "auditurl"
-          names containing the resolver information of the DNS server
-          discussed in <xref target="PAT"></xref>.</t>
+          <t>The "filtering", "qnameminimization", "privacyurl", and
+          "auditurl" names containing the resolver information of the DNS
+          server discussed in <xref target="PAT"></xref>.</t>
 
           <t>The sub-attributes "malwareblocking", "phishingblocking",
-          "policyblocking" and "censoredblocking" discussed in <xref
+          "policyblocking", and "censoredblocking" discussed in <xref
           target="PAT"></xref> contained in the "filtering" attribute are used
           to specify the reasons for performing DNS-based content
           filtering.</t>
@@ -765,7 +763,7 @@
           <t>The "attested-resinfo" name contains a base64 encoding of a PAT
           <xref target="PAT"></xref>. If the "attested-resinfo" name is
           conveyed to the client, the server need not convey the above
-          attributes (1 to 5) seperately as that resolver information will be
+          attributes (1 to 5) separately as that resolver information will be
           extracted by the client from the PAT payload.</t>
         </list></t>
     </section>
@@ -846,7 +844,7 @@
 
               <t>Interoperability considerations: n/a</t>
 
-              <t>Published specification: [TODO this document]</t>
+              <t>Published specification: [THIS_DOCUMENT]</t>
 
               <t>Applications that use this media type: DNS</t>
 
@@ -886,7 +884,7 @@
               <t>Change Controller: IESG</t>
 
               <t>Specification Document(s): <xref
-              target="server-identity"></xref> of [TODO this document]</t>
+              target="server-identity"></xref> of [THIS_DOCUMENT]</t>
 
               <t>Claim Name: 'policyinfo'</t>
 
@@ -895,30 +893,33 @@
               <t>Change Controller: IESG</t>
 
               <t>Specification Document(s): <xref target="policyinfo"></xref>
-              of [TODO this document]</t>
+              of [THIS_DOCUMENT]</t>
             </list></t>
         </section>
       </section>
 
       <section anchor="resolver-information"
                title="DNS Resolver Information Registration">
-        <t>IANA will add the names attested-resinfo, server, filtering,
-        qnameminimization, privacyurl and auditurl to the DNS Resolver
+        <t>IANA will add the names "attested-resinfo", "server", "filtering",
+        "qnameminimization", "privacyurl", and "auditurl" to the DNS Resolver
         Information registry defined in Section 4.2 of <xref
-        target="I-D.pp-add-resinfo"></xref>. IANA will add the the
-        sub-attributes "malwareblocking", "phishingblocking", "policyblocking"
-        and "censoredblocking" contained in the "filtering" attribute to the
-        DNS Resolver Information registry. IANA will add the sub-attributes
-        "adn" and "uri" contained in the "server" attribute to the DNS
-        Resolver Information registry.</t>
+        target="I-D.pp-add-resinfo"></xref>. </t>
+
+        <t>IANA will add "malwareblocking", "phishingblocking",
+        "policyblocking", and "censoredblocking" sub-attributes contained in
+        the "filtering" attribute to the DNS Resolver Information registry.
+        </t>
+
+        <t>IANA will add "adn" and "uri" sub-attributes contained in the
+        "server" attribute to the DNS Resolver Information registry.</t>
       </section>
     </section>
 
     <section anchor="acknowledgments" title="Acknowledgments">
       <t>This specification leverages some of the work that has been done in
       <xref target="RFC8225"></xref>. Thanks to Ted Lemon, Paul Wouters, Neil
-      Cook, Vittorio Bertola, Vinny Parla, Chris Box and Shashank Jain for the
-      discussion and comments.</t>
+      Cook, Vittorio Bertola, Vinny Parla, Chris Box, and Shashank Jain for
+      the discussion and comments.</t>
     </section>
   </middle>
 
@@ -960,8 +961,6 @@
 
       <?rfc include='reference.I-D.pp-add-resinfo'?>
 
-      <?rfc include='reference.I-D.btw-add-rfc8484-clarification'?>
-
       <?rfc include='reference.I-D.ietf-rats-architecture'?>
 
       <?rfc include='reference.I-D.ietf-dprive-dnsoquic' 
@@ -983,7 +982,7 @@
 
       <?rfc include='reference.I-D.pauly-add-deer'?>
 
-      <?rfc include='reference.I-D.ietf-dnsop-extended-error' ?>
+      <?rfc include='reference.RFC.8914' ?>
 
       <?rfc include='reference.I-D.ietf-dnsop-terminology-ter'?>
 
@@ -1004,7 +1003,7 @@
     </references>
 
     <section anchor="example-es256-based-pat-jws-serialization-and-signature"
-             title="Example ES256 based PAT JWS Serialization and Signature">
+             title="Example of ES256-based PAT JWS Serialization and Signature">
       <t>For PAT, there will always be a JWS with the following members:</t>
 
       <t><list style="symbols">

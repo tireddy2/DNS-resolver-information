@@ -5,12 +5,12 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                                 D. Wing
-Expires: July 9, 2021                                             Citrix
+Expires: July 15, 2021                                            Citrix
                                                            M. Richardson
                                                 Sandelman Software Works
                                                             M. Boucadair
                                                                   Orange
-                                                         January 5, 2021
+                                                        January 11, 2021
 
 
    DNS Server Selection: DNS Server Information with Assertion Token
@@ -18,20 +18,20 @@ Expires: July 9, 2021                                             Citrix
 
 Abstract
 
-   The document defines a mechanism that allows communication of DNS
-   resolver information to DNS clients for use in server selection
-   decisions.  In particular, the document defines a mechanism for a DNS
-   server to communicate its filtering policy and privacy statement URL
-   to DNS clients.  This information is cryptographically signed to
-   attest its authenticity.  Such information is used for the selection
-   of DNS resolvers.  Typically, evaluating the filtering policy and the
-   signatory, DNS clients with minimum human intervention can select the
-   DNS server that best supports the end user's desired privacy and
-   filtering policy.
+   The document defines a mechanism that is meant to communicate DNS
+   resolver information to DNS clients for use as a criterai for server
+   selection decisions.  In particular, the document defines a mechanism
+   for a DNS server to communicate its filtering behavior and privacy
+   statement URL to DNS clients.  Such an information that is
+   cryptographically signed to attest its authenticity is used for the
+   selection of DNS resolvers.  Typically, evaluating the filtering
+   behavior and the signatory, DNS clients with minimum human
+   intervention can select the DNS server that best supports the end
+   user's desired privacy and filtering behaviors.
 
    This assertion is useful for encrypted DNS (e.g., DNS-over-TLS, DNS-
-   over-HTTPS, DNS-over-QUIC) servers that are either public resolvers
-   or discovered in a local network.
+   over-HTTPS, or DNS-over-QUIC) servers that are either public
+   resolvers or discovered in a local network.
 
 Status of This Memo
 
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 9, 2021.
+   This Internet-Draft will expire on July 15, 2021.
 
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 1]
+Reddy, et al.             Expires July 15, 2021                 [Page 1]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -91,12 +91,12 @@ Table of Contents
      6.2.  PAT Specific Claims . . . . . . . . . . . . . . . . . . .  10
        6.2.1.  DNS Server Identity Claims  . . . . . . . . . . . . .  10
        6.2.2.  'policyinfo' (Policy Information) Claim . . . . . . .  11
-       6.2.3.  Example . . . . . . . . . . . . . . . . . . . . . . .  12
+       6.2.3.  An Example  . . . . . . . . . . . . . . . . . . . . .  12
    7.  PAT Signature . . . . . . . . . . . . . . . . . . . . . . . .  12
    8.  Extending PAT . . . . . . . . . . . . . . . . . . . . . . . .  13
    9.  Deterministic JSON Serialization  . . . . . . . . . . . . . .  14
      9.1.  Example PAT Deterministic JSON Form . . . . . . . . . . .  14
-   10. Using RESINFO responses . . . . . . . . . . . . . . . . . . .  15
+   10. Using RESINFO Responses . . . . . . . . . . . . . . . . . . .  15
    11. Privacy Considerations  . . . . . . . . . . . . . . . . . . .  16
    12. Security Considerations . . . . . . . . . . . . . . . . . . .  16
    13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
@@ -109,20 +109,20 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 2]
+Reddy, et al.             Expires July 15, 2021                 [Page 2]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
-   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      15.1.  Normative References . . . . . . . . . . . . . . . . . .  19
      15.2.  Informative References . . . . . . . . . . . . . . . . .  20
-   Appendix A.  Example ES256 based PAT JWS Serialization and
+   Appendix A.  Example of ES256-based PAT JWS Serialization and
                 Signature  . . . . . . . . . . . . . . . . . . . . .  22
      A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**  .  24
-     A.2.  X.509 Public Key for ES256 Example**  . . . . . . . . . .  25
+     A.2.  X.509 Public Key for ES256 Example**  . . . . . . . . . .  24
    Appendix B.  Complete JWS JSON Serialization Representation with
-                multiple Signatures  . . . . . . . . . . . . . . . .  25
+                multiple Signatures  . . . . . . . . . . . . . . . .  24
      B.1.  X.509 Private Key in PKCS#8 format for E384 Example** . .  26
      B.2.  X.509 Public Key for ES384 Example**  . . . . . . . . . .  26
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
@@ -165,13 +165,13 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 3]
+Reddy, et al.             Expires July 15, 2021                 [Page 3]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
    This document also defines a mechanism for DNS clients to gather a
-   set of information related to discovered (or pre-configured) servers
+   set of information related to discovered (or preconfigured) servers
    and use that information to feed a DNS server selection procedure.
    The following parameters are supported in this version:
 
@@ -207,21 +207,21 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    o  The encrypted DNS server discovered using DHCP/RA or DNS in Home
       and Mobile networks is insecure.  The mechanism specified in this
       document can be used by the DNS client to validate the signatory
-      (e.g., cryptographically attested by the ISP).  This empowers the
-      client to reject connections to encrypted DNS servers hosted by
-      attackers.
+      (e.g., cryptographically attested by the ISP).  This strengthens
+      the protection as clients can detect and reject connections to
+      encrypted DNS servers hosted by attackers.
 
-   o  Typically, Enterprise networks do not assume that all devices in
-      their network are managed by the IT team or Mobile Device
-      Management (MDM), especially in the quite common BYOD (Bring Your
-      Own Device) scenario.  The mechanism specified in this document
-      can be used by users of BYOD devices to determine if the DNS
-      server on the local network complies with the user's privacy
-      policy and DNS filtering expectations.
+   o  Enterprise networks do not assume that all devices in their
+      network are managed by the IT team or Mobile Device Management
+      (MDM), especially in the quite common Bring Your Own Device (BYOD)
+      scenario.  The mechanism specified in this document can be used by
+      users of BYOD devices to determine if the DNS server on the local
+      network complies with the user's privacy policy and DNS filtering
+      expectations.
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 4]
+Reddy, et al.             Expires July 15, 2021                 [Page 4]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -243,9 +243,9 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
       requirements of the end user, the DNS client can continue to use
       an encrypted connection with the local encrypted DNS server.  If
       the error code returned by the DNS server indicates access to the
-      domain is blocked because of internal security policy
-      [I-D.ietf-dnsop-extended-error], the DNS client can securely
-      identify that access to the domain is censored by the network.
+      domain is blocked because of internal security policy [RFC8914],
+      the DNS client can securely identify that access to the domain is
+      censored by the network.
 
    o  The signed policy contains an URL that points to a human-readable
       privacy policy information of the DNS server for the end user to
@@ -277,7 +277,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 5]
+Reddy, et al.             Expires July 15, 2021                 [Page 5]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -285,8 +285,9 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    'Encrypted DNS' refers to a DNS protocol that provides an encrypted
    channel between a DNS client and server (e.g., DoT, DoH, or DoQ).
 
-   The terms Evidence, Verifier, Background Check, Relying Party and
-   Attestation Results are defined in [I-D.ietf-rats-architecture].
+   The terms 'Evidence', 'Verifier', 'Background Check', 'Relying
+   Party', 'Appraisal Policy', and 'Attestation Results' are defined in
+   [I-D.ietf-rats-architecture].
 
 4.  Policy Assertion Token (PAT): Overview
 
@@ -295,7 +296,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    procedure (RATS) Architecture [I-D.ietf-rats-architecture].  RATS
    enables a relying party to establish a level of confidence in the
    trustworthiness of a remote peer through the creation of Evidence to
-   assess the peer's trustworthiness, and an Apprasal Policy for such
+   assess the peer's trustworthiness, and an Appraisal Policy for such
    Evidence.
 
    In this document, the Relying Party is the DNS client and the
@@ -311,7 +312,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    that external Verifier).  In both cases, the signing certificate has
    to be an Extended Validation (EV) certificate issued by a public CA.
    An EV certificate is issued by the public CA after a thorough
-   background check to verifiy the requesting organization's legal
+   background check to verify the requesting organization's legal
    identity.
 
    The use of EV certificate is needed in the following scenarios:
@@ -321,25 +322,25 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
       using DHCP/RA or DNS).  For example, an attacker can get a domain
       name, domain-validated public certificate from a CA, host a
       Encrypted DNS server and claim the best DNS privacy preservation
-      policy.  Futher, an attacker can use a public IP address, get an
-      'IP address'-validated public certificate from a CA, host a
+      policy.  Furthermore, an attacker can use a public IP address, get
+      an 'IP address'-validated public certificate from a CA, host a
       Encrypted DNS server and claim the best DNS privacy preservation
       policy.
 
    o  It assists humans who may be unfamiliar with the domain name but
       are familiar with the trade name of the DNS server operator or the
       external Verifier (or the third party auditor).  For example, an
-      DNS operator and external Verifier might have trade names of
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 6]
+Reddy, et al.             Expires July 15, 2021                 [Page 6]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
-      "Example, Inc." and "Example Audiors, GmbH" which are more
-      familiar than example.org and example.com.
+      DNS operator and external Verifier might have trade names of
+      "Example, Inc." and "Example Auditors, GmbH" which are more
+      familiar than "example.org" and "example.com".
 
    o  It can be used by the client to identify the Encrypted DNS server
       is hosted by a legal organization.
@@ -353,8 +354,8 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    o  Secure Zero Touch Provisioning [RFC8572] defines a bootstrapping
       strategy for enabling a networking device to securely obtain the
       required configuration information with no user input.  If the
-      encrypted DNS server is insecurely discovered and not pre-
-      configured in the networking device, the DNS client on the
+      encrypted DNS server is insecurely discovered and not
+      preconfigured in the networking device, the DNS client on the
       networking device can validate the Policy Assertion Token
       signature using the owner certificate as per Section 3.2 of
       [RFC8572].
@@ -388,8 +389,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-
-Reddy, et al.             Expires July 9, 2021                  [Page 7]
+Reddy, et al.             Expires July 15, 2021                 [Page 7]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -445,7 +445,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 8]
+Reddy, et al.             Expires July 15, 2021                 [Page 8]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -478,7 +478,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    The token claims consist of the policy information of the DNS server
    that needs to be verified at the DNS client.  These claims follow the
-   definition of a JWT claim (Secion 4 of [RFC7519]) and are encoded as
+   definition of a JWT claim (Section 4 of [RFC7519]) and are encoded as
    defined by the JWS Payload (Section 3 of [RFC7515]).
 
    PAT defines the use of a standard JWT-defined claim as well as custom
@@ -501,7 +501,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                  [Page 9]
+Reddy, et al.             Expires July 15, 2021                 [Page 9]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -518,7 +518,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    If the DNS client knows the PAT object has expired, it should make
    another request to get the new PAT object from the DNS server.  For
    example, the client can compute a hash of the resolver information,
-   retreive the information after the expiration time, computes the hash
+   retrieve the information after the expiration time, computes the hash
    of the newly retrieved resolver information, and compares with the
    old hash to detect policy updates.  A quality implementation can
    perform automatic analysis and avoid presenting this information to
@@ -557,14 +557,14 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 10]
+Reddy, et al.             Expires July 15, 2021                [Page 10]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 6.2.1.2.  'uri' - URI Identity
 
-   If the DNS server identity is of the form URI Tempate, as defined in
+   If the DNS server identity is of the form URI Template, as defined in
    [RFC6570], the claim name representing the identity MUST be 'uri' and
    the claim value is the URI Template form of the DNS server identity.
 
@@ -596,30 +596,27 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
       policyblocking:  If access to domains is blocked due to an
          internal policy imposed by the operator of the DNS server, the
          parameter value is set to 'true'.  Note that the extended error
-         code "Blocking" defined in Section 4.16 of
-         [I-D.ietf-dnsop-extended-error] identifies access to domains is
-         blocked due to an policy by the operator of the DNS server.
+         code "Blocked" defined in Section 4.16 of [RFC8914] identifies
+         access to domains is blocked due to an policy by the operator
+         of the DNS server.
 
       censoredblocking:  If access to domains is blocked due to an
          external requirement imposed by an external entity, the
          parameter value is set to 'true'.  Note that the extended error
-         code "Censored" defined in Section 4.17 of
-         [I-D.ietf-dnsop-extended-error] identifies access to domains is
-         blocked based on a requirement from an external entity.
-         Similar to the definition of "Censored" blocking in
-         [I-D.ietf-dnsop-extended-error], this version of the
-         specification does not distinguish blocking from regulatory
+         code "Censored" defined in Section 4.17 of [RFC8914] identifies
+         access to domains is blocked based on a requirement from an
+         external entity.  Similar to the definition of "Censored"
+         blocking in [RFC8914], this version of the specification does
+         not distinguish blocking from regulatory bodies (e.g., Law
+         Enforcement Agency) vs. arbitrary blocking.  Such
+         differentiation may be defined if required.
 
 
 
-
-Reddy, et al.             Expires July 9, 2021                 [Page 11]
+Reddy, et al.             Expires July 15, 2021                [Page 11]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
-
-         bodies (e.g., Law Enforcement Agency) vs.  arbitrary blocking.
-         Such differentiation may be defined if required.
 
    qnameminimization:  If the DNS server supports QNAME minimisation
       [RFC7816] to improve DNS privacy, the parameter value is set to
@@ -627,7 +624,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    clientauth:  If the DNS server policy requires client authentication,
       the parameter value is set to true.  For example, when not on the
-      enterprise network (e.g., at home or coffeeshop) yet needing to
+      enterprise network (e.g., at home or coffee shop) yet needing to
       access the enterprise Encrypted DNS server, roaming users can use
       client authentication to access the Enterprise provided Encrypted
       DNS server.  This is an optional attribute.
@@ -639,7 +636,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
       assessment report of the DNS server by a third party auditor.
       This is an optional attribute.
 
-6.2.3.  Example
+6.2.3.  An Example
 
    Figure 2 shows an example of policy information.
 
@@ -669,7 +666,10 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 12]
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 12]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -725,7 +725,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 13]
+Reddy, et al.             Expires July 15, 2021                [Page 13]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -781,7 +781,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 14]
+Reddy, et al.             Expires July 15, 2021                [Page 14]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -799,7 +799,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
                      Figure 4: Deterministic JSON Form
 
-10.  Using RESINFO responses
+10.  Using RESINFO Responses
 
    This document defines the following entries for the IANA DNS Resolver
    Information Registry that is defined in [I-D.pp-add-resinfo].
@@ -815,19 +815,19 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
        "server" attribute is used to specify the DNS server identity in
        the form of URI template.
 
-   4.  The "filtering", "qnameminimization", "privacyurl" and "auditurl"
-       names containing the resolver information of the DNS server
-       discussed in Section 4.
+   4.  The "filtering", "qnameminimization", "privacyurl", and
+       "auditurl" names containing the resolver information of the DNS
+       server discussed in Section 4.
 
    5.  The sub-attributes "malwareblocking", "phishingblocking",
-       "policyblocking" and "censoredblocking" discussed in Section 4
+       "policyblocking", and "censoredblocking" discussed in Section 4
        contained in the "filtering" attribute are used to specify the
        reasons for performing DNS-based content filtering.
 
    6.  The "attested-resinfo" name contains a base64 encoding of a PAT
        Section 4.  If the "attested-resinfo" name is conveyed to the
        client, the server need not convey the above attributes (1 to 5)
-       seperately as that resolver information will be extracted by the
+       separately as that resolver information will be extracted by the
        client from the PAT payload.
 
 
@@ -837,7 +837,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 15]
+Reddy, et al.             Expires July 15, 2021                [Page 15]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -893,7 +893,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 16]
+Reddy, et al.             Expires July 15, 2021                [Page 16]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -925,7 +925,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    o  Interoperability considerations: n/a
 
-   o  Published specification: [TODO this document]
+   o  Published specification: [THIS_DOCUMENT]
 
    o  Applications that use this media type: DNS
 
@@ -949,7 +949,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 17]
+Reddy, et al.             Expires July 15, 2021                [Page 17]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -969,7 +969,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    o  Change Controller: IESG
 
-   o  Specification Document(s): Section 6.2.1 of [TODO this document]
+   o  Specification Document(s): Section 6.2.1 of [THIS_DOCUMENT]
 
    o  Claim Name: 'policyinfo'
 
@@ -977,38 +977,40 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    o  Change Controller: IESG
 
-   o  Specification Document(s): Section 6.2.2 of [TODO this document]
+   o  Specification Document(s): Section 6.2.2 of [THIS_DOCUMENT]
 
 13.3.  DNS Resolver Information Registration
 
-   IANA will add the names attested-resinfo, server, filtering,
-   qnameminimization, privacyurl and auditurl to the DNS Resolver
+   IANA will add the names "attested-resinfo", "server", "filtering",
+   "qnameminimization", "privacyurl", and "auditurl" to the DNS Resolver
    Information registry defined in Section 4.2 of [I-D.pp-add-resinfo].
-   IANA will add the the sub-attributes "malwareblocking",
-   "phishingblocking", "policyblocking" and "censoredblocking" contained
-   in the "filtering" attribute to the DNS Resolver Information
-   registry.  IANA will add the sub-attributes "adn" and "uri" contained
-   in the "server" attribute to the DNS Resolver Information registry.
+
+   IANA will add "malwareblocking", "phishingblocking",
+   "policyblocking", and "censoredblocking" sub-attributes contained in
+   the "filtering" attribute to the DNS Resolver Information registry.
+
+   IANA will add "adn" and "uri" sub-attributes contained in the
+   "server" attribute to the DNS Resolver Information registry.
 
 14.  Acknowledgments
 
    This specification leverages some of the work that has been done in
    [RFC8225].  Thanks to Ted Lemon, Paul Wouters, Neil Cook, Vittorio
-   Bertola, Vinny Parla, Chris Box and Shashank Jain for the discussion
+   Bertola, Vinny Parla, Chris Box, and Shashank Jain for the discussion
    and comments.
 
-15.  References
 
 
 
 
 
 
-
-Reddy, et al.             Expires July 9, 2021                 [Page 18]
+Reddy, et al.             Expires July 15, 2021                [Page 18]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
+
+15.  References
 
 15.1.  Normative References
 
@@ -1059,9 +1061,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-
-
-Reddy, et al.             Expires July 9, 2021                 [Page 19]
+Reddy, et al.             Expires July 15, 2021                [Page 19]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -1105,32 +1105,22 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
               Configuration for Encrypted DNS", draft-btw-add-ipsecme-
               ike-01 (work in progress), September 2020.
 
-   [I-D.btw-add-rfc8484-clarification]
-              Boucadair, M., Cook, N., Reddy.K, T., and D. Wing,
-              "Supporting Redirection for DNS Queries over HTTPS (DoH)",
-              draft-btw-add-rfc8484-clarification-02 (work in progress),
-              July 2020.
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 9, 2021                 [Page 20]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
-
-   [I-D.ietf-dnsop-extended-error]
-              Kumari, W., Hunt, E., Arends, R., Hardaker, W., and D.
-              Lawrence, "Extended DNS Errors", draft-ietf-dnsop-
-              extended-error-16 (work in progress), May 2020.
-
    [I-D.ietf-dnsop-terminology-ter]
               Hoffman, P., "Terminology for DNS Transports and
               Location", draft-ietf-dnsop-terminology-ter-02 (work in
               progress), August 2020.
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 20]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
 
    [I-D.ietf-dprive-bcp-op]
               Dickinson, S., Overeinder, B., Rijswijk-Deij, R., and A.
@@ -1171,13 +1161,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
               Token", RFC 8225, DOI 10.17487/RFC8225, February 2018,
               <https://www.rfc-editor.org/info/rfc8225>.
 
-
-
-Reddy, et al.             Expires July 9, 2021                 [Page 21]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
-
    [RFC8310]  Dickinson, S., Gillmor, D., and T. Reddy, "Usage Profiles
               for DNS over TLS and DNS over DTLS", RFC 8310,
               DOI 10.17487/RFC8310, March 2018,
@@ -1188,14 +1171,26 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
               DOI 10.17487/RFC8572, April 2019,
               <https://www.rfc-editor.org/info/rfc8572>.
 
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 21]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    [RFC8765]  Pusateri, T. and S. Cheshire, "DNS Push Notifications",
               RFC 8765, DOI 10.17487/RFC8765, June 2020,
               <https://www.rfc-editor.org/info/rfc8765>.
 
+   [RFC8914]  Kumari, W., Hunt, E., Arends, R., Hardaker, W., and D.
+              Lawrence, "Extended DNS Errors", RFC 8914,
+              DOI 10.17487/RFC8914, October 2020,
+              <https://www.rfc-editor.org/info/rfc8914>.
+
    [UNICODE]  The Unicode Consortium, "The Unicode Standard", June 2016,
               <http://www.unicode.org/versions/latest/>.
 
-Appendix A.  Example ES256 based PAT JWS Serialization and Signature
+Appendix A.  Example of ES256-based PAT JWS Serialization and Signature
 
    For PAT, there will always be a JWS with the following members:
 
@@ -1211,28 +1206,6 @@ Appendix A.  Example ES256 based PAT JWS Serialization and Signature
 
    Step 1 for JWS references the JWS Payload, an example PAT Payload is
    as follows:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 9, 2021                 [Page 22]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    {
      "server":{
@@ -1252,6 +1225,14 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    This would be serialized to the form (with line break used for
    display purposes only):
+
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 22]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
 
    {"exp":1443640345,"iat":1443208345,"policyinfo":{
    "filtering":{"malwareblocking": true,"policyblocking": false},
@@ -1281,15 +1262,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    This would be serialized to the form (with line break used for
    display purposes only):
 
-
-
-
-
-Reddy, et al.             Expires July 9, 2021                 [Page 23]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
-
    {"alg":"ES256","typ":"pat","x5u":"https://cert.example.com
    /pat.cer"}
 
@@ -1309,6 +1281,13 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    4vQEAF_Vlp1Tr6sJmS4pnIKDRmIjH8EZzY5BMT2qJCHD8PmjBktWVnlmbmyHs05G
    KauRBdIFnfp3oDPbE0Jq4w
+
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 23]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
    Step 8 describes how to create the final PAT token, concatenating the
@@ -1337,15 +1316,6 @@ A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
    1RTwjmYSi9R/zpBnuQ4EiMnCqfMPWiZqB4QdbAd0E7oH50VpuZ1P087G
    -----END PRIVATE KEY-----
 
-
-
-
-
-Reddy, et al.             Expires July 9, 2021                 [Page 24]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
-
 A.2.  X.509 Public Key for ES256 Example**
 
    -----BEGIN PUBLIC KEY-----
@@ -1357,6 +1327,24 @@ Appendix B.  Complete JWS JSON Serialization Representation with
              multiple Signatures
 
    The JWS payload used in this example as follows.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 24]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
 
    {
      "server":{
@@ -1395,15 +1383,24 @@ Appendix B.  Complete JWS JSON Serialization Representation with
      "x5u":"https://cert.audit-example.com/pat.cer"
    }
 
+   The complete JWS JSON Serialization for these values is as follows
+   (with line breaks within values for display purposes only):
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 25]
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 25]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
-
-   The complete JWS JSON Serialization for these values is as follows
-   (with line breaks within values for display purposes only):
 
 {
   "payload":
@@ -1453,7 +1450,10 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 26]
+
+
+
+Reddy, et al.             Expires July 15, 2021                [Page 26]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -1509,4 +1509,4 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 9, 2021                 [Page 27]
+Reddy, et al.             Expires July 15, 2021                [Page 27]
