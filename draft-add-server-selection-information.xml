@@ -91,13 +91,12 @@
       <t>The document defines a mechanism that is meant to communicate DNS
       resolver information to DNS clients for use as a criterai for server
       selection decisions. In particular, the document defines a mechanism for
-      a DNS server to communicate its filtering behavior and privacy statement
-      URL to DNS clients. Such an information that is cryptographically signed
-      to attest its authenticity is used for the selection of DNS resolvers.
-      Typically, evaluating the filtering behavior and the signatory, DNS
-      clients with minimum human intervention can select the DNS server that
-      best supports the end user's desired privacy and filtering
-      behaviors.</t>
+      a DNS server to communicate its filtering behavior to DNS clients. Such
+      an information that is cryptographically signed to attest its
+      authenticity is used for the selection of DNS resolvers. Typically,
+      evaluating the filtering behavior and the signatory, DNS clients with
+      minimal or no human intervention can select the DNS servers for
+      resolving domain names. </t>
 
       <t>This assertion is useful for encrypted DNS (e.g., DNS-over-TLS,
       DNS-over-HTTPS, or DNS-over-QUIC) servers that are either public
@@ -125,23 +124,8 @@
       appraise such evidence. The mechanism specified in this document can be
       used by the DNS client to cryptographically identify if it is connecting
       to an encrypted DNS server hosted by a specific organization (e.g., ISP
-      or Enterprise).</t>
-
-      <t>The DNS Recursive Operator Privacy (DROP) statement explained in
-      <xref target="I-D.ietf-dprive-bcp-op"></xref> outlines the recommended
-      contents a DNS operator should publish, thereby providing a means for
-      end users to evaluate the privacy properties of a given DNS service.
-      While a human can review the privacy statement of a DNS server operator,
-      the challenge is the end user has to search to find the URL that points
-      to the human-readable privacy policy information of the DNS server.
-      Also, a end user does not know if a DNS server (public or local)
-      performs DNS-based content filtering.</t>
-
-      <t>This document simplifies the user experience by supporting a
-      mechanism to retrieve the DNS server policy permitting the end user to
-      review human-readable privacy policy information of the DNS server and
-      to assess whether that DNS server performs DNS-based content
-      filtering.</t>
+      or Enterprise). This strengthens the protection as clients can detect
+      and reject connections to encrypted DNS servers hosted by attackers.</t>
 
       <t>This document also defines a mechanism for DNS clients to gather a
       set of information related to discovered (or preconfigured) servers and
@@ -163,71 +147,6 @@
 
           <t hangText="QNAME minimization:">Indicates whether the DNS server
           implements QNAME minimisation <xref target="RFC7816"></xref>.</t>
-        </list></t>
-
-      <t>The cryptographically signed policy allows a DNS client to, e.g.,
-      connect to multiple DNS servers and prompt the end user to review the
-      DNS privacy statements to select the DNS server that adheres to the
-      privacy preserving data policy and DNS filtering expectations of the end
-      user. How a end user instructs a DNS client about his/her preferences
-      and how/whether the DNS client prompts a end user are out of scope.</t>
-    </section>
-
-    <section anchor="scope" title="Sample Use Cases ">
-      <t>The mechanism for a DNS server to communicate its cryptographically
-      signed policies to DNS clients contributes to solve the following
-      problems encountered in various deployments:<list style="symbols">
-          <t>The encrypted DNS server discovered using DHCP/RA or DNS in Home
-          and Mobile networks is insecure. The mechanism specified in this
-          document can be used by the DNS client to validate the signatory
-          (e.g., cryptographically attested by the ISP). This strengthens the
-          protection as clients can detect and reject connections to encrypted
-          DNS servers hosted by attackers.</t>
-
-          <t>Enterprise networks do not assume that all devices in their
-          network are managed by the IT team or Mobile Device Management
-          (MDM), especially in the quite common Bring Your Own Device (BYOD)
-          scenario. The mechanism specified in this document can be used by
-          users of BYOD devices to determine if the DNS server on the local
-          network complies with the user's privacy policy and DNS filtering
-          expectations.</t>
-
-          <t>The end user selects specific well-known networks (e.g.,
-          organization for which a user works or a user works temporarily
-          within another corporation) to learn the privacy policy statement
-          and filtering policy of the local DNS server. If the discovered
-          encrypted DNS server does not meet the privacy preserving data
-          policy and filtering requirements of the end user, the DNS client
-          can take appropriate actions. For example, the action can be: use
-          the discovered DNS server only to access internal-only DNS names and
-          use another DNS server for public domains. Such a policy would
-          adhere to the end user's expectations.</t>
-
-          <t>The policy information signals the presence of DNS-based content
-          filtering in the attached network. If the network is well-known to
-          the DNS client and the local DNS server meets the privacy
-          requirements of the end user, the DNS client can continue to use an
-          encrypted connection with the local encrypted DNS server. If the
-          error code returned by the DNS server indicates access to the domain
-          is blocked because of internal security policy <xref
-          target="RFC8914"></xref>, the DNS client can securely identify that
-          access to the domain is censored by the network.</t>
-
-          <t>The signed policy contains an URL that points to a human-readable
-          privacy policy information of the DNS server for the end user to
-          review. The end user can then make an informed decision whether the
-          DNS server is trustworthy to honor the privacy requirements of the
-          end user. The DNS Push Notifications mechanism defined in <xref
-          target="RFC8765"></xref> can be used by the DNS client to be
-          asynchronously notified when a policy change occurs. The client
-          automatically learns updates to the policy of the DNS server. If the
-          privacy statement of the DNS server changes, the client can notify
-          the end user to re-evaluate the updated privacy statement. As a
-          reminder, DNS Push Notification is only defined for TLS over TCP.
-          DNS client implementations that do not support DNS Push
-          Notifications can use the mechanism discussed in <xref
-          target="exp-header-parameter"></xref> to identify policy
-          updates.</t>
         </list></t>
     </section>
 
@@ -264,16 +183,16 @@
       "Domain Validation" (DV) certificates for certificate-based server
       authentication in TLS connections.</t>
 
-      <t>The DNS server's privacy claim needs to be validated and signed. This
-      signature is called an <xref
+      <t>The DNS server's resolver information needs to be validated and
+      signed. This signature is called an <xref
       target="I-D.ietf-rats-architecture">Attestation Result</xref>. This
       validation can be performed by the DNS operator itself (signed by the
       DNS operator's certificate) acting as a verifier or performed by an
       external Verifier (signed by that external Verifier). In both cases, the
       signing certificate has to be an Extended Validation (EV) certificate
-      issued by a public CA. An EV certificate is issued by the public CA
-      after a thorough background check to verify the requesting
-      organization's legal identity.</t>
+      issued by a public CA in specific scenarios listed below. An EV
+      certificate is issued by the public CA after a thorough Background Check
+      to verify the requesting organization's legal identity.</t>
 
       <t>The use of EV certificate is needed in the following scenarios:</t>
 
@@ -281,18 +200,10 @@
           <t>It helps the client to avoid sending DNS queries to an Encrypted
           DNS server hosted by an attacker discovered insecurely (e.g., using
           DHCP/RA or DNS). For example, an attacker can get a domain name,
-          domain-validated public certificate from a CA, host a Encrypted DNS
-          server and claim the best DNS privacy preservation policy.
-          Furthermore, an attacker can use a public IP address, get an 'IP
-          address'-validated public certificate from a CA, host a Encrypted
-          DNS server and claim the best DNS privacy preservation policy.</t>
-
-          <t>It assists humans who may be unfamiliar with the domain name but
-          are familiar with the trade name of the DNS server operator or the
-          external Verifier (or the third party auditor). For example, an DNS
-          operator and external Verifier might have trade names of "Example,
-          Inc." and "Example Auditors, GmbH" which are more familiar than
-          "example.org" and "example.com".</t>
+          domain-validated public certificate from a CA and host a Encrypted
+          DNS server. Furthermore, an attacker can use a public IP address,
+          get an 'IP address'-validated public certificate from a CA and host
+          a Encrypted DNS server.</t>
 
           <t>It can be used by the client to identify the Encrypted DNS server
           is hosted by a legal organization.</t>
@@ -329,7 +240,7 @@
       <t>JWS defines the use of JSON data structures in a specified canonical
       format for signing data corresponding to JOSE header, JWS Payload, and
       JWS Signature. The next sections define the header and claims that MUST
-      be minimally used with JWT and JWS for privacy assertion token.</t>
+      be minimally used with JWT and JWS for policy assertion token.</t>
 
       <t>The Policy Assertion Token (PAT) specifically uses this token format
       and defines claims that convey the policy information of Encrypted DNS
@@ -337,9 +248,9 @@
 
       <t>The client can retrieve the PAT object using the RESINFO RRtype
       defined in <xref target="I-D.pp-add-resinfo"></xref> and QNAME of the
-      domain name that is used to authenticate the privacy-enabling DNS server
-      (referred to as ADN in <xref target="RFC8310"></xref>). If the
-      special-use domain name "resolver-info.arpa/IN" defined in <xref
+      domain name that is used to authenticate the DNS server (referred to as
+      ADN in <xref target="RFC8310"></xref>). If the special-use domain name
+      "resolver-info.arpa/IN" defined in <xref
       target="I-D.pp-add-resinfo"></xref> is used to discover the Encrypted
       DNS server, the client can retrieve the PAT object using the RESINFO
       RRtype and QNAME of the special-use domain name.</t>
@@ -459,13 +370,7 @@
           server to the DNS client and ensures the DNS client does not use
           outdated policy information. If the DNS client knows the PAT object
           has expired, it should make another request to get the new PAT
-          object from the DNS server. For example, the client can compute a
-          hash of the resolver information, retrieve the information after the
-          expiration time, computes the hash of the newly retrieved resolver
-          information, and compares with the old hash to detect policy
-          updates. A quality implementation can perform automatic analysis and
-          avoid presenting this information to the end user if the DNS
-          server's policies have not changed.</t>
+          object from the DNS server. </t>
         </section>
       </section>
 
@@ -565,19 +470,11 @@
               server, roaming users can use client authentication to access
               the Enterprise provided Encrypted DNS server. This is an
               optional attribute.</t>
-
-              <t hangText="privacyurl:">A URL that points to the privacy
-              policy information of the DNS server. This is a mandatory
-              attribute.</t>
-
-              <t hangText="auditurl:">A URL that points to the security
-              (including privacy) assessment report of the DNS server by a
-              third party auditor. This is an optional attribute.</t>
             </list></t>
         </section>
 
         <section anchor="pat_payload_example" title="An Example">
-          <t><xref target="poex"></xref> shows an example of policy
+          <t> <xref target="poex"></xref> shows an example of policy
           information.</t>
 
           <figure anchor="poex" title="An Example of Policy Information">
@@ -593,7 +490,6 @@
          "policyblocking": false
      },
      "qnameminimization":false,
-     "privacyurl": "https://example.com/commitment-to-privacy/"
   } 
 }
 ]]></artwork>
@@ -711,7 +607,6 @@
   "exp":1443640345,
   "policyinfo": {
      "qnameminimization":false,
-     "privacyurl": "https://example.com/commitment-to-privacy/"
   } 
 }
 ]]></artwork>
@@ -726,8 +621,8 @@
 
         <figure anchor="final" title="Deterministic JSON Form">
           <artwork><![CDATA[{"exp":1443640345,"iat":1443208345,
-"policyinfo":{"privacyurl":"https://example.com/commitment-to-privacy/",
-"qnameminimization":false},"server":{"adn":["example.com"]}}
+"policyinfo":{"qnameminimization":false},
+"server":{"adn":["example.com"]}}
 ]]></artwork>
         </figure>
       </section>
@@ -750,9 +645,9 @@
           contained in the "server" attribute is used to specify the DNS
           server identity in the form of URI template.</t>
 
-          <t>The "filtering", "qnameminimization", "privacyurl", and
-          "auditurl" names containing the resolver information of the DNS
-          server discussed in <xref target="PAT"></xref>.</t>
+          <t>The "filtering" and "qnameminimization" names containing the
+          resolver information of the DNS server discussed in <xref
+          target="PAT"></xref>.</t>
 
           <t>The sub-attributes "malwareblocking", "phishingblocking",
           "policyblocking", and "censoredblocking" discussed in <xref
@@ -768,32 +663,13 @@
         </list></t>
     </section>
 
-    <section anchor="privacy" title="Privacy Considerations">
-      <t>End users are expected to indicate to their system in some way that
-      they trust certain PAT signers (e.g., if working for Example, Inc., the
-      user's system is configured to trust "example.com" signing the PAT). By
-      doing so, the DNS client can automatically discover encrypted DNS server
-      in specific networks, validate the PAT signature and the end user can
-      check if the human readable privacy policy information of the DNS server
-      complies with user's privacy needs, prior to using that encrypted DNS
-      server for DNS queries.</t>
-
-      <t>The DNS client MUST retrieve the human-readable privacy statement
-      from the 'privacyurl' attribute to assist with that decision (e.g.,
-      display the privacy statement when it changes, show differences in
-      previously-retrieved version, etc.). With the steps above, an end user
-      can review the human-readable privacy policy information of the
-      Encrypted DNS server.</t>
-    </section>
-
     <section anchor="Security" title="Security Considerations">
       <t>The use of PAT object based on the validation of the digital
       signature and the associated certificate requires consideration of the
       authentication and authority or reputation of the signer to attest the
       policy information of the DNS server being asserted. Bad actors can host
-      encrypted DNS servers, and claim the servers offer privacy but exactly
-      do the opposite to invade the privacy of the user. Bad actor can get a
-      domain name, host encrypted DNS servers, and get the DNS server
+      encrypted DNS servers to invade the privacy of the user. Bad actor can
+      get a domain name, host encrypted DNS servers, and get the DNS server
       certificate signed by a CA. The policy information will have to be
       attested using EV certificates or a PAT object signer trusted by the DNS
       client to prevent the attack.</t>
@@ -900,15 +776,15 @@
 
       <section anchor="resolver-information"
                title="DNS Resolver Information Registration">
-        <t>IANA will add the names "attested-resinfo", "server", "filtering",
-        "qnameminimization", "privacyurl", and "auditurl" to the DNS Resolver
-        Information registry defined in Section 4.2 of <xref
-        target="I-D.pp-add-resinfo"></xref>. </t>
+        <t>IANA will add the names "attested-resinfo", "server", "filtering"
+        and "qnameminimization" to the DNS Resolver Information registry
+        defined in Section 4.2 of <xref
+        target="I-D.pp-add-resinfo"></xref>.</t>
 
         <t>IANA will add "malwareblocking", "phishingblocking",
         "policyblocking", and "censoredblocking" sub-attributes contained in
-        the "filtering" attribute to the DNS Resolver Information registry.
-        </t>
+        the "filtering" attribute to the DNS Resolver Information
+        registry.</t>
 
         <t>IANA will add "adn" and "uri" sub-attributes contained in the
         "server" attribute to the DNS Resolver Information registry.</t>
@@ -968,8 +844,6 @@
 
       <?rfc include='reference.I-D.btw-add-ipsecme-ike"?>
 
-      <?rfc include='reference.RFC.8765'?>
-
       <?rfc include="reference.RFC.7626"?>
 
       <?rfc include="reference.RFC.7816"?>
@@ -985,8 +859,6 @@
       <?rfc include='reference.RFC.8914' ?>
 
       <?rfc include='reference.I-D.ietf-dnsop-terminology-ter'?>
-
-      <?rfc include='reference.I-D.ietf-dprive-bcp-op'?>
 
       <reference anchor="UNICODE"
                  target="http://www.unicode.org/versions/latest/">
@@ -1034,8 +906,7 @@
          "malwareblocking": true,
          "policyblocking": false
      },
-     "qnameminimization":false,
-     "privacyurl": "https://example.com/commitment-to-privacy/"
+     "qnameminimization":false
   } 
 }
 ]]></artwork>
@@ -1047,7 +918,6 @@
       <figure>
         <artwork><![CDATA[{"exp":1443640345,"iat":1443208345,"policyinfo":{
 "filtering":{"malwareblocking": true,"policyblocking": false},
-"privacyurl":"https://example.com/commitment-to-privacy/",
 "qnameminimization":false},"server":{"adn":["example.com"]}}
 ]]></artwork>
       </figure>
@@ -1059,9 +929,8 @@
         <artwork><![CDATA[
 eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicG9saWN5aW5mbyI6e
 yJmaWx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2
-luZyI6ZmFsc2V9LCJwcml2YWN5dXJsIjoiaHR0cHM6Ly9leGFtcGxlLmNvbS9jb21
-taXRtZW50LXRvLXByaXZhY3kvIiwicW5hbWVtaW5pbWl6YXRpb24iOmZhbHNlfSwi
-c2VydmVyIjp7ImFkbiI6WyJleGFtcGxlLmNvbSJdfX0
+luZyI6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOns
+iYWRuIjpbImV4YW1wbGUuY29tIl19fQ
 
 
 ]]></artwork>
@@ -1110,8 +979,10 @@ eGFtcGxlLmNvbS9wYXQuY2VyIn0
 
       <figure>
         <artwork><![CDATA[
-4vQEAF_Vlp1Tr6sJmS4pnIKDRmIjH8EZzY5BMT2qJCHD8PmjBktWVnlmbmyHs05G
-KauRBdIFnfp3oDPbE0Jq4w
+
+TF_FZ_44WqL9nYiik8QBm-e1S-lJTOkRpaKLNc5SwnU86lbeccxhd2Xd3xd13cTj
+ub65Pz1vhEQN1nzbZb2Hkg
+
 
 ]]></artwork>
       </figure>
@@ -1123,18 +994,16 @@ KauRBdIFnfp3oDPbE0Jq4w
       readability purposes only):</t>
 
       <figure>
-        <artwork><![CDATA[
-eyJhbGciOiJFUzI1NiIsInR5cCI6InBhdCIsIng1dSI6Imh0dHBzOi8vY2VydC5l
+        <artwork><![CDATA[eyJhbGciOiJFUzI1NiIsInR5cCI6InBhdCIsIng1dSI6Imh0dHBzOi8vY2VydC5l
 eGFtcGxlLmNvbS9wYXQuY2VyIn0
 .
 eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicG9saWN5aW5mbyI6e
 yJmaWx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2
-luZyI6ZmFsc2V9LCJwcml2YWN5dXJsIjoiaHR0cHM6Ly9leGFtcGxlLmNvbS9jb21
-taXRtZW50LXRvLXByaXZhY3kvIiwicW5hbWVtaW5pbWl6YXRpb24iOmZhbHNlfSwi
-c2VydmVyIjp7ImFkbiI6WyJleGFtcGxlLmNvbSJdfX0
+luZyI6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOns
+iYWRuIjpbImV4YW1wbGUuY29tIl19fQ
 .
-4vQEAF_Vlp1Tr6sJmS4pnIKDRmIjH8EZzY5BMT2qJCHD8PmjBktWVnlmbmyHs05G
-KauRBdIFnfp3oDPbE0Jq4w
+TF_FZ_44WqL9nYiik8QBm-e1S-lJTOkRpaKLNc5SwnU86lbeccxhd2Xd3xd13cTjub
+65Pz1vhEQN1nzbZb2Hkg
 ]]></artwork>
       </figure>
 
@@ -1180,8 +1049,7 @@ q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
          "malwareblocking": true,
          "policyblocking": false
      },
-     "qnameminimization":false,
-     "privacyurl": "https://example.com/commitment-to-privacy/"
+     "qnameminimization":false
   } 
 }
 ]]></artwork>
@@ -1193,7 +1061,6 @@ q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
       <figure>
         <artwork><![CDATA[{"exp":1443640345,"iat":1443208345,"policyinfo":{
 "filtering":{"malwareblocking": true,"policyblocking": false},
-"privacyurl":"https://example.com/commitment-to-privacy/",
 "qnameminimization":false},"server":{"adn":["example.com"]}}
 ]]></artwork>
       </figure>
@@ -1236,9 +1103,10 @@ q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
         tWVnlmbmyHs05GKauRBdIFnfp3oDPbE0Jq4w"},
        {"protected":"eyJhbGciOiJFUzM4NCIsInR5cCI6InBhdCIsIng1dSI6Imh0dHB
         zOi8vY2VydC5hdWRpdC1leGFtcGxlLmNvbS9wYXQuY2VyIn0",
-        "signature":666ag_mAqDa3Oyxo1DGXUocr0MmRjpXwq8kWp1S21mvs2-kPCIq3
-        0xsBJt4apy-sq3VyJgIqzjijoFYURhHvupF0obo-IFUGSZ1YHBCX_MiyBwJQJjtp
-        S91ujDatRTtZ"}]
+        "signature":dcvLlWp5q5sHcqRvAvVNrctGhbaV0TWPXeuwXDpcKSnkeT2eg1_5
+        D_4aozCFBYHkaxRPj06BliFwDnFMapjWBLbMDYLxr5O_LuSWLE1w8NkEHacWuHlA
+        90gKR8jd5hNX"}]
+
 }
 ]]></artwork>
       </figure>
