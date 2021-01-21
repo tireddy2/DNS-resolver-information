@@ -84,7 +84,7 @@ Table of Contents
      4.3.  'x5u' (X.509 URL) Header Parameter  . . . . . . . . . . .   7
      4.4.  An Example of PAT Header  . . . . . . . . . . . . . . . .   7
    5.  PAT Payload . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     5.1.  JWT Defined Claims  . . . . . . . . . . . . . . . . . . .   7
+     5.1.  JWT Defined Claims  . . . . . . . . . . . . . . . . . . .   8
        5.1.1.  'iat' - Issued At Claim . . . . . . . . . . . . . . .   8
        5.1.2.  'exp' - Expiration Time Claim . . . . . . . . . . . .   8
      5.2.  PAT Specific Claims . . . . . . . . . . . . . . . . . . .   8
@@ -212,12 +212,12 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    the DNS operator itself (signed by the DNS operator's certificate)
    acting as a verifier or performed by an external Verifier (signed by
    that external Verifier).  The signing certificate can to be an
-   Extended Validation (EV) certificate issued by a public CA to get a
-   better audit trail in specific scenarios listed below.  An EV
-   certificate is issued by the public CA after a thorough Background
-   Check to verify the requesting organization's legal identity.
+   Extended Validation (EV) certificate issued by a public CA in
+   specific scenarios listed below.  An EV certificate is issued by the
+   public CA after a thorough Background Check to verify the requesting
+   organization's legal identity.  If the signing certificate is a EV
+   certificate, it leaves the client with a better audit trail of the
 
-   The use of EV certificate is needed in the following scenarios:
 
 
 
@@ -225,6 +225,11 @@ Reddy, et al.             Expires July 24, 2021                 [Page 4]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
+
+   organization hosting the DNS server in comparison with the DV
+   certificate.
+
+   The use of EV certificate is needed in the following scenarios:
 
    o  It helps the client to avoid sending DNS queries to an Encrypted
       DNS server hosted by an attacker discovered insecurely (e.g.,
@@ -267,13 +272,8 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    that MUST be minimally used with JWT and JWS for policy assertion
    token.
 
-   The Policy Assertion Token (PAT) specifically uses this token format
-   and defines claims that convey the policy information of Encrypted
-   DNS server.
 
-   The client can retrieve the PAT object using the RESINFO RRtype
-   defined in [I-D.pp-add-resinfo] and QNAME of the domain name that is
-   used to authenticate the DNS server (referred to as ADN in
+
 
 
 
@@ -282,6 +282,13 @@ Reddy, et al.             Expires July 24, 2021                 [Page 5]
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
+   The Policy Assertion Token (PAT) specifically uses this token format
+   and defines claims that convey the policy information of Encrypted
+   DNS server.
+
+   The client can retrieve the PAT object using the RESINFO RRtype
+   defined in [I-D.pp-add-resinfo] and QNAME of the domain name that is
+   used to authenticate the DNS server (referred to as ADN in
    [RFC8310]).  If the special-use domain name "resolver-info.arpa/IN"
    defined in [I-D.pp-add-resinfo] is used to discover the Encrypted DNS
    server, the client can retrieve the PAT object using the RESINFO
@@ -323,13 +330,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    signatures, implementations MUST support ES256 as defined in
    Section 3.4 of [RFC7518].  Implementations MAY support other
    algorithms registered in the JSON Web Signature and Encryption
-   Algorithms registry created by [RFC7518].  The content of that
-   registry may be updated in the future depending on cryptographic
-   strength requirements guided by current security best practice.  The
-   mandatory-to-support algorithm for PAT tokens may likewise be updated
-   in the future.
-
-
 
 
 
@@ -337,6 +337,12 @@ Reddy, et al.             Expires July 24, 2021                 [Page 6]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
+
+   Algorithms registry created by [RFC7518].  The content of that
+   registry may be updated in the future depending on cryptographic
+   strength requirements guided by current security best practice.  The
+   mandatory-to-support algorithm for PAT tokens may likewise be updated
+   in the future.
 
    Implementations of PAT digital signatures using ES256 as defined
    above SHOULD use deterministic ECDSA when supported for the reasons
@@ -381,18 +387,14 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    MUST follow the default JSON serialization defined in Section 7 of
    [RFC7519].
 
-5.1.  JWT Defined Claims
-
-
-
-
-
 
 
 Reddy, et al.             Expires July 24, 2021                 [Page 7]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
+
+5.1.  JWT Defined Claims
 
 5.1.1.  'iat' - Issued At Claim
 
@@ -440,8 +442,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    If the DNS server identity is an ADN, the claim name representing the
    identity MUST be 'adn'.  The claim value for the 'adn' claim is the
    ADN.
-
-
 
 
 

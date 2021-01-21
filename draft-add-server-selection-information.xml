@@ -190,10 +190,12 @@
       DNS operator's certificate) acting as a verifier or performed by an
       external Verifier (signed by that external Verifier). The signing
       certificate can to be an Extended Validation (EV) certificate issued by
-      a public CA to get a better audit trail in specific scenarios listed
-      below. An EV certificate is issued by the public CA after a thorough
-      Background Check to verify the requesting organization's legal
-      identity.</t>
+      a public CA in specific scenarios listed below. An EV certificate is
+      issued by the public CA after a thorough Background Check to verify the
+      requesting organization's legal identity. If the signing certificate is
+      a EV certificate, it leaves the client with a better audit trail of the
+      organization hosting the DNS server in comparison with the DV
+      certificate. </t>
 
       <t>The use of EV certificate is needed in the following scenarios:</t>
 
@@ -204,7 +206,7 @@
           domain-validated public certificate from a CA and host a Encrypted
           DNS server. Furthermore, an attacker can use a public IP address,
           get an 'IP address'-validated public certificate from a CA and host
-          a Encrypted DNS server.</t>
+          a Encrypted DNS server. </t>
 
           <t>It can be used by the client to identify the Encrypted DNS server
           is hosted by a legal organization.</t>
