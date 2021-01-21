@@ -211,11 +211,11 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    [I-D.ietf-rats-architecture].  This validation can be performed by
    the DNS operator itself (signed by the DNS operator's certificate)
    acting as a verifier or performed by an external Verifier (signed by
-   that external Verifier).  In both cases, the signing certificate has
-   to be an Extended Validation (EV) certificate issued by a public CA
-   in specific scenarios listed below.  An EV certificate is issued by
-   the public CA after a thorough Background Check to verify the
-   requesting organization's legal identity.
+   that external Verifier).  The signing certificate can to be an
+   Extended Validation (EV) certificate issued by a public CA to get a
+   better audit trail in specific scenarios listed below.  An EV
+   certificate is issued by the public CA after a thorough Background
+   Check to verify the requesting organization's legal identity.
 
    The use of EV certificate is needed in the following scenarios:
 
