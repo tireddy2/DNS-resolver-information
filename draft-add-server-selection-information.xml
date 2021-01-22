@@ -249,14 +249,14 @@
       and defines claims that convey the policy information of Encrypted DNS
       server.</t>
 
-      <t>The client can retrieve the PAT object using the RESINFO RRtype
-      defined in <xref target="I-D.pp-add-resinfo"></xref> and QNAME of the
+      <t>The client can retrieve the PAT object using the SVCB RRtype defined
+      in <xref target="I-D.ietf-dnsop-svcb-https"></xref> and QNAME of the
       domain name that is used to authenticate the DNS server (referred to as
       ADN in <xref target="RFC8310"></xref>). If the special-use domain name
       "resolver-info.arpa/IN" defined in <xref
-      target="I-D.pp-add-resinfo"></xref> is used to discover the Encrypted
-      DNS server, the client can retrieve the PAT object using the RESINFO
-      RRtype and QNAME of the special-use domain name.</t>
+      target="I-D.pauly-add-deer"></xref> is used to discover the Encrypted
+      DNS server, the client can retrieve the PAT object using the SVCB RRtype
+      and QNAME of the special-use domain name. </t>
 
       <t>The signature of PAT object MUST be validated by the DNS client. If
       signature is invalid, the PAT object is rejected. If signature is valid,
@@ -631,10 +631,10 @@
       </section>
     </section>
 
-    <section anchor="Identity" title="Using RESINFO Responses">
-      <t>This document defines the following entries for the IANA DNS Resolver
-      Information Registry that is defined in <xref
-      target="I-D.pp-add-resinfo"></xref>.</t>
+    <section anchor="Identity" title="Using SVCB Responses">
+      <t>This document defines the following entries for the IANA SVCB Service
+      Parameters registry that is defined in <xref
+      target="I-D.ietf-dnsop-svcb-https"></xref>.</t>
 
       <t><list style="numbers">
           <t>The "server" name containing the DNS server identity discussed in
@@ -780,25 +780,24 @@
       <section anchor="resolver-information"
                title="DNS Resolver Information Registration">
         <t>IANA will add the names "attested-resinfo", "server", "filtering"
-        and "qnameminimization" to the DNS Resolver Information registry
-        defined in Section 4.2 of <xref
-        target="I-D.pp-add-resinfo"></xref>.</t>
+        and "qnameminimization" to the SVCB Service Parameters registry
+        defined in Section 14.3 of <xref
+        target="I-D.ietf-dnsop-svcb-https"></xref>.</t>
 
         <t>IANA will add "malwareblocking", "phishingblocking",
         "policyblocking", and "censoredblocking" sub-attributes contained in
-        the "filtering" attribute to the DNS Resolver Information
-        registry.</t>
+        the "filtering" attribute to the SVCB Service Parameters registry.</t>
 
         <t>IANA will add "adn" and "uri" sub-attributes contained in the
-        "server" attribute to the DNS Resolver Information registry.</t>
+        "server" attribute to the SVCB Service Parameters registry.</t>
       </section>
     </section>
 
     <section anchor="acknowledgments" title="Acknowledgments">
       <t>This specification leverages some of the work that has been done in
-      <xref target="RFC8225"></xref>. Thanks to Ted Lemon, Paul Wouters, Neil
-      Cook, Vittorio Bertola, Vinny Parla, Chris Box, and Shashank Jain for
-      the discussion and comments.</t>
+      <xref target="RFC8225"></xref>. Thanks to Tommy Jensen, Ted Lemon, Paul
+      Wouters, Neil Cook, Vittorio Bertola, Vinny Parla, Chris Box, and
+      Shashank Jain for the discussion and comments.</t>
     </section>
   </middle>
 
@@ -838,7 +837,7 @@
     <references title="Informative References">
       <?rfc include="reference.RFC.8310"?>
 
-      <?rfc include='reference.I-D.pp-add-resinfo'?>
+      <?rfc include='reference.I-D.ietf-dnsop-svcb-https'?>
 
       <?rfc include='reference.I-D.ietf-rats-architecture'?>
 
