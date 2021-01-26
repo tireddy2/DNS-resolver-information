@@ -5,12 +5,12 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                                 D. Wing
-Expires: July 26, 2021                                            Citrix
+Expires: July 30, 2021                                            Citrix
                                                            M. Richardson
                                                 Sandelman Software Works
                                                             M. Boucadair
                                                                   Orange
-                                                        January 22, 2021
+                                                        January 26, 2021
 
 
    DNS Server Selection: DNS Server Information with Assertion Token
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 26, 2021.
+   This Internet-Draft will expire on July 30, 2021.
 
 
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 1]
+Reddy, et al.             Expires July 30, 2021                 [Page 1]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -91,39 +91,39 @@ Table of Contents
        5.2.1.  DNS Server Identity Claims  . . . . . . . . . . . . .   8
        5.2.2.  'policyinfo' (Policy Information) Claim . . . . . . .   9
        5.2.3.  An Example  . . . . . . . . . . . . . . . . . . . . .  10
-   6.  PAT Signature . . . . . . . . . . . . . . . . . . . . . . . .  10
+   6.  PAT Signature . . . . . . . . . . . . . . . . . . . . . . . .  11
    7.  Extending PAT . . . . . . . . . . . . . . . . . . . . . . . .  11
-   8.  Deterministic JSON Serialization  . . . . . . . . . . . . . .  11
+   8.  Deterministic JSON Serialization  . . . . . . . . . . . . . .  12
      8.1.  Example PAT Deterministic JSON Form . . . . . . . . . . .  12
    9.  Using SVCB Responses  . . . . . . . . . . . . . . . . . . . .  13
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  13
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  14
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
      11.1.  Media Type Registration  . . . . . . . . . . . . . . . .  14
        11.1.1.  Media Type Registry Contents Additions Requested . .  14
      11.2.  JSON Web Token Claims Registration . . . . . . . . . . .  15
        11.2.1.  Registry Contents Additions Requested  . . . . . . .  15
-     11.3.  DNS Resolver Information Registration  . . . . . . . . .  15
+     11.3.  DNS Resolver Information Registration  . . . . . . . . .  16
    12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  16
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      13.1.  Normative References . . . . . . . . . . . . . . . . . .  16
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 2]
+Reddy, et al.             Expires July 30, 2021                 [Page 2]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  17
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  18
    Appendix A.  Example of ES256-based PAT JWS Serialization and
                 Signature  . . . . . . . . . . . . . . . . . . . . .  19
-     A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**  .  21
+     A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**  .  22
      A.2.  X.509 Public Key for ES256 Example**  . . . . . . . . . .  22
    Appendix B.  Complete JWS JSON Serialization Representation with
                 multiple Signatures  . . . . . . . . . . . . . . . .  22
      B.1.  X.509 Private Key in PKCS#8 format for E384 Example** . .  23
      B.2.  X.509 Public Key for ES384 Example**  . . . . . . . . . .  23
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 3]
+Reddy, et al.             Expires July 30, 2021                 [Page 3]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -221,7 +221,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 4]
+Reddy, et al.             Expires July 30, 2021                 [Page 4]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -277,7 +277,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 5]
+Reddy, et al.             Expires July 30, 2021                 [Page 5]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -333,7 +333,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 6]
+Reddy, et al.             Expires July 30, 2021                 [Page 6]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -389,7 +389,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 7]
+Reddy, et al.             Expires July 30, 2021                 [Page 7]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -445,7 +445,7 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 8]
+Reddy, et al.             Expires July 30, 2021                 [Page 8]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
@@ -501,14 +501,26 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-Reddy, et al.             Expires July 26, 2021                 [Page 9]
+Reddy, et al.             Expires July 30, 2021                 [Page 9]
 
 Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
+      filteredblocking:  If access to domains is blocked due to an
+         blacklist requested by the client, the parameter value is set
+         to 'true'.  Note that the extended error code "Filtered"
+         defined in Section 4.18 of [RFC8914] identifies access to
+         domains is blocked based on the request from the client to
+         blacklist domains.
+
    qnameminimization:  If the DNS server supports QNAME minimisation
       [RFC7816] to improve DNS privacy, the parameter value is set to
       true.  This is a mandatory attribute.
+
+   extendeddnserror:  If the DNS server supports extended DNS error
+      (EDE) [RFC8914] to return additional information about the cause
+      of DNS errors, the parameter value is set to true.  This is an
+      optional attribute.
 
    clientauth:  If the DNS server policy requires client authentication,
       the parameter value is set to true.  For example, when not on the
@@ -516,6 +528,11 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
       access the enterprise Encrypted DNS server, roaming users can use
       client authentication to access the Enterprise provided Encrypted
       DNS server.  This is an optional attribute.
+
+   resinfourl:  A URL that points to the resolver information (e.g., DoH
+      APIs supported, possible HTTP status codes returned by the DoH
+      server, how to report a problem, etc.) for troubleshooting
+      purpose.  This is an optional attribute.
 
 5.2.3.  An Example
 
@@ -538,6 +555,13 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
                 Figure 2: An Example of Policy Information
 
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 10]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
 6.  PAT Signature
 
    The signature of the PAT is created as specified in Section 5.1 of
@@ -554,14 +578,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    The policy information is attested using "Extended Validation" (EV)
    certificate to avoid bad actors taking advantage of this mechanism to
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 10]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
-
    advertise encrypted DNS servers for illegitimate and fraudulent
    purposes meant to trick DNS clients into believing that they are
    using a legitimate encrypted DNS server hosted to provide privacy for
@@ -594,6 +610,14 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    policy information of the DNS server.  JWT supports a mechanism to
    add additional asserted or signed information by simply adding new
    claims.  PAT can be extended beyond the defined base set of claims to
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 11]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    represent other DNS server information requiring assertion or
    validation.  Specifying new claims follows the baseline JWT
    procedures (Section 10.1 of [RFC7519]).  Understanding new claims on
@@ -607,16 +631,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    format.  In order to make the digital signature verification work
    deterministically, the JSON representation of the JWS Protected
    Header object and JWS Payload object MUST be computed as follows.
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 11]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    The JSON object MUST follow the following rules.  These rules are
    based on the thumbprint of a JSON Web Key (JWK) as defined in
@@ -643,6 +657,23 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    The initial JSON object is shown in Figure 3.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 12]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    {
      "server":{
          "adn":["example.com"]
@@ -662,17 +693,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    The final constructed deterministic JSON serialization
    representation, with whitespace and line breaks removed, (with line
    breaks used for display purposes only) is:
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 12]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    {"exp":1443640345,"iat":1443208345,
    "policyinfo":{"qnameminimization":false},
@@ -696,13 +716,23 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
        "server" attribute is used to specify the DNS server identity in
        the form of URI template.
 
-   4.  The "filtering" and "qnameminimization" names containing the
-       resolver information of the DNS server discussed in Section 3.
+   4.  The "filtering", "resinfourl", "extendeddnserror" and
+       "qnameminimization" names containing the resolver information of
+       the DNS server discussed in Section 3.
 
    5.  The sub-attributes "malwareblocking", "phishingblocking",
-       "policyblocking", and "censoredblocking" discussed in Section 3
-       contained in the "filtering" attribute are used to specify the
-       reasons for performing DNS-based content filtering.
+       "policyblocking", "filteredblocking", and "censoredblocking"
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 13]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
+       discussed in Section 3 contained in the "filtering" attribute are
+       used to specify the reasons for performing DNS-based content
+       filtering.
 
    6.  The "attested-resinfo" name contains a base64 encoding of a PAT
        Section 3.  If the "attested-resinfo" name is conveyed to the
@@ -721,14 +751,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    and get the DNS server certificate signed by a CA.  The policy
    information will have to be attested using EV certificates or a PAT
    object signer trusted by the DNS client to prevent the attack.
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 13]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    The CA that issued the EV certificate does not attest the resolver
    information.  The organization hosting the DNS server attests the
@@ -756,6 +778,14 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    the 'Media Types' registry in the manner described in [RFC6838],
    which can be used to indicate that the content is a PAT defined JWT.
 
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 14]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    o  Type name: application
 
    o  Subtype name: pat
@@ -778,13 +808,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    o  Applications that use this media type: DNS
 
    o  Fragment identifier considerations: n/a
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 14]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    o  Additional information:
 
@@ -811,6 +834,14 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    IANA is requested to assign the following claims in the registry
    maintained in: https://www.iana.org/assignments/jwt/jwt.xhtml.
 
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 15]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    o  Claim Name: 'server'
 
    o  Claim Description: DNS server identity
@@ -829,22 +860,15 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 11.3.  DNS Resolver Information Registration
 
-   IANA will add the names "attested-resinfo", "server", "filtering" and
-   "qnameminimization" to the SVCB Service Parameters registry defined
-   in Section 14.3 of [I-D.ietf-dnsop-svcb-https].
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 15]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
+   IANA will add the names "attested-resinfo", "server", "filtering",
+   "resinfourl", "extendeddnserror" and "qnameminimization" to the SVCB
+   Service Parameters registry defined in Section 14.3 of
+   [I-D.ietf-dnsop-svcb-https].
 
    IANA will add "malwareblocking", "phishingblocking",
-   "policyblocking", and "censoredblocking" sub-attributes contained in
-   the "filtering" attribute to the SVCB Service Parameters registry.
+   "policyblocking", "filteredblocking" and "censoredblocking" sub-
+   attributes contained in the "filtering" attribute to the SVCB Service
+   Parameters registry.
 
    IANA will add "adn" and "uri" sub-attributes contained in the
    "server" attribute to the SVCB Service Parameters registry.
@@ -864,6 +888,15 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
               Extensions (MIME) Part Two: Media Types", RFC 2046,
               DOI 10.17487/RFC2046, November 1996,
               <https://www.rfc-editor.org/info/rfc2046>.
+
+
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 16]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -891,13 +924,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
               RFC 6838, DOI 10.17487/RFC6838, January 2013,
               <https://www.rfc-editor.org/info/rfc6838>.
 
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 16]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
-
    [RFC6979]  Pornin, T., "Deterministic Usage of the Digital Signature
               Algorithm (DSA) and Elliptic Curve Digital Signature
               Algorithm (ECDSA)", RFC 6979, DOI 10.17487/RFC6979, August
@@ -918,6 +944,15 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    [RFC7638]  Jones, M. and N. Sakimura, "JSON Web Key (JWK)
               Thumbprint", RFC 7638, DOI 10.17487/RFC7638, September
               2015, <https://www.rfc-editor.org/info/rfc7638>.
+
+
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 17]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
 
    [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
               and P. Hoffman, "Specification for DNS over Transport
@@ -941,18 +976,8 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    [I-D.btw-add-home]
               Boucadair, M., Reddy.K, T., Wing, D., Cook, N., and T.
               Jensen, "DHCP and Router Advertisement Options for
-              Encrypted DNS Discovery within Home Networks", draft-btw-
-              add-home-11 (work in progress), January 2021.
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 17]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
+              Encrypted DNS Discovery", draft-btw-add-home-12 (work in
+              progress), January 2021.
 
    [I-D.btw-add-ipsecme-ike]
               Boucadair, M., Reddy.K, T., Wing, D., and V. Smyslov,
@@ -976,6 +1001,15 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
               of DNS over Dedicated QUIC Connections", draft-ietf-
               dprive-dnsoquic-01 (work in progress), October 2020.
 
+
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 18]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    [I-D.ietf-rats-architecture]
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
               W. Pan, "Remote Attestation Procedures Architecture",
@@ -998,17 +1032,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    [RFC8225]  Wendt, C. and J. Peterson, "PASSporT: Personal Assertion
               Token", RFC 8225, DOI 10.17487/RFC8225, February 2018,
               <https://www.rfc-editor.org/info/rfc8225>.
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 18]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    [RFC8310]  Dickinson, S., Gillmor, D., and T. Reddy, "Usage Profiles
               for DNS over TLS and DNS over DTLS", RFC 8310,
@@ -1036,6 +1059,13 @@ Appendix A.  Example of ES256-based PAT JWS Serialization and Signature
 
    o  'payload', with the value BASE64URL (JWS Payload)
 
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 19]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    o  'signature', with the value BASE64URL(JWS Signature)
 
    This example will follow the steps in JWS [RFC7515] Section 5.1,
@@ -1044,27 +1074,6 @@ Appendix A.  Example of ES256-based PAT JWS Serialization and Signature
 
    Step 1 for JWS references the JWS Payload, an example PAT Payload is
    as follows:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 19]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    {
      "server":{
@@ -1101,6 +1110,18 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    For Step 3, an example PAT Protected Header comprising the JOSE
    Header is as follows:
 
+
+
+
+
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 20]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    {
      "alg":"ES256",
      "typ":"pat",
@@ -1112,15 +1133,6 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
    {"alg":"ES256","typ":"pat","x5u":"https://cert.example.com
    /pat.cer"}
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 20]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    Step 4 Performs the BASE64URL(UTF8(JWS Protected Header)) operation
    and encoding produces this value (with line break used for display
@@ -1159,6 +1171,13 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
    TF_FZ_44WqL9nYiik8QBm-e1S-lJTOkRpaKLNc5SwnU86lbeccxhd2Xd3xd13cTjub
    65Pz1vhEQN1nzbZb2Hkg
 
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 21]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
 A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
 
    -----BEGIN PRIVATE KEY-----
@@ -1166,17 +1185,6 @@ A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
    OF/2NxApJCzGCEDdfSp6VQO30hyhRANCAAQRWz+jn65BtOMvdyHKcvjBeBSDZH2r
    1RTwjmYSi9R/zpBnuQ4EiMnCqfMPWiZqB4QdbAd0E7oH50VpuZ1P087G
    -----END PRIVATE KEY-----
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 21]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
 A.2.  X.509 Public Key for ES256 Example**
 
@@ -1219,20 +1227,18 @@ Appendix B.  Complete JWS JSON Serialization Representation with
 
    The JWS Protected Header value used for the second signature is:
 
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 22]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
    {
      "alg":"ES384",
      "typ":"pat",
      "x5u":"https://cert.audit-example.com/pat.cer"
    }
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 22]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
-
 
    The complete JWS JSON Serialization for these values is as follows
    (with line breaks within values for display purposes only):
@@ -1272,6 +1278,18 @@ B.2.  X.509 Public Key for ES384 Example**
    q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
    -----END PUBLIC KEY-----
 
+
+
+
+
+
+
+
+Reddy, et al.             Expires July 30, 2021                [Page 23]
+
+Internet-Draft    DNS Server Info with Assertion Token      January 2021
+
+
 Authors' Addresses
 
    Tirumaleswar Reddy
@@ -1281,13 +1299,6 @@ Authors' Addresses
    India
 
    Email: kondtir@gmail.com
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 23]
-
-Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
    Dan Wing
@@ -1330,15 +1341,4 @@ Internet-Draft    DNS Server Info with Assertion Token      January 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires July 26, 2021                [Page 24]
+Reddy, et al.             Expires July 30, 2021                [Page 24]

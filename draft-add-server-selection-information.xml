@@ -96,7 +96,7 @@
       authenticity is used for the selection of DNS resolvers. Typically,
       evaluating the filtering behavior and the signatory, DNS clients with
       minimal or no human intervention can select the DNS servers for
-      resolving domain names. </t>
+      resolving domain names.</t>
 
       <t>This assertion is useful for encrypted DNS (e.g., DNS-over-TLS,
       DNS-over-HTTPS, or DNS-over-QUIC) servers that are either public
@@ -195,7 +195,7 @@
       requesting organization's legal identity. If the signing certificate is
       a EV certificate, it leaves the client with a better audit trail of the
       organization hosting the DNS server in comparison with the DV
-      certificate. </t>
+      certificate.</t>
 
       <t>The use of EV certificate is needed in the following scenarios:</t>
 
@@ -206,7 +206,7 @@
           domain-validated public certificate from a CA and host a Encrypted
           DNS server. Furthermore, an attacker can use a public IP address,
           get an 'IP address'-validated public certificate from a CA and host
-          a Encrypted DNS server. </t>
+          a Encrypted DNS server.</t>
 
           <t>It can be used by the client to identify the Encrypted DNS server
           is hosted by a legal organization.</t>
@@ -256,7 +256,7 @@
       "resolver-info.arpa/IN" defined in <xref
       target="I-D.pauly-add-deer"></xref> is used to discover the Encrypted
       DNS server, the client can retrieve the PAT object using the SVCB RRtype
-      and QNAME of the special-use domain name. </t>
+      and QNAME of the special-use domain name.</t>
 
       <t>The signature of PAT object MUST be validated by the DNS client. If
       signature is invalid, the PAT object is rejected. If signature is valid,
@@ -373,7 +373,7 @@
           server to the DNS client and ensures the DNS client does not use
           outdated policy information. If the DNS client knows the PAT object
           has expired, it should make another request to get the new PAT
-          object from the DNS server. </t>
+          object from the DNS server.</t>
         </section>
       </section>
 
@@ -459,11 +459,25 @@
                   bodies (e.g., Law Enforcement Agency) vs. arbitrary
                   blocking. Such differentiation may be defined if
                   required.</t>
+
+                  <t hangText="filteredblocking:">If access to domains is
+                  blocked due to an blacklist requested by the client, the
+                  parameter value is set to 'true'. Note that the extended
+                  error code "Filtered" defined in Section 4.18 of <xref
+                  target="RFC8914"></xref> identifies access to domains is
+                  blocked based on the request from the client to blacklist
+                  domains. </t>
                 </list></t>
 
               <t hangText="qnameminimization:">If the DNS server supports
               QNAME minimisation <xref target="RFC7816"></xref> to improve DNS
               privacy, the parameter value is set to true. This is a mandatory
+              attribute.</t>
+
+              <t hangText="extendeddnserror:">If the DNS server supports
+              extended DNS error (EDE) <xref target="RFC8914"></xref> to
+              return additional information about the cause of DNS errors, the
+              parameter value is set to true. This is an optional
               attribute.</t>
 
               <t hangText="clientauth:">If the DNS server policy requires
@@ -473,11 +487,16 @@
               server, roaming users can use client authentication to access
               the Enterprise provided Encrypted DNS server. This is an
               optional attribute.</t>
+
+              <t hangText="resinfourl:">A URL that points to the resolver
+              information (e.g., DoH APIs supported, possible HTTP status
+              codes returned by the DoH server, how to report a problem, etc.)
+              for troubleshooting purpose. This is an optional attribute.</t>
             </list></t>
         </section>
 
         <section anchor="pat_payload_example" title="An Example">
-          <t> <xref target="poex"></xref> shows an example of policy
+          <t><xref target="poex"></xref> shows an example of policy
           information.</t>
 
           <figure anchor="poex" title="An Example of Policy Information">
@@ -648,15 +667,15 @@
           contained in the "server" attribute is used to specify the DNS
           server identity in the form of URI template.</t>
 
-          <t>The "filtering" and "qnameminimization" names containing the
-          resolver information of the DNS server discussed in <xref
-          target="PAT"></xref>.</t>
+          <t>The "filtering", "resinfourl", "extendeddnserror" and
+          "qnameminimization" names containing the resolver information of the
+          DNS server discussed in <xref target="PAT"></xref>.</t>
 
           <t>The sub-attributes "malwareblocking", "phishingblocking",
-          "policyblocking", and "censoredblocking" discussed in <xref
-          target="PAT"></xref> contained in the "filtering" attribute are used
-          to specify the reasons for performing DNS-based content
-          filtering.</t>
+          "policyblocking", "filteredblocking", and "censoredblocking"
+          discussed in <xref target="PAT"></xref> contained in the "filtering"
+          attribute are used to specify the reasons for performing DNS-based
+          content filtering.</t>
 
           <t>The "attested-resinfo" name contains a base64 encoding of a PAT
           <xref target="PAT"></xref>. If the "attested-resinfo" name is
@@ -779,14 +798,15 @@
 
       <section anchor="resolver-information"
                title="DNS Resolver Information Registration">
-        <t>IANA will add the names "attested-resinfo", "server", "filtering"
-        and "qnameminimization" to the SVCB Service Parameters registry
-        defined in Section 14.3 of <xref
+        <t>IANA will add the names "attested-resinfo", "server", "filtering",
+        "resinfourl", "extendeddnserror" and "qnameminimization" to the SVCB
+        Service Parameters registry defined in Section 14.3 of <xref
         target="I-D.ietf-dnsop-svcb-https"></xref>.</t>
 
         <t>IANA will add "malwareblocking", "phishingblocking",
-        "policyblocking", and "censoredblocking" sub-attributes contained in
-        the "filtering" attribute to the SVCB Service Parameters registry.</t>
+        "policyblocking", "filteredblocking" and "censoredblocking"
+        sub-attributes contained in the "filtering" attribute to the SVCB
+        Service Parameters registry.</t>
 
         <t>IANA will add "adn" and "uri" sub-attributes contained in the
         "server" attribute to the SVCB Service Parameters registry.</t>
