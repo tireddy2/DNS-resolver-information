@@ -89,7 +89,7 @@
 
     <abstract>
       <t>The document defines a mechanism that is meant to communicate DNS
-      resolver information to DNS clients for use as a criterai for server
+      resolver information to DNS clients for use as a criteria for server
       selection decisions. In particular, the document defines a mechanism for
       a DNS server to communicate its filtering behavior to DNS clients. Such
       an information that is cryptographically signed to attest its
@@ -117,15 +117,15 @@
 
       <t>DNS clients can discover and authenticate encrypted DNS servers
       provided by a local network, for example using the techniques proposed
-      in <xref target="I-D.btw-add-home"></xref> and <xref
-      target="I-D.pauly-add-deer"></xref>. If the mechanism used to discover
-      the encrypted DNS server is insecure, the DNS client needs evidence
-      about the encrypted server to assess its trustworthiness and a way to
-      appraise such evidence. The mechanism specified in this document can be
-      used by the DNS client to cryptographically identify if it is connecting
-      to an encrypted DNS server hosted by a specific organization (e.g., ISP
-      or Enterprise). This strengthens the protection as clients can detect
-      and reject connections to encrypted DNS servers hosted by attackers.</t>
+      in <xref target="I-D.btw-add-home"></xref> and [I-D.ietf-add-ddr]. If
+      the mechanism used to discover the encrypted DNS server is insecure, the
+      DNS client needs evidence about the encrypted server to assess its
+      trustworthiness and a way to appraise such evidence. The mechanism
+      specified in this document can be used by the DNS client to
+      cryptographically identify if it is connecting to an encrypted DNS
+      server hosted by a specific organization (e.g., ISP or Enterprise). This
+      strengthens the protection as clients can detect and reject connections
+      to encrypted DNS servers hosted by attackers.</t>
 
       <t>This document also defines a mechanism for DNS clients to gather a
       set of information related to discovered (or preconfigured) servers and
@@ -252,11 +252,10 @@
       <t>The client can retrieve the PAT object using the SVCB RRtype defined
       in <xref target="I-D.ietf-dnsop-svcb-https"></xref> and QNAME of the
       domain name that is used to authenticate the DNS server (referred to as
-      ADN in <xref target="RFC8310"></xref>). If the special-use domain name
-      "resolver-info.arpa/IN" defined in <xref
-      target="I-D.pauly-add-deer"></xref> is used to discover the Encrypted
-      DNS server, the client can retrieve the PAT object using the SVCB RRtype
-      and QNAME of the special-use domain name.</t>
+      ADN in <xref target="RFC8310"></xref>). If the special use domain name
+      "resolver-info.arpa" defined in [I-D.ietf-add-ddr] is used to discover
+      the Encrypted DNS server, the client can retrieve the PAT object using
+      the SVCB RRtype and QNAME of the special use domain name.</t>
 
       <t>The signature of PAT object MUST be validated by the DNS client. If
       signature is invalid, the PAT object is rejected. If signature is valid,
@@ -419,7 +418,15 @@
         <section anchor="policyinfo"
                  title="'policyinfo' (Policy Information) Claim">
           <t>The 'policyinfo' claim MUST be formatted as a JSON object. The
-          'policyinfo' claim contains the policy information of the DNS
+          JSON object MUST use the I-JSON message format defined in <xref
+          target="RFC7493"></xref>. Note that <xref target="RFC7493"></xref>
+          was based on <xref target="RFC7159"></xref>, but<xref
+          target="RFC7159"> </xref> was replaced by <xref
+          target="RFC8259"></xref>. Requiring the use of I-JSON instead of
+          more general JSON format greatly increases the likelihood of
+          interoperability.</t>
+
+          <t>The 'policyinfo' claim contains the policy information of the DNS
           server, it includes the following attributes:</t>
 
           <t><list style="hanging">
@@ -466,7 +473,7 @@
                   error code "Filtered" defined in Section 4.18 of <xref
                   target="RFC8914"></xref> identifies access to domains is
                   blocked based on the request from the client to blacklist
-                  domains. </t>
+                  domains.</t>
                 </list></t>
 
               <t hangText="qnameminimization:">If the DNS server supports
@@ -488,10 +495,11 @@
               the Enterprise provided Encrypted DNS server. This is an
               optional attribute.</t>
 
-              <t hangText="resinfourl:">A URL that points to the resolver
-              information (e.g., DoH APIs supported, possible HTTP status
-              codes returned by the DoH server, how to report a problem, etc.)
-              for troubleshooting purpose. This is an optional attribute.</t>
+              <t hangText="resinfourl:">A URL that points to the generic
+              unstructured resolver information (e.g., DoH APIs supported,
+              possible HTTP status codes returned by the DoH server, how to
+              report a problem, etc.) for troubleshooting purpose. This is an
+              optional attribute.</t>
             </list></t>
         </section>
 
@@ -852,6 +860,8 @@
       <?rfc include="reference.RFC.7858"?>
 
       <?rfc include="reference.RFC.3986"?>
+
+      <?rfc include="reference.RFC.7493"?>
     </references>
 
     <references title="Informative References">
@@ -876,9 +886,11 @@
 
       <?rfc include='reference.I-D.btw-add-home'?>
 
-      <?rfc include='reference.I-D.pauly-add-deer'?>
-
       <?rfc include='reference.RFC.8914' ?>
+
+      <?rfc include='reference.RFC.8259' ?>
+
+      <?rfc include='reference.RFC.7159' ?>
 
       <?rfc include='reference.I-D.ietf-dnsop-terminology-ter'?>
 
