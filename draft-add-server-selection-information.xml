@@ -253,9 +253,9 @@
       in <xref target="I-D.ietf-dnsop-svcb-https"></xref> and QNAME of the
       domain name that is used to authenticate the DNS server (referred to as
       ADN in <xref target="RFC8310"></xref>). If the special use domain name
-      "resolver-info.arpa" defined in [I-D.ietf-add-ddr] is used to discover
-      the Encrypted DNS server, the client can retrieve the PAT object using
-      the SVCB RRtype and QNAME of the special use domain name.</t>
+      "resolver.arpa" defined in [I-D.ietf-add-ddr] is used to discover the
+      Encrypted DNS server, the client can retrieve the PAT object using the
+      SVCB RRtype and QNAME of the special use domain name.</t>
 
       <t>The signature of PAT object MUST be validated by the DNS client. If
       signature is invalid, the PAT object is rejected. If signature is valid,
