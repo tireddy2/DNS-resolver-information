@@ -117,25 +117,22 @@
 
       <t>DNS clients can discover and authenticate encrypted DNS servers
       provided by a local network, for example using the techniques proposed
-      in <xref target="I-D.btw-add-home"></xref> and [I-D.ietf-add-ddr]. If
-      the mechanism used to discover the encrypted DNS server is insecure, the
-      DNS client needs evidence about the encrypted server to assess its
-      trustworthiness and a way to appraise such evidence. The mechanism
-      specified in this document can be used by the DNS client to
-      cryptographically identify if it is connecting to an encrypted DNS
-      server hosted by a specific organization (e.g., ISP or Enterprise). This
-      strengthens the protection as clients can detect and reject connections
-      to encrypted DNS servers hosted by attackers.</t>
+      in [I-D.ietf-add-dnr] and [I-D.ietf-add-ddr]. If the mechanism used to
+      discover the encrypted DNS server is insecure, the DNS client needs
+      evidence about the encrypted server to assess its trustworthiness and a
+      way to appraise such evidence. The mechanism specified in this document
+      can be used by the DNS client to cryptographically identify if it is
+      connecting to an encrypted DNS server hosted by a specific organization
+      (e.g., ISP or Enterprise). This strengthens the protection as clients
+      can detect and reject connections to encrypted DNS servers hosted by
+      attackers.</t>
 
       <t>This document also defines a mechanism for DNS clients to gather a
       set of information related to discovered (or preconfigured) servers and
       use that information to feed a DNS server selection procedure. The
       following parameters are supported in this version:<list style="hanging">
-          <t hangText="Malware blocking:">Indicates whether the DNS server
-          offers malware blocking service.</t>
-
-          <t hangText="Phishing blocking:">Indicates whether the DNS server
-          offers phishing blocking service.</t>
+          <t hangText="Threat blocking:">Indicates whether the DNS server
+          offers threat blocking service.</t>
 
           <t hangText="Policy blocking:">Indicates whether the DNS server
           maintains a block-list due to a policy by the operator of the DNS
@@ -265,11 +262,9 @@
       RESINFO RRtype and QNAME of the special use domain name.</t>
 
       <t>The signature of RAT object MUST be validated by the DNS client. If
-      signature is invalid, the RAT object is rejected. If signature is valid,
-      signer is trusted and the contents of the RAT object comply with the
-      user's requirements, the DNS client can use that encrypted DNS server.
-      The result of this determination SHOULD be remembered by the DNS client
-      to avoid prompting the user again when re-joining that same network.</t>
+      signature is invalid, the RAT object is rejected. If signature is valid
+      and signer is trusted, the DNS client can use that encrypted DNS server.
+      </t>
     </section>
 
     <section anchor="pat_header" title="RAT Header">
@@ -442,16 +437,15 @@
               policy criteria, such as to prevent access to malware sites or
               objectionable content (e.g., legal obligation). This optional
               attribute has the following structure:<list style="hanging">
-                  <t hangText="malwareblocking:">The DNS server offers malware
+                  <t hangText="threatblocking:">The DNS server offers threat
                   blocking service. If access to domains is blocked on threat
                   data, the parameter value is set to 'true'. Note that some
-                  of the commonly known types of malware are viruses, worms,
-                  trojans, bots, ransomware, backdoors, spyware, and
-                  adware.</t>
-
-                  <t hangText="phishingblocking:">The DNS server offers
-                  phishing blocking service. If access to phishing domains is
-                  blocked, the parameter value is set to 'true'. </t>
+                  of the commonly known types of threats are malware,
+                  phishing, viruses, worms, trojans, bots, ransomware,
+                  backdoors, spyware, and adware. Extended error code "Threat
+                  Blocking" defined in <xref target="threat-blocking"></xref>
+                  identifies access to domains is blocked to protect from
+                  security threats.</t>
 
                   <t hangText="policyblocking:">If access to domains is
                   blocked due to an internal policy imposed by the operator of
@@ -528,7 +522,7 @@
   "exp":1443640345,
   "resinfo": {
      "filtering": {
-         "malwareblocking": true,
+         "threatblocking": true,
          "policyblocking": false
      },
      "qnameminimization":false,
@@ -691,7 +685,7 @@
           "qnameminimization" names containing the resolver information of the
           DNS server discussed in <xref target="PAT"></xref>.</t>
 
-          <t>The sub-attributes "malwareblocking", "phishingblocking",
+          <t>The sub-attributes "threatblocking", "phishingblocking",
           "policyblocking", "filteredblocking", and "censoredblocking"
           discussed in <xref target="PAT"></xref> contained in the "filtering"
           attribute are used to specify the reasons for performing DNS-based
@@ -822,13 +816,19 @@
         "qnameminimization" to the DNS Resolver Information registry defined
         in Section 4.2 of <xref target="I-D.pp-add-resinfo"></xref>.</t>
 
-        <t>IANA will add "malwareblocking", "phishingblocking",
+        <t>IANA will add "threatblocking", "phishingblocking",
         "policyblocking", "filteredblocking" and "censoredblocking"
         sub-attributes contained in the "filtering" attribute to the DNS
         Resolver Information registry.</t>
 
         <t>IANA will add "adn" and "uri" sub-attributes contained in the
         "server" attribute to the DNS Resolver Information registry.</t>
+      </section>
+
+      <section anchor="threat-blocking"
+               title="Threat Blocking Extended DNS Error Code">
+        <t>IANA is requested to add Extended DNS Error Code for "Threat
+        Blocking" in the registry for Extended DNS Error Codes. </t>
       </section>
     </section>
 
@@ -948,8 +948,8 @@
   "exp":1443640345,
   "resinfo": {
      "filtering": {
-         "malwareblocking": true,
-         "policyblocking": false
+         "policyblocking": false,
+         "threatblocking": true
      },
      "qnameminimization":false
   } 
@@ -962,7 +962,7 @@
 
       <figure>
         <artwork><![CDATA[{"exp":1443640345,"iat":1443208345,"resinfo":{
-"filtering":{"malwareblocking": true,"policyblocking": false},
+"filtering":{"policyblocking": false,"threatblocking": true},
 "qnameminimization":false},"server":{"adn":["example.com"]}}
 ]]></artwork>
       </figure>
@@ -973,9 +973,9 @@
       <figure>
         <artwork><![CDATA[
 eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6eyJma
-Wx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2luZy
-I6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWR
-uIjpbImV4YW1wbGUuY29tIl19fQ
+Wx0ZXJpbmciOnsicG9saWN5YmxvY2tpbmciOmZhbHNlLCJ0aHJlYXRibG9ja2luZy
+I6dHJ1ZX0sInFuYW1lbWluaW1pemF0aW9uIjpmYWxzZX0sInNlcnZlciI6eyJhZG4
+iOlsiZXhhbXBsZS5jb20iXX19
 
 
 ]]></artwork>
@@ -1025,8 +1025,8 @@ eGFtcGxlLmNvbS9yYXQuY2VyIn0
       <figure>
         <artwork><![CDATA[
 
-_jNi5LAkTPz_HFT0tQNS4EO03mApYhk-HPydNrroTC9DfcuKx__g-1kjQvMPl-6E
-qxyjGhk30pwhDxcGY5PetA
+iZnPL0IdMmAejJODF9wCE-ZR_t1_su4Fjx9Zhgt5LekjXNYgmOwk_BBghbdraoV5
+U2EiFuKCnMYAdbqp9GP1MQ
 
 
 ]]></artwork>
@@ -1043,12 +1043,12 @@ qxyjGhk30pwhDxcGY5PetA
 eGFtcGxlLmNvbS9yYXQuY2VyIn0
 .
 eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6eyJma
-Wx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2luZy
-I6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWR
-uIjpbImV4YW1wbGUuY29tIl19fQ
+Wx0ZXJpbmciOnsicG9saWN5YmxvY2tpbmciOmZhbHNlLCJ0aHJlYXRibG9ja2luZy
+I6dHJ1ZX0sInFuYW1lbWluaW1pemF0aW9uIjpmYWxzZX0sInNlcnZlciI6eyJhZG4
+iOlsiZXhhbXBsZS5jb20iXX19
 .
-_jNi5LAkTPz_HFT0tQNS4EO03mApYhk-HPydNrroTC9DfcuKx__g-1kjQvMPl-6E
-qxyjGhk30pwhDxcGY5PetA
+iZnPL0IdMmAejJODF9wCE-ZR_t1_su4Fjx9Zhgt5LekjXNYgmOwk_BBghbdraoV5
+U2EiFuKCnMYAdbqp9GP1MQ
 
 ]]></artwork>
       </figure>
@@ -1092,8 +1092,8 @@ q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
   "exp":1443640345,
   "resinfo": {
      "filtering": {
-         "malwareblocking": true,
-         "policyblocking": false
+         "policyblocking": false,
+         "threatblocking": true         
      },
      "qnameminimization":false
   } 
@@ -1106,7 +1106,7 @@ q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
 
       <figure>
         <artwork><![CDATA[{"exp":1443640345,"iat":1443208345,"resinfo":{
-"filtering":{"malwareblocking": true,"policyblocking": false},
+"filtering":{"policyblocking": false,"threatblocking": true},
 "qnameminimization":false},"server":{"adn":["example.com"]}}
 ]]></artwork>
       </figure>
@@ -1138,19 +1138,19 @@ q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
         <artwork><![CDATA[{
   "payload":
        "eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6eyJma
-        Wx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2luZy
-        I6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWR
-        uIjpbImV4YW1wbGUuY29tIl19fQ",
+        Wx0ZXJpbmciOnsicG9saWN5YmxvY2tpbmciOmZhbHNlLCJ0aHJlYXRibG9ja2luZy
+        I6dHJ1ZX0sInFuYW1lbWluaW1pemF0aW9uIjpmYWxzZX0sInNlcnZlciI6eyJhZG4
+        iOlsiZXhhbXBsZS5jb20iXX19",
   "signatures":[
-       {"protected":"eyJhbGciOiJFUzI1NiIsInR5cCI6InJhdCIsIng1dSI6Imh0dHBzO
-        i8vY2VydC5leGFtcGxlLmNvbS9yYXQuY2VyIn0",
-        "signature":"_jNi5LAkTPz_HFT0tQNS4EO03mApYhk-HPydNrroTC9DfcuKx__g-
-         1kjQvMPl-6EqxyjGhk30pwhDxcGY5PetA"},
+       {"protected":"eyJhbGciOiJFUzI1NiIsInR5cCI6InJhdCIsIng1dSI6Imh0dHBz
+        Oi8vY2VydC5leGFtcGxlLmNvbS9yYXQuY2VyIn0",
+        "signature":"iZnPL0IdMmAejJODF9wCE-ZR_t1_su4Fjx9Zhgt5LekjXNYgmOwk
+        _BBghbdraoV5U2EiFuKCnMYAdbqp9GP1MQ"},
        {"protected":"eyJhbGciOiJFUzM4NCIsInR5cCI6InJhdCIsIng1dSI6Imh0dHB
         zOi8vY2VydC5hdWRpdC1leGFtcGxlLmNvbS9yYXQuY2VyIn0",
-        "signature":"860AQQcKWRLGVbq7nWokrazKynQ76Mr1t5fxIXJcgE7uPDb2O0Z
-        qaQFpMiMRJPZJNwRMNjzVyTZHDthreg22uSv0Vs_8DR2azvEPCM_qncS4Pky3BAH
-        Z1ROAnEmIQ8kC"}]   
+        "signature":"AFHqBprocE_ffBH166TTzKUpNfADIIzsI4wd64tIrCsdCSk0HDB
+        v79-BQYyQ4WDfKQsPAywklnSQmOPdw0YKuB-dyS83RQ8aPyg0QTQwxKbVxbcCxnR
+        5X1HdRBbNd_em"}]   
 }
 ]]></artwork>
       </figure>

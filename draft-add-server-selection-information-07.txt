@@ -5,12 +5,12 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                                 D. Wing
-Expires: September 5, 2021                                        Citrix
+Expires: September 6, 2021                                        Citrix
                                                            M. Richardson
                                                 Sandelman Software Works
                                                             M. Boucadair
                                                                   Orange
-                                                           March 4, 2021
+                                                           March 5, 2021
 
 
    DNS Server Selection: DNS Server Information with Assertion Token
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 5, 2021.
+   This Internet-Draft will expire on September 6, 2021.
 
 
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 1]
+Reddy, et al.           Expires September 6, 2021               [Page 1]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -103,24 +103,25 @@ Table of Contents
      11.2.  JSON Web Token Claims Registration . . . . . . . . . . .  16
        11.2.1.  Registry Contents Additions Requested  . . . . . . .  16
      11.3.  DNS Resolver Information Registration  . . . . . . . . .  16
-   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  16
+     11.4.  Threat Blocking Extended DNS Error Code  . . . . . . . .  16
+   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  17
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  17
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 2]
+Reddy, et al.           Expires September 6, 2021               [Page 2]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      13.2.  Informative References . . . . . . . . . . . . . . . . .  18
    Appendix A.  Example of ES256-based RAT JWS Serialization and
                 Signature  . . . . . . . . . . . . . . . . . . . . .  20
      A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**  .  22
-     A.2.  X.509 Public Key for ES256 Example**  . . . . . . . . . .  22
+     A.2.  X.509 Public Key for ES256 Example**  . . . . . . . . . .  23
    Appendix B.  Complete JWS JSON Serialization Representation with
-                multiple Signatures  . . . . . . . . . . . . . . . .  22
+                multiple Signatures  . . . . . . . . . . . . . . . .  23
      B.1.  X.509 Private Key in PKCS#8 format for E384 Example** . .  24
      B.2.  X.509 Public Key for ES384 Example**  . . . . . . . . . .  24
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
@@ -136,7 +137,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
    DNS clients can discover and authenticate encrypted DNS servers
    provided by a local network, for example using the techniques
-   proposed in [I-D.btw-add-home] and [I-D.ietf-add-ddr].  If the
+   proposed in [I-D.ietf-add-dnr] and [I-D.ietf-add-ddr].  If the
    mechanism used to discover the encrypted DNS server is insecure, the
    DNS client needs evidence about the encrypted server to assess its
    trustworthiness and a way to appraise such evidence.  The mechanism
@@ -151,10 +152,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    and use that information to feed a DNS server selection procedure.
    The following parameters are supported in this version:
 
-   Malware blocking:  Indicates whether the DNS server offers malware
-      blocking service.
-
-   Phishing blocking:  Indicates whether the DNS server offers phishing
+   Threat blocking:  Indicates whether the DNS server offers threat
       blocking service.
 
    Policy blocking:  Indicates whether the DNS server maintains a block-
@@ -165,7 +163,9 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 3]
+
+
+Reddy, et al.           Expires September 6, 2021               [Page 3]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -221,7 +221,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 4]
+Reddy, et al.           Expires September 6, 2021               [Page 4]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -277,7 +277,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 5]
+Reddy, et al.           Expires September 6, 2021               [Page 5]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -333,7 +333,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 6]
+Reddy, et al.           Expires September 6, 2021               [Page 6]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -389,7 +389,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 7]
+Reddy, et al.           Expires September 6, 2021               [Page 7]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -445,7 +445,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 8]
+Reddy, et al.           Expires September 6, 2021               [Page 8]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -482,15 +482,14 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
       content (e.g., legal obligation).  This optional attribute has the
       following structure:
 
-      malwareblocking:  The DNS server offers malware blocking service.
+      threatblocking:  The DNS server offers threat blocking service.
          If access to domains is blocked on threat data, the parameter
          value is set to 'true'.  Note that some of the commonly known
-         types of malware are viruses, worms, trojans, bots, ransomware,
-         backdoors, spyware, and adware.
-
-      phishingblocking:  The DNS server offers phishing blocking
-         service.  If access to phishing domains is blocked, the
-         parameter value is set to 'true'.
+         types of threats are malware, phishing, viruses, worms,
+         trojans, bots, ransomware, backdoors, spyware, and adware.
+         Extended error code "Threat Blocking" defined in [RFC8914]
+         identifies access to domains is blocked to protect from
+         security threats.
 
       policyblocking:  If access to domains is blocked due to an
          internal policy imposed by the operator of the DNS server, the
@@ -501,7 +500,8 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021               [Page 9]
+
+Reddy, et al.           Expires September 6, 2021               [Page 9]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -557,7 +557,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 10]
+Reddy, et al.           Expires September 6, 2021              [Page 10]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -570,7 +570,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
      "exp":1443640345,
      "resinfo": {
         "filtering": {
-            "malwareblocking": true,
+            "threatblocking": true,
             "policyblocking": false
         },
         "qnameminimization":false,
@@ -613,7 +613,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 11]
+Reddy, et al.           Expires September 6, 2021              [Page 11]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -669,7 +669,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 12]
+Reddy, et al.           Expires September 6, 2021              [Page 12]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -725,7 +725,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 13]
+Reddy, et al.           Expires September 6, 2021              [Page 13]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -738,7 +738,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
        "qnameminimization" names containing the resolver information of
        the DNS server discussed in Section 3.
 
-   5.  The sub-attributes "malwareblocking", "phishingblocking",
+   5.  The sub-attributes "threatblocking", "phishingblocking",
        "policyblocking", "filteredblocking", and "censoredblocking"
        discussed in Section 3 contained in the "filtering" attribute are
        used to specify the reasons for performing DNS-based content
@@ -781,7 +781,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 14]
+Reddy, et al.           Expires September 6, 2021              [Page 14]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -837,7 +837,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 15]
+Reddy, et al.           Expires September 6, 2021              [Page 15]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -874,13 +874,29 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    "qnameminimization" to the DNS Resolver Information registry defined
    in Section 4.2 of [I-D.pp-add-resinfo].
 
-   IANA will add "malwareblocking", "phishingblocking",
-   "policyblocking", "filteredblocking" and "censoredblocking" sub-
-   attributes contained in the "filtering" attribute to the DNS Resolver
-   Information registry.
+   IANA will add "threatblocking", "phishingblocking", "policyblocking",
+   "filteredblocking" and "censoredblocking" sub-attributes contained in
+   the "filtering" attribute to the DNS Resolver Information registry.
 
    IANA will add "adn" and "uri" sub-attributes contained in the
    "server" attribute to the DNS Resolver Information registry.
+
+11.4.  Threat Blocking Extended DNS Error Code
+
+   IANA is requested to add Extended DNS Error Code for "Threat
+   Blocking" in the registry for Extended DNS Error Codes.
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 16]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
 12.  Acknowledgments
 
@@ -888,15 +904,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    [RFC8225].  Thanks to Tommy Jensen, Ted Lemon, Paul Wouters, Neil
    Cook, Vittorio Bertola, Vinny Parla, Chris Box, Ben Schwartz and
    Shashank Jain for the discussion and comments.
-
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 16]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
 
 13.  References
 
@@ -938,6 +945,15 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Algorithm (ECDSA)", RFC 6979, DOI 10.17487/RFC6979, August
               2013, <https://www.rfc-editor.org/info/rfc6979>.
 
+
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 17]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
+
    [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
               DOI 10.17487/RFC7493, March 2015,
               <https://www.rfc-editor.org/info/rfc7493>.
@@ -945,14 +961,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
               2015, <https://www.rfc-editor.org/info/rfc7515>.
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 17]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
 
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
@@ -991,6 +999,17 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Encrypted DNS Discovery", draft-btw-add-home-12 (work in
               progress), January 2021.
 
+
+
+
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 18]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
+
    [I-D.btw-add-ipsecme-ike]
               Boucadair, M., Reddy.K, T., Wing, D., and V. Smyslov,
               "Internet Key Exchange Protocol Version 2 (IKEv2)
@@ -1001,14 +1020,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Hoffman, P., "Terminology for DNS Transports and
               Location", draft-ietf-dnsop-terminology-ter-02 (work in
               progress), August 2020.
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 18]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
 
    [I-D.ietf-dprive-dnsoquic]
               Huitema, C., Mankin, A., and S. Dickinson, "Specification
@@ -1047,6 +1058,14 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 19]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
+
    [RFC8310]  Dickinson, S., Gillmor, D., and T. Reddy, "Usage Profiles
               for DNS over TLS and DNS over DTLS", RFC 8310,
               DOI 10.17487/RFC8310, March 2018,
@@ -1056,15 +1075,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Touch Provisioning (SZTP)", RFC 8572,
               DOI 10.17487/RFC8572, April 2019,
               <https://www.rfc-editor.org/info/rfc8572>.
-
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 19]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
 
    [RFC8914]  Kumari, W., Hunt, E., Arends, R., Hardaker, W., and D.
               Lawrence, "Extended DNS Errors", RFC 8914,
@@ -1091,6 +1101,27 @@ Appendix A.  Example of ES256-based RAT JWS Serialization and Signature
    Step 1 for JWS references the JWS Payload, an example RAT Payload is
    as follows:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 20]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
+
    {
      "server":{
          "adn":["example.com"]
@@ -1099,8 +1130,8 @@ Appendix A.  Example of ES256-based RAT JWS Serialization and Signature
      "exp":1443640345,
      "resinfo": {
         "filtering": {
-            "malwareblocking": true,
-            "policyblocking": false
+            "policyblocking": false,
+            "threatblocking": true
         },
         "qnameminimization":false
      }
@@ -1110,25 +1141,16 @@ Appendix A.  Example of ES256-based RAT JWS Serialization and Signature
    display purposes only):
 
    {"exp":1443640345,"iat":1443208345,"resinfo":{
-   "filtering":{"malwareblocking": true,"policyblocking": false},
+   "filtering":{"policyblocking": false,"threatblocking": true},
    "qnameminimization":false},"server":{"adn":["example.com"]}}
-
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 20]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
 
    Step 2 Computes the BASE64URL(JWS Payload) producing this value (with
    line break used for display purposes only):
 
    eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6eyJma
-   Wx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2luZy
-   I6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWR
-   uIjpbImV4YW1wbGUuY29tIl19fQ
+   Wx0ZXJpbmciOnsicG9saWN5YmxvY2tpbmciOmZhbHNlLCJ0aHJlYXRibG9ja2luZy
+   I6dHJ1ZX0sInFuYW1lbWluaW1pemF0aW9uIjpmYWxzZX0sInNlcnZlciI6eyJhZG4
+   iOlsiZXhhbXBsZS5jb20iXX19
 
 
 
@@ -1147,6 +1169,15 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    {"alg":"ES256","typ":"rat","x5u":"https://cert.example.com
    /rat.cer"}
 
+
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 21]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
+
    Step 4 Performs the BASE64URL(UTF8(JWS Protected Header)) operation
    and encoding produces this value (with line break used for display
    purposes only):
@@ -1162,22 +1193,14 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    algorithm and the BASE64URL(JWS Signature).
 
 
-   _jNi5LAkTPz_HFT0tQNS4EO03mApYhk-HPydNrroTC9DfcuKx__g-1kjQvMPl-6E
-   qxyjGhk30pwhDxcGY5PetA
+   iZnPL0IdMmAejJODF9wCE-ZR_t1_su4Fjx9Zhgt5LekjXNYgmOwk_BBghbdraoV5
+   U2EiFuKCnMYAdbqp9GP1MQ
 
 
 
    Step 8 describes how to create the final RAT token, concatenating the
    values in the order Header.Payload.Signature with period ('.')
    characters.  For the above example values this would produce the
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 21]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
    following (with line breaks between period used for readability
    purposes only):
 
@@ -1185,12 +1208,12 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    eGFtcGxlLmNvbS9yYXQuY2VyIn0
    .
    eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6eyJma
-   Wx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2luZy
-   I6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWR
-   uIjpbImV4YW1wbGUuY29tIl19fQ
+   Wx0ZXJpbmciOnsicG9saWN5YmxvY2tpbmciOmZhbHNlLCJ0aHJlYXRibG9ja2luZy
+   I6dHJ1ZX0sInFuYW1lbWluaW1pemF0aW9uIjpmYWxzZX0sInNlcnZlciI6eyJhZG4
+   iOlsiZXhhbXBsZS5jb20iXX19
    .
-   _jNi5LAkTPz_HFT0tQNS4EO03mApYhk-HPydNrroTC9DfcuKx__g-1kjQvMPl-6E
-   qxyjGhk30pwhDxcGY5PetA
+   iZnPL0IdMmAejJODF9wCE-ZR_t1_su4Fjx9Zhgt5LekjXNYgmOwk_BBghbdraoV5
+   U2EiFuKCnMYAdbqp9GP1MQ
 
 
 A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
@@ -1200,6 +1223,16 @@ A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
    OF/2NxApJCzGCEDdfSp6VQO30hyhRANCAAQRWz+jn65BtOMvdyHKcvjBeBSDZH2r
    1RTwjmYSi9R/zpBnuQ4EiMnCqfMPWiZqB4QdbAd0E7oH50VpuZ1P087G
    -----END PRIVATE KEY-----
+
+
+
+
+
+
+Reddy, et al.           Expires September 6, 2021              [Page 22]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
 A.2.  X.509 Public Key for ES256 Example**
 
@@ -1213,27 +1246,6 @@ Appendix B.  Complete JWS JSON Serialization Representation with
 
    The JWS payload used in this example as follows.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 22]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
    {
      "server":{
          "adn":["example.com"]
@@ -1242,8 +1254,8 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
      "exp":1443640345,
      "resinfo": {
         "filtering": {
-            "malwareblocking": true,
-            "policyblocking": false
+            "policyblocking": false,
+            "threatblocking": true
         },
         "qnameminimization":false
      }
@@ -1253,7 +1265,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    display purposes only):
 
    {"exp":1443640345,"iat":1443208345,"resinfo":{
-   "filtering":{"malwareblocking": true,"policyblocking": false},
+   "filtering":{"policyblocking": false,"threatblocking": true},
    "qnameminimization":false},"server":{"adn":["example.com"]}}
 
    The JWS protected Header value used for the first signature is same
@@ -1269,43 +1281,34 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
      "x5u":"https://cert.audit-example.com/rat.cer"
    }
 
-   The complete JWS JSON Serialization for these values is as follows
-   (with line breaks within values for display purposes only):
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 23]
+Reddy, et al.           Expires September 6, 2021              [Page 23]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
+   The complete JWS JSON Serialization for these values is as follows
+   (with line breaks within values for display purposes only):
+
 {
   "payload":
        "eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6eyJma
-        Wx0ZXJpbmciOnsibWFsd2FyZWJsb2NraW5nIjp0cnVlLCJwb2xpY3libG9ja2luZy
-        I6ZmFsc2V9LCJxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWR
-        uIjpbImV4YW1wbGUuY29tIl19fQ",
+        Wx0ZXJpbmciOnsicG9saWN5YmxvY2tpbmciOmZhbHNlLCJ0aHJlYXRibG9ja2luZy
+        I6dHJ1ZX0sInFuYW1lbWluaW1pemF0aW9uIjpmYWxzZX0sInNlcnZlciI6eyJhZG4
+        iOlsiZXhhbXBsZS5jb20iXX19",
   "signatures":[
-       {"protected":"eyJhbGciOiJFUzI1NiIsInR5cCI6InJhdCIsIng1dSI6Imh0dHBzO
-        i8vY2VydC5leGFtcGxlLmNvbS9yYXQuY2VyIn0",
-        "signature":"_jNi5LAkTPz_HFT0tQNS4EO03mApYhk-HPydNrroTC9DfcuKx__g-
-         1kjQvMPl-6EqxyjGhk30pwhDxcGY5PetA"},
+       {"protected":"eyJhbGciOiJFUzI1NiIsInR5cCI6InJhdCIsIng1dSI6Imh0dHBz
+        Oi8vY2VydC5leGFtcGxlLmNvbS9yYXQuY2VyIn0",
+        "signature":"iZnPL0IdMmAejJODF9wCE-ZR_t1_su4Fjx9Zhgt5LekjXNYgmOwk
+        _BBghbdraoV5U2EiFuKCnMYAdbqp9GP1MQ"},
        {"protected":"eyJhbGciOiJFUzM4NCIsInR5cCI6InJhdCIsIng1dSI6Imh0dHB
         zOi8vY2VydC5hdWRpdC1leGFtcGxlLmNvbS9yYXQuY2VyIn0",
-        "signature":"860AQQcKWRLGVbq7nWokrazKynQ76Mr1t5fxIXJcgE7uPDb2O0Z
-        qaQFpMiMRJPZJNwRMNjzVyTZHDthreg22uSv0Vs_8DR2azvEPCM_qncS4Pky3BAH
-        Z1ROAnEmIQ8kC"}]
+        "signature":"AFHqBprocE_ffBH166TTzKUpNfADIIzsI4wd64tIrCsdCSk0HDB
+        v79-BQYyQ4WDfKQsPAywklnSQmOPdw0YKuB-dyS83RQ8aPyg0QTQwxKbVxbcCxnR
+        5X1HdRBbNd_em"}]
 }
 
 B.1.  X.509 Private Key in PKCS#8 format for E384 Example**
@@ -1338,10 +1341,7 @@ Authors' Addresses
 
 
 
-
-
-
-Reddy, et al.           Expires September 5, 2021              [Page 24]
+Reddy, et al.           Expires September 6, 2021              [Page 24]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1397,4 +1397,4 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 5, 2021              [Page 25]
+Reddy, et al.           Expires September 6, 2021              [Page 25]
