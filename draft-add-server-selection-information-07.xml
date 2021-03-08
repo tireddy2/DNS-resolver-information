@@ -90,11 +90,10 @@
     <abstract>
       <t>The document defines a mechanism that is meant to communicate DNS
       resolver information to DNS clients for use as a criteria for server
-      selection decisions. In particular, the document defines a mechanism for
-      a DNS server to communicate its filtering behavior to DNS clients. Such
+      selection decisions. Such
       an information that is cryptographically signed to attest its
       authenticity is used for the selection of DNS resolvers. Typically,
-      evaluating the filtering behavior and the signatory, DNS clients with
+      evaluating the behavior and the signatory, DNS clients with
       minimal or no human intervention can select the DNS servers for
       resolving domain names.</t>
 
