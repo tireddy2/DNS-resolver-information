@@ -90,12 +90,11 @@
     <abstract>
       <t>The document defines a mechanism that is meant to communicate DNS
       resolver information to DNS clients for use as a criteria for server
-      selection decisions. Such
-      an information that is cryptographically signed to attest its
-      authenticity is used for the selection of DNS resolvers. Typically,
-      evaluating the behavior and the signatory, DNS clients with
-      minimal or no human intervention can select the DNS servers for
-      resolving domain names.</t>
+      selection decisions. Such an information that is cryptographically
+      signed to attest its authenticity is used for the selection of DNS
+      resolvers. Typically, evaluating the resolver information and the
+      signatory, DNS clients with minimal or no human intervention can select
+      the DNS servers for resolving domain names.</t>
 
       <t>This assertion is useful for encrypted DNS (e.g., DNS-over-TLS,
       DNS-over-HTTPS, or DNS-over-QUIC) servers that are either public
@@ -431,14 +430,14 @@
                   code "Filtered" defined in Section 4.18 of <xref
                   target="RFC8914"></xref> identifies access to domains is
                   blocked based on the request from the client to blacklist
-                  domains. </t>
+                  domains.</t>
 
                   <t>Extended error code "Threat Blocking" defined in <xref
                   target="threat-blocking"></xref> identifies access to
                   domains is blocked to protect from security threats. Note
                   that some of the commonly known types of threats are
                   malware, phishing, viruses, worms, trojans, bots,
-                  ransomware, backdoors, spyware, and adware. </t>
+                  ransomware, backdoors, spyware, and adware.</t>
                 </list></t>
 
               <t hangText="clientauth:">If the DNS server requires client

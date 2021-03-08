@@ -5,12 +5,12 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                                 D. Wing
-Expires: September 7, 2021                                        Citrix
+Expires: September 9, 2021                                        Citrix
                                                            M. Richardson
                                                 Sandelman Software Works
                                                             M. Boucadair
                                                                   Orange
-                                                           March 6, 2021
+                                                           March 8, 2021
 
 
    DNS Server Selection: DNS Server Information with Assertion Token
@@ -20,13 +20,11 @@ Abstract
 
    The document defines a mechanism that is meant to communicate DNS
    resolver information to DNS clients for use as a criteria for server
-   selection decisions.  In particular, the document defines a mechanism
-   for a DNS server to communicate its filtering behavior to DNS
-   clients.  Such an information that is cryptographically signed to
-   attest its authenticity is used for the selection of DNS resolvers.
-   Typically, evaluating the filtering behavior and the signatory, DNS
-   clients with minimal or no human intervention can select the DNS
-   servers for resolving domain names.
+   selection decisions.  Such an information that is cryptographically
+   signed to attest its authenticity is used for the selection of DNS
+   resolvers.  Typically, evaluating the resolver information and the
+   signatory, DNS clients with minimal or no human intervention can
+   select the DNS servers for resolving domain names.
 
    This assertion is useful for encrypted DNS (e.g., DNS-over-TLS, DNS-
    over-HTTPS, or DNS-over-QUIC) servers that are either public
@@ -47,13 +45,15 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 7, 2021.
+   This Internet-Draft will expire on September 9, 2021.
 
 
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 1]
+
+
+Reddy, et al.           Expires September 9, 2021               [Page 1]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 2]
+Reddy, et al.           Expires September 9, 2021               [Page 2]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -165,7 +165,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 3]
+Reddy, et al.           Expires September 9, 2021               [Page 3]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -221,7 +221,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 4]
+Reddy, et al.           Expires September 9, 2021               [Page 4]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -277,7 +277,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 5]
+Reddy, et al.           Expires September 9, 2021               [Page 5]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -333,7 +333,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 6]
+Reddy, et al.           Expires September 9, 2021               [Page 6]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -389,7 +389,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 7]
+Reddy, et al.           Expires September 9, 2021               [Page 7]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -445,7 +445,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 8]
+Reddy, et al.           Expires September 9, 2021               [Page 8]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -501,7 +501,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021               [Page 9]
+Reddy, et al.           Expires September 9, 2021               [Page 9]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -557,7 +557,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 10]
+Reddy, et al.           Expires September 9, 2021              [Page 10]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -613,7 +613,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 11]
+Reddy, et al.           Expires September 9, 2021              [Page 11]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -669,7 +669,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 12]
+Reddy, et al.           Expires September 9, 2021              [Page 12]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -725,7 +725,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 13]
+Reddy, et al.           Expires September 9, 2021              [Page 13]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -781,7 +781,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 14]
+Reddy, et al.           Expires September 9, 2021              [Page 14]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -837,7 +837,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 15]
+Reddy, et al.           Expires September 9, 2021              [Page 15]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -893,7 +893,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 16]
+Reddy, et al.           Expires September 9, 2021              [Page 16]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -949,7 +949,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 17]
+Reddy, et al.           Expires September 9, 2021              [Page 17]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 18]
+Reddy, et al.           Expires September 9, 2021              [Page 18]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1061,7 +1061,7 @@ Appendix A.  Example of ES256-based RAT JWS Serialization and Signature
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 19]
+Reddy, et al.           Expires September 9, 2021              [Page 19]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 20]
+Reddy, et al.           Expires September 9, 2021              [Page 20]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1173,7 +1173,7 @@ Appendix B.  Complete JWS JSON Serialization Representation with
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 21]
+Reddy, et al.           Expires September 9, 2021              [Page 21]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1229,7 +1229,7 @@ B.2.  X.509 Public Key for ES384 Example**
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 22]
+Reddy, et al.           Expires September 9, 2021              [Page 22]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
@@ -1285,4 +1285,4 @@ Authors' Addresses
 
 
 
-Reddy, et al.           Expires September 7, 2021              [Page 23]
+Reddy, et al.           Expires September 9, 2021              [Page 23]
