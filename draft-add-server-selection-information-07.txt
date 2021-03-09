@@ -90,7 +90,7 @@ Table of Contents
      5.2.  RAT Specific Claims . . . . . . . . . . . . . . . . . . .   8
        5.2.1.  DNS Server Identity Claims  . . . . . . . . . . . . .   8
        5.2.2.  'resinfo' (Resolver Information) Claim  . . . . . . .   8
-       5.2.3.  An Example  . . . . . . . . . . . . . . . . . . . . .  10
+       5.2.3.  An Example  . . . . . . . . . . . . . . . . . . . . .   9
    6.  RAT Signature . . . . . . . . . . . . . . . . . . . . . . . .  10
    7.  Extending RAT . . . . . . . . . . . . . . . . . . . . . . . .  11
    8.  Deterministic JSON Serialization  . . . . . . . . . . . . . .  11
@@ -98,14 +98,14 @@ Table of Contents
    9.  Using RESINFO Responses . . . . . . . . . . . . . . . . . . .  12
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  13
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
-     11.1.  Media Type Registration  . . . . . . . . . . . . . . . .  14
-       11.1.1.  Media Type Registry Contents Additions Requested . .  14
-     11.2.  JSON Web Token Claims Registration . . . . . . . . . . .  15
-       11.2.1.  Registry Contents Additions Requested  . . . . . . .  15
+     11.1.  Media Type Registration  . . . . . . . . . . . . . . . .  13
+       11.1.1.  Media Type Registry Contents Additions Requested . .  13
+     11.2.  JSON Web Token Claims Registration . . . . . . . . . . .  14
+       11.2.1.  Registry Contents Additions Requested  . . . . . . .  14
      11.3.  DNS Resolver Information Registration  . . . . . . . . .  15
-     11.4.  Threat Blocking Extended DNS Error Code  . . . . . . . .  15
    12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  15
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  15
 
 
 
@@ -114,7 +114,6 @@ Reddy, et al.           Expires September 9, 2021               [Page 2]
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  16
      13.2.  Informative References . . . . . . . . . . . . . . . . .  17
    Appendix A.  Example of ES256-based RAT JWS Serialization and
                 Signature  . . . . . . . . . . . . . . . . . . . . .  19
@@ -124,7 +123,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
                 multiple Signatures  . . . . . . . . . . . . . . . .  21
      B.1.  X.509 Private Key in PKCS#8 format for E384 Example** . .  22
      B.2.  X.509 Public Key for ES384 Example**  . . . . . . . . . .  22
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
 
 1.  Introduction
 
@@ -162,6 +161,7 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
    This document makes use of the terms defined in [RFC8499] and
    [I-D.ietf-dnsop-terminology-ter].
+
 
 
 
@@ -473,12 +473,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
          access to domains is blocked based on the request from the
          client to blacklist domains.
 
-      *  Extended error code "Threat Blocking" defined in Section 11.4
-         identifies access to domains is blocked to protect from
-         security threats.  Note that some of the commonly known types
-         of threats are malware, phishing, viruses, worms, trojans,
-         bots, ransomware, backdoors, spyware, and adware.
-
    clientauth:  If the DNS server requires client authentication, the
       parameter value is set to true.  For example, when not on the
       enterprise network (e.g., at home or coffee shop) yet needing to
@@ -494,6 +488,12 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    identityurl:  A URL that points to a human-friendly description of
       the resolver identity to display to the end-user.
 
+5.2.3.  An Example
+
+   Figure 2 shows an example of resolver information.
+
+
+
 
 
 
@@ -505,10 +505,6 @@ Reddy, et al.           Expires September 9, 2021               [Page 9]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-5.2.3.  An Example
-
-   Figure 2 shows an example of resolver information.
 
    {
      "server":{
@@ -553,7 +549,11 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    Appendix A provides an example of how to follow the steps to create
    the JWS Signature.
 
-
+   JWS JSON serialization (Step 7 in Section 5.1 of [RFC7515]) is
+   supported for RAT to enable multiple signatures to be applied to the
+   RAT object.  For example, the RAT object can be cryptographically
+   signed by the domain hosting the DNS server and by a third party who
+   performed privacy and security audit of the DNS server.
 
 
 
@@ -561,12 +561,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 10]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-   JWS JSON serialization (Step 7 in Section 5.1 of [RFC7515]) is
-   supported for RAT to enable multiple signatures to be applied to the
-   RAT object.  For example, the RAT object can be cryptographically
-   signed by the domain hosting the DNS server and by a third party who
-   performed privacy and security audit of the DNS server.
 
    Appendix B includes an example of the full JWS JSON serialization
    representation with multiple signatures.
@@ -609,6 +603,12 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    4.  JSON numbers are to be encoded as integers unless the field is
        defined to be encoded otherwise.
 
+   5.  Encoding rules MUST be applied recursively to member values and
+       array values.
+
+
+
+
 
 
 
@@ -617,9 +617,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 11]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-   5.  Encoding rules MUST be applied recursively to member values and
-       array values.
 
 8.1.  Example RAT Deterministic JSON Form
 
@@ -666,6 +663,9 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
        "server" attribute is used to specify the DNS server identity in
        the form of ADN.
 
+   3.  The sub-attribute "uri" discussed in Section 3 contained in the
+       "server" attribute is used to specify the DNS server identity in
+       the form of URI template.
 
 
 
@@ -673,10 +673,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 12]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-   3.  The sub-attribute "uri" discussed in Section 3 contained in the
-       "server" attribute is used to specify the DNS server identity in
-       the form of URI template.
 
    4.  The "resinfourl", "extendeddnserror" and "qnameminimization"
        names containing the resolver information of the DNS server
@@ -719,17 +715,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 11.  IANA Considerations
 
-
-
-
-
-
-
-Reddy, et al.           Expires September 9, 2021              [Page 13]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
 11.1.  Media Type Registration
 
 11.1.1.  Media Type Registry Contents Additions Requested
@@ -737,6 +722,13 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    This section registers the 'application/rat' media type [RFC2046] in
    the 'Media Types' registry in the manner described in [RFC6838],
    which can be used to indicate that the content is a RAT defined JWT.
+
+
+
+Reddy, et al.           Expires September 9, 2021              [Page 13]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
    o  Type name: application
 
@@ -779,19 +771,20 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
    o  Provisional registration?  No
 
-
-
-Reddy, et al.           Expires September 9, 2021              [Page 14]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
 11.2.  JSON Web Token Claims Registration
 
 11.2.1.  Registry Contents Additions Requested
 
    IANA is requested to assign the following claims in the registry
    maintained in: https://www.iana.org/assignments/jwt/jwt.xhtml.
+
+
+
+
+Reddy, et al.           Expires September 9, 2021              [Page 14]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
    o  Claim Name: 'server'
 
@@ -819,28 +812,12 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    IANA will add "adn" and "uri" sub-attributes contained in the
    "server" attribute to the DNS Resolver Information registry.
 
-11.4.  Threat Blocking Extended DNS Error Code
-
-   IANA is requested to add Extended DNS Error Code for "Threat
-   Blocking" in the registry for Extended DNS Error Codes.
-
 12.  Acknowledgments
 
    This specification leverages some of the work that has been done in
    [RFC8225].  Thanks to Tommy Jensen, Ted Lemon, Paul Wouters, Neil
    Cook, Vittorio Bertola, Vinny Parla, Chris Box, Ben Schwartz and
    Shashank Jain for the discussion and comments.
-
-
-
-
-
-
-
-Reddy, et al.           Expires September 9, 2021              [Page 15]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
 
 13.  References
 
@@ -855,6 +832,15 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+Reddy, et al.           Expires September 9, 2021              [Page 15]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -890,14 +876,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
               2015, <https://www.rfc-editor.org/info/rfc7515>.
 
-
-
-
-Reddy, et al.           Expires September 9, 2021              [Page 16]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
               <https://www.rfc-editor.org/info/rfc7518>.
@@ -909,6 +887,16 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    [RFC7638]  Jones, M. and N. Sakimura, "JSON Web Key (JWK)
               Thumbprint", RFC 7638, DOI 10.17487/RFC7638, September
               2015, <https://www.rfc-editor.org/info/rfc7638>.
+
+
+
+
+
+
+Reddy, et al.           Expires September 9, 2021              [Page 16]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
    [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
               and P. Hoffman, "Specification for DNS over Transport
@@ -946,14 +934,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               Location", draft-ietf-dnsop-terminology-ter-02 (work in
               progress), August 2020.
 
-
-
-
-Reddy, et al.           Expires September 9, 2021              [Page 17]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
    [I-D.ietf-dprive-dnsoquic]
               Huitema, C., Mankin, A., and S. Dickinson, "Specification
               of DNS over Dedicated QUIC Connections", draft-ietf-
@@ -964,6 +944,15 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               W. Pan, "Remote Attestation Procedures Architecture",
               draft-ietf-rats-architecture-08 (work in progress),
               December 2020.
+
+
+
+
+
+Reddy, et al.           Expires September 9, 2021              [Page 17]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
+
 
    [I-D.pp-add-resinfo]
               Sood, P. and P. Hoffman, "DNS Resolver Information Self-
@@ -1001,6 +990,17 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
               DOI 10.17487/RFC8572, April 2019,
               <https://www.rfc-editor.org/info/rfc8572>.
 
+   [RFC8914]  Kumari, W., Hunt, E., Arends, R., Hardaker, W., and D.
+              Lawrence, "Extended DNS Errors", RFC 8914,
+              DOI 10.17487/RFC8914, October 2020,
+              <https://www.rfc-editor.org/info/rfc8914>.
+
+   [UNICODE]  The Unicode Consortium, "The Unicode Standard", June 2016,
+              <http://www.unicode.org/versions/latest/>.
+
+
+
+
 
 
 
@@ -1009,14 +1009,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 18]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-   [RFC8914]  Kumari, W., Hunt, E., Arends, R., Hardaker, W., and D.
-              Lawrence, "Extended DNS Errors", RFC 8914,
-              DOI 10.17487/RFC8914, October 2020,
-              <https://www.rfc-editor.org/info/rfc8914>.
-
-   [UNICODE]  The Unicode Consortium, "The Unicode Standard", June 2016,
-              <http://www.unicode.org/versions/latest/>.
 
 Appendix A.  Example of ES256-based RAT JWS Serialization and Signature
 
@@ -1055,6 +1047,14 @@ Appendix A.  Example of ES256-based RAT JWS Serialization and Signature
    Step 2 Computes the BASE64URL(JWS Payload) producing this value (with
    line break used for display purposes only):
 
+   eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6ey
+   JxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWRuIjoiZXhh
+   bXBsZS5jb20ifX0
+
+
+
+   For Step 3, an example RAT Protected Header comprising the JOSE
+   Header is as follows:
 
 
 
@@ -1065,15 +1065,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 19]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-   eyJleHAiOjE0NDM2NDAzNDUsImlhdCI6MTQ0MzIwODM0NSwicmVzaW5mbyI6ey
-   JxbmFtZW1pbmltaXphdGlvbiI6ZmFsc2V9LCJzZXJ2ZXIiOnsiYWRuIjoiZXhh
-   bXBsZS5jb20ifX0
-
-
-
-   For Step 3, an example RAT Protected Header comprising the JOSE
-   Header is as follows:
 
    {
      "alg":"ES256",
@@ -1113,15 +1104,6 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    following (with line breaks between period used for readability
    purposes only):
 
-
-
-
-
-Reddy, et al.           Expires September 9, 2021              [Page 20]
-
-Internet-Draft    DNS Server Info with Assertion Token        March 2021
-
-
    eyJhbGciOiJFUzI1NiIsInR5cCI6InJhdCIsIng1dSI6Imh0dHBzOi8vY2VydC5l
    eGFtcGxlLmNvbS9yYXQuY2VyIn0
    .
@@ -1131,6 +1113,13 @@ Internet-Draft    DNS Server Info with Assertion Token        March 2021
    .
    d1g7szj0roHsWe8psCzYVl4QdN2b7pQnq8EJhc4j3GOJj2NE6M9Em6aidtycnFJ5
    mRj3ojiUfVF6rK5RksD0rg
+
+
+
+
+Reddy, et al.           Expires September 9, 2021              [Page 20]
+
+Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
 
 A.1.  X.509 Private Key in PKCS#8 Format for ES256 Example**
@@ -1170,6 +1159,17 @@ Appendix B.  Complete JWS JSON Serialization Representation with
    {"exp":1443640345,"iat":1443208345,"resinfo":{
    "qnameminimization":false},"server":{"adn":"example.com"}}
 
+   The JWS protected Header value used for the first signature is same
+   as that used in the example in Appendix A.  The X.509 private key
+   used for generating the first signature is same as that used in the
+   example in Appendix A.1.
+
+   The JWS Protected Header value used for the second signature is:
+
+
+
+
+
 
 
 
@@ -1177,13 +1177,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 21]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-   The JWS protected Header value used for the first signature is same
-   as that used in the example in Appendix A.  The X.509 private key
-   used for generating the first signature is same as that used in the
-   example in Appendix A.1.
-
-   The JWS Protected Header value used for the second signature is:
 
    {
      "alg":"ES384",
@@ -1225,6 +1218,13 @@ B.2.  X.509 Public Key for ES384 Example**
    q9UU8I5mEovUf86QZ7kOBIjJwqnzD1omageEHWwHdBO6B+dFabmdT9POxg==
    -----END PUBLIC KEY-----
 
+Authors' Addresses
+
+
+
+
+
+
 
 
 
@@ -1233,8 +1233,6 @@ Reddy, et al.           Expires September 9, 2021              [Page 22]
 
 Internet-Draft    DNS Server Info with Assertion Token        March 2021
 
-
-Authors' Addresses
 
    Tirumaleswar Reddy
    McAfee, Inc.
@@ -1265,6 +1263,8 @@ Authors' Addresses
    France
 
    Email: mohamed.boucadair@orange.com
+
+
 
 
 
