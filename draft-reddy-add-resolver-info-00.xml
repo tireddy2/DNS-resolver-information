@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="std" docName="draft-reddy-add-resolver-info-00"
+     ipr="trust200902">
+  <front>
+    <title abbrev="DNS Resolver Information">DNS Resolver Information </title>
+
+    <author fullname="Tirumaleswar Reddy" initials="T." surname="Reddy">
+      <organization abbrev="McAfee">McAfee, Inc.</organization>
+
+      <address>
+        <postal>
+          <street>Embassy Golf Link Business Park</street>
+
+          <city>Bangalore</city>
+
+          <region>Karnataka</region>
+
+          <code>560071</code>
+
+          <country>India</country>
+        </postal>
+
+        <email>kondtir@gmail.com</email>
+      </address>
+    </author>
+
+    <author fullname="Mohamed Boucadair" initials="M." surname="Boucadair">
+      <organization>Orange</organization>
+
+      <address>
+        <postal>
+          <street></street>
+
+          <city>Rennes</city>
+
+          <code>35000</code>
+
+          <country>France</country>
+        </postal>
+
+        <email>mohamed.boucadair@orange.com</email>
+      </address>
+    </author>
+
+    <date />
+
+    <workgroup>ADD WG</workgroup>
+
+    <abstract>
+      <t>This document describes methods for DNS resolvers to publish
+      information about themselves. Applications and operating systems can use
+      the resolver information to identify the capabilities of the
+      resolver.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section anchor="intro" title="Introduction">
+      <t>Historically, DNS stub resolvers typically communicated with the
+      recursive resolvers without needing to know anything about the features
+      of the recursive resolvers. More recently, recursive resolvers have
+      different features that may help the stub resolvers identify the
+      capabilities of the resolver. Thus stub resolvers can discover and
+      authenticate encrypted DNS servers provided by a local network, for
+      example using the techniques proposed in [I-D.ietf-add-dnr] and
+      [I-D.ietf-add-ddr]. Thus stub resolvers need a way to get information
+      from the discovered recursive resolvers about its capabilities.</t>
+
+      <t>This document specifies a method for stub resolvers to ask recursive
+      resolvers for such information. In short, a new RRtype is defined for
+      stub resolvers to query the recursive resolvers. The information that a
+      resolver might want to give is defined in <xref
+      target="attributes"></xref>.</t>
+    </section>
+
+    <section anchor="notation" title="Terminology">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in BCP 14
+      <xref target="RFC2119"></xref><xref target="RFC8174"></xref> when, and
+      only when, they appear in all capitals, as shown here.</t>
+
+      <t>This document makes use of the terms defined in <xref
+      target="RFC8499"></xref> and <xref
+      target="I-D.ietf-dnsop-terminology-ter"></xref>.</t>
+
+      <t>'Encrypted DNS' refers to a DNS protocol that provides an encrypted
+      channel between a DNS client and server (e.g., DoT, DoH, or DoQ).</t>
+    </section>
+
+    <section anchor="resolver-info" title="Retrieving Resolver Information">
+      <t>A stub resolver that wants to get information about a resolver can
+      use the RRtype "RESINFO" defined in this document, and the IANA
+      assignment is given in Section <xref target="RESINFO"></xref>. The
+      contents of the RDATA in the response to this query are defined in <xref
+      target="attributes"></xref>. If the resolver understands the RESINFO
+      RRtype, the RRset in the Answer section MUST have exactly one
+      record.</t>
+
+      <t>The client can retrieve the resolver information using the RESINFO
+      RRtype and QNAME of the domain name that is used to authenticate the DNS
+      server (referred to as ADN in <xref target="RFC8310"></xref>). If the
+      special use domain name "resolver.arpa" defined in [I-D.ietf-add-ddr] is
+      used to discover the Encrypted DNS server, the client can retrieve the
+      resolver information using the RESINFO RRtype and QNAME of the special
+      use domain name.</t>
+    </section>
+
+    <section anchor="content-format"
+             title="Format of the Resolver Information">
+      <t>The resolver information is returned as a JSON object. The JSON
+      object MUST use the I-JSON message format defined in <xref
+      target="RFC7493"></xref>. Note that <xref target="RFC7493"></xref> was
+      based on <xref target="RFC7159"></xref>, but <xref
+      target="RFC7159"></xref> was replaced by <xref target="RFC8259"></xref>.
+      Requiring the use of I-JSON instead of more general JSON format greatly
+      increases the likelihood of interoperability.</t>
+
+      <t>The names in this object are defined in an IANA registry. The JSON
+      object returned by a DNS query MAY contain any name/value pairs. All
+      names in the returned object MUST either be defined in the IANA registry
+      or, if for local use only, begin with the substring "temp-". </t>
+
+      <t>The IANA registry <xref target="resolver-information"></xref> will
+      never register names that begin with "temp-". All names MUST consist
+      only of lower-case ASCII characters, digits, and hyphens (that is,
+      Unicode characters U+0061 through 007A, U+0030 through U+0039, and
+      U+002D), and MUST be 63 characters or shorter. The IANA registry will
+      not register names that begin with "temp-", so these names can be used
+      freely by any implementer. Note that the message returned by the
+      resolver MUST be in I-JSON format. I-JSON requires that the message MUST
+      be encoded in UTF8.</t>
+    </section>
+
+    <section anchor="attributes" title="Resolver Information">
+      <t>The resolver information includes the following attributes:</t>
+
+      <t><list style="hanging">
+          <t hangText="qnameminimization:">If the DNS server supports QNAME
+          minimisation <xref target="RFC7816"></xref> to improve DNS privacy,
+          the parameter value is set to true. This is a mandatory
+          attribute.</t>
+
+          <t hangText="extendeddnserror:">If the DNS server supports extended
+          DNS error (EDE) <xref target="RFC8914"></xref> to return additional
+          information about the cause of DNS errors, the parameter lists the
+          possible extended DNS error codes that can be returned by the DNS
+          server. This is an optional attribute. <list style="symbols">
+              <t>Note that the extended error code "Blocked" defined in
+              Section 4.16 of <xref target="RFC8914"></xref> identifies access
+              to domains is blocked due to an policy by the operator of the
+              DNS server, extended error code "Censored" defined in Section
+              4.17 of <xref target="RFC8914"></xref> identifies access to
+              domains is blocked based on a requirement from an external
+              entity and the extended error code "Filtered" defined in Section
+              4.18 of <xref target="RFC8914"></xref> identifies access to
+              domains is blocked based on the request from the client to
+              blacklist domains.</t>
+            </list></t>
+
+          <t hangText="clientauth:">If the DNS server requires client
+          authentication, the parameter value is set to true. For example,
+          when not on the enterprise network (e.g., at home or coffee shop)
+          yet needing to access the enterprise Encrypted DNS server, roaming
+          users can use client authentication to access the Enterprise
+          provided Encrypted DNS server. This is an optional attribute.</t>
+
+          <t hangText="resinfourl:">A URL that points to the generic
+          unstructured resolver information (e.g., DoH APIs supported,
+          possible HTTP status codes returned by the DoH server, how to report
+          a problem, etc.) for troubleshooting purpose. This is an optional
+          attribute.</t>
+
+          <t hangText="identityurl:">A URL that points to a human-friendly
+          description of the resolver identity to display to the end-user.</t>
+        </list></t>
+
+      <t><xref target="poex"></xref> shows an example of resolver
+      information.</t>
+
+      <figure anchor="poex" title="An Example of Resolver Information">
+        <artwork><![CDATA[{
+  
+ "qnameminimization":true,
+ "extendeddnserror": [15, 16, 17], 
+ "clientauth": false, 
+ "resinfourl": "https://resolver.example.com/guide",
+ "identityurl": "https://resolver.example.com/user-friendly-name"
+}  ]]></artwork>
+      </figure>
+
+      <t></t>
+
+      <t>As specified in [RFC7493], the I-JSON object is encoded as UTF8.
+      [RFC7493] explicitly allows the returned objects to be in any order.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>Unless a DNS request to retrieve the resolver information is sent
+      over DNS-over-TLS (DoT) <xref target="RFC7858"></xref> or DNS-over-
+      HTTPS (DoH) <xref target="RFC8484"></xref>, the response is susceptible
+      to forgery. The DNS resolver information can be retrieved after the
+      encrypted DNS session is established. </t>
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <section anchor="RESINFO" title="RESINFO RRtype">
+        <t>This document defines a new DNS RR type, RESINFO, whose value TBD
+        will be allocated by IANA from the "Resource Record (RR) TYPEs"
+        sub-registry of the "Domain Name System (DNS) Parameters" registry:
+        </t>
+
+        <t><figure>
+            <artwork><![CDATA[Type: RESINFO 
+Value: TBD 
+Meaning: Resolver Information as an I-JSON 
+]]></artwork>
+          </figure></t>
+      </section>
+
+      <section anchor="resolver-information"
+               title="DNS Resolver Information Registration">
+        <t>IANA will create a new registry titled "DNS Resolver Information"
+        that will contain definitions of the names that can be used to provide
+        the resolver information. The registration procedure is by
+        Specification Required, as defined in <xref target="RFC8126"></xref>.
+        The registry has the following fields for each element: </t>
+
+        <t><figure>
+            <artwork><![CDATA[Name: The name to be used in the JSON object. This name MUST NOT 
+begin with "temp-". This name MUST conform to the definition 
+of "string" in I-JSON message format. 
+
+Value type: The type of data to be used in the JSON object. 
+
+Specification: The name of the specification for the registered element.
+]]></artwork>
+          </figure></t>
+
+        <t>IANA will add the names "resinfourl", "identityurl",
+        "extendeddnserror" and "qnameminimization" to the DNS Resolver
+        Information registry.</t>
+      </section>
+    </section>
+
+    <section anchor="acknowledgments" title="Acknowledgments">
+      <t>This specification leverages the work that has been done in <xref
+      target="I-D.pp-add-resinfo"></xref>. Thanks to Tommy Jensen, Vittorio
+      Bertola, Vinny Parla, Chris Box, Ben Schwartz and Shashank Jain for the
+      discussion and comments.</t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.2119"?>
+
+      <?rfc include='reference.RFC.8174'?>
+
+      <?rfc include="reference.RFC.8484"?>
+
+      <?rfc include="reference.RFC.8499"?>
+
+      <?rfc include="reference.RFC.7858"?>
+
+      <?rfc include="reference.RFC.7493"?>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include="reference.RFC.8310"?>
+
+      <?rfc include="reference.RFC.8126"?>
+
+      <?rfc include="reference.RFC.7816"?>
+
+      <?rfc include='reference.I-D.pp-add-resinfo'?>
+
+      <?rfc include='reference.RFC.8914' ?>
+
+      <?rfc include='reference.RFC.8259' ?>
+
+      <?rfc include='reference.RFC.7159' ?>
+
+      <?rfc include='reference.I-D.ietf-dnsop-terminology-ter'?>
+    </references>
+  </back>
+</rfc>
