@@ -13,7 +13,7 @@
 <rfc category="std" docName="draft-reddy-add-resolver-info-00"
      ipr="trust200902">
   <front>
-    <title abbrev="DNS Resolver Information">DNS Resolver Information </title>
+    <title abbrev="DNS Resolver Information">DNS Resolver Information</title>
 
     <author fullname="Tirumaleswar Reddy" initials="T." surname="Reddy">
       <organization abbrev="McAfee">McAfee, Inc.</organization>
@@ -102,19 +102,20 @@
     <section anchor="resolver-info" title="Retrieving Resolver Information">
       <t>A stub resolver that wants to get information about a resolver can
       use the RRtype "RESINFO" defined in this document, and the IANA
-      assignment is given in Section <xref target="RESINFO"></xref>. The
-      contents of the RDATA in the response to this query are defined in <xref
+      assignment is given in <xref target="RESINFO"></xref>. The contents of
+      the RDATA in the response to this query are defined in <xref
       target="attributes"></xref>. If the resolver understands the RESINFO
       RRtype, the RRset in the Answer section MUST have exactly one
       record.</t>
 
       <t>The client can retrieve the resolver information using the RESINFO
       RRtype and QNAME of the domain name that is used to authenticate the DNS
-      server (referred to as ADN in <xref target="RFC8310"></xref>). If the
-      special use domain name "resolver.arpa" defined in [I-D.ietf-add-ddr] is
-      used to discover the Encrypted DNS server, the client can retrieve the
-      resolver information using the RESINFO RRtype and QNAME of the special
-      use domain name.</t>
+      server (referred to as ADN in [I-D.ietf-add-dnr]). If the special use
+      domain name "resolver.arpa" defined in [I-D.ietf-add-ddr] is used to
+      discover the Encrypted DNS server, the client can first retrieve a CNAME
+      that aliases `_dns.resolver.arpa` to `_dns.$HOSTNAME` and then retrieve
+      the resolver information using the RESINFO RRtype and QNAME of the
+      `$HOSTNAME`.</t>
     </section>
 
     <section anchor="content-format"
@@ -130,7 +131,7 @@
       <t>The names in this object are defined in an IANA registry. The JSON
       object returned by a DNS query MAY contain any name/value pairs. All
       names in the returned object MUST either be defined in the IANA registry
-      or, if for local use only, begin with the substring "temp-". </t>
+      or, if for local use only, begin with the substring "temp-".</t>
 
       <t>The IANA registry <xref target="resolver-information"></xref> will
       never register names that begin with "temp-". All names MUST consist
@@ -202,8 +203,9 @@
 
       <t></t>
 
-      <t>As specified in [RFC7493], the I-JSON object is encoded as UTF8.
-      [RFC7493] explicitly allows the returned objects to be in any order.</t>
+      <t>As specified in <xref target="RFC7493"></xref>, the I-JSON object is
+      encoded as UTF8. <xref target="RFC7493"></xref> explicitly allows the
+      returned objects to be in any order.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
@@ -211,15 +213,18 @@
       over DNS-over-TLS (DoT) <xref target="RFC7858"></xref> or DNS-over-
       HTTPS (DoH) <xref target="RFC8484"></xref>, the response is susceptible
       to forgery. The DNS resolver information can be retrieved after the
-      encrypted DNS session is established. </t>
+      encrypted connection is established to the DNS server. If the client
+      wishes to retrieve the resolver information before the encryption
+      connection is established to the DNS resolver, the client MUST use local
+      DNSSEC validation.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
       <section anchor="RESINFO" title="RESINFO RRtype">
         <t>This document defines a new DNS RR type, RESINFO, whose value TBD
         will be allocated by IANA from the "Resource Record (RR) TYPEs"
-        sub-registry of the "Domain Name System (DNS) Parameters" registry:
-        </t>
+        sub-registry of the "Domain Name System (DNS) Parameters"
+        registry:</t>
 
         <t><figure>
             <artwork><![CDATA[Type: RESINFO 
@@ -235,7 +240,7 @@ Meaning: Resolver Information as an I-JSON
         that will contain definitions of the names that can be used to provide
         the resolver information. The registration procedure is by
         Specification Required, as defined in <xref target="RFC8126"></xref>.
-        The registry has the following fields for each element: </t>
+        The registry has the following fields for each element:</t>
 
         <t><figure>
             <artwork><![CDATA[Name: The name to be used in the JSON object. This name MUST NOT 

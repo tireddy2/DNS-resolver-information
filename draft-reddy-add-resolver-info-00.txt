@@ -5,8 +5,8 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                            M. Boucadair
-Expires: September 20, 2021                                       Orange
-                                                          March 19, 2021
+Expires: September 21, 2021                                       Orange
+                                                          March 20, 2021
 
 
                         DNS Resolver Information
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 20, 2021.
+   This Internet-Draft will expire on September 21, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy & Boucadair      Expires September 20, 2021               [Page 1]
+Reddy & Boucadair      Expires September 21, 2021               [Page 1]
 
 Internet-Draft          DNS Resolver Information              March 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy & Boucadair      Expires September 20, 2021               [Page 2]
+Reddy & Boucadair      Expires September 21, 2021               [Page 2]
 
 Internet-Draft          DNS Resolver Information              March 2021
 
@@ -118,18 +118,19 @@ Internet-Draft          DNS Resolver Information              March 2021
 
    A stub resolver that wants to get information about a resolver can
    use the RRtype "RESINFO" defined in this document, and the IANA
-   assignment is given in Section Section 7.1.  The contents of the
-   RDATA in the response to this query are defined in Section 5.  If the
-   resolver understands the RESINFO RRtype, the RRset in the Answer
-   section MUST have exactly one record.
+   assignment is given in Section 7.1.  The contents of the RDATA in the
+   response to this query are defined in Section 5.  If the resolver
+   understands the RESINFO RRtype, the RRset in the Answer section MUST
+   have exactly one record.
 
    The client can retrieve the resolver information using the RESINFO
    RRtype and QNAME of the domain name that is used to authenticate the
-   DNS server (referred to as ADN in [RFC8310]).  If the special use
-   domain name "resolver.arpa" defined in [I-D.ietf-add-ddr] is used to
-   discover the Encrypted DNS server, the client can retrieve the
-   resolver information using the RESINFO RRtype and QNAME of the
-   special use domain name.
+   DNS server (referred to as ADN in [I-D.ietf-add-dnr]).  If the
+   special use domain name "resolver.arpa" defined in [I-D.ietf-add-ddr]
+   is used to discover the Encrypted DNS server, the client can first
+   retrieve a CNAME that aliases `_dns.resolver.arpa` to
+   `_dns.$HOSTNAME` and then retrieve the resolver information using the
+   RESINFO RRtype and QNAME of the `$HOSTNAME`.
 
 4.  Format of the Resolver Information
 
@@ -164,8 +165,7 @@ Internet-Draft          DNS Resolver Information              March 2021
 
 
 
-
-Reddy & Boucadair      Expires September 20, 2021               [Page 3]
+Reddy & Boucadair      Expires September 21, 2021               [Page 3]
 
 Internet-Draft          DNS Resolver Information              March 2021
 
@@ -221,7 +221,7 @@ Internet-Draft          DNS Resolver Information              March 2021
 
 
 
-Reddy & Boucadair      Expires September 20, 2021               [Page 4]
+Reddy & Boucadair      Expires September 21, 2021               [Page 4]
 
 Internet-Draft          DNS Resolver Information              March 2021
 
@@ -231,7 +231,10 @@ Internet-Draft          DNS Resolver Information              March 2021
    Unless a DNS request to retrieve the resolver information is sent
    over DNS-over-TLS (DoT) [RFC7858] or DNS-over- HTTPS (DoH) [RFC8484],
    the response is susceptible to forgery.  The DNS resolver information
-   can be retrieved after the encrypted DNS session is established.
+   can be retrieved after the encrypted connection is established to the
+   DNS server.  If the client wishes to retrieve the resolver
+   information before the encryption connection is established to the
+   DNS resolver, the client MUST use local DNSSEC validation.
 
 7.  IANA Considerations
 
@@ -274,10 +277,7 @@ Specification: The name of the specification for the registered element.
 
 
 
-
-
-
-Reddy & Boucadair      Expires September 20, 2021               [Page 5]
+Reddy & Boucadair      Expires September 21, 2021               [Page 5]
 
 Internet-Draft          DNS Resolver Information              March 2021
 
@@ -333,7 +333,7 @@ Internet-Draft          DNS Resolver Information              March 2021
 
 
 
-Reddy & Boucadair      Expires September 20, 2021               [Page 6]
+Reddy & Boucadair      Expires September 21, 2021               [Page 6]
 
 Internet-Draft          DNS Resolver Information              March 2021
 
@@ -389,4 +389,4 @@ Authors' Addresses
 
 
 
-Reddy & Boucadair      Expires September 20, 2021               [Page 7]
+Reddy & Boucadair      Expires September 21, 2021               [Page 7]
