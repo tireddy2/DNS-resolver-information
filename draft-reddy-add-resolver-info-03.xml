@@ -120,8 +120,8 @@
 
       <t>If the special use domain name "resolver.arpa" defined in <xref
       target="I-D.ietf-add-ddr"></xref> is used to discover the Encrypted DNS
-      server, the client can first query the resolver for SVCB record for
-      "dns://resolver.arpa" to get the fully-qualified TargetName (Section 2.1
+      server, the client may first query the resolver for SVCB record for
+      "dns://resolver.arpa" to retrieve the fully-qualified TargetName (Section 2.1
       of <xref target="I-D.ietf-dnsop-svcb-https"></xref>) and then retrieve
       the resolver information using the RESINFO RRtype and QNAME of the
       TargetName.</t>
