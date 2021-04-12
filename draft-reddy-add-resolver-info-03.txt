@@ -5,8 +5,8 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    McAfee
 Intended status: Standards Track                            M. Boucadair
-Expires: October 10, 2021                                         Orange
-                                                           April 8, 2021
+Expires: October 14, 2021                                         Orange
+                                                          April 12, 2021
 
 
                         DNS Resolver Information
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 10, 2021.
+   This Internet-Draft will expire on October 14, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 1]
+Reddy & Boucadair       Expires October 14, 2021                [Page 1]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
@@ -73,7 +73,7 @@ Table of Contents
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
      9.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 2]
+Reddy & Boucadair       Expires October 14, 2021                [Page 2]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
@@ -132,13 +132,12 @@ Internet-Draft          DNS Resolver Information              April 2021
    RRtype and QNAME of the domain name that is used to authenticate the
    DNS server (referred to as ADN in [I-D.ietf-add-dnr]).
 
-   If the special use domain name "resolver.arpa" defined in
-   [I-D.ietf-add-ddr] is used to discover the Encrypted DNS server, the
-   client can first query the resolver for SVCB record for
-   "dns://resolver.arpa" to get the fully-qualified TargetName
-   (Section 2.1 of [I-D.ietf-dnsop-svcb-https]) and then retrieve the
-   resolver information using the RESINFO RRtype and QNAME of the
-   TargetName.
+   If the special use domain name "resolver.arpa" defined in [I-D.ietf-
+   add-ddr] is used to discover the Encrypted DNS server, the client may
+   first query the resolver for SVCB record for "dns://resolver.arpa" to
+   retrieve the Encrypted Resolver name (Section 4 of [I-D.ietf-add-
+   ddr]) and then retrieve the resolver information using the RESINFO
+   RRtype and QNAME of the resolver name.
 
 4.  Format of the Resolver Information
 
@@ -165,7 +164,8 @@ Internet-Draft          DNS Resolver Information              April 2021
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 3]
+
+Reddy & Boucadair       Expires October 14, 2021                [Page 3]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
@@ -221,7 +221,7 @@ Internet-Draft          DNS Resolver Information              April 2021
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 4]
+Reddy & Boucadair       Expires October 14, 2021                [Page 4]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
@@ -277,7 +277,7 @@ Internet-Draft          DNS Resolver Information              April 2021
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 5]
+Reddy & Boucadair       Expires October 14, 2021                [Page 5]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
@@ -333,7 +333,7 @@ Internet-Draft          DNS Resolver Information              April 2021
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 6]
+Reddy & Boucadair       Expires October 14, 2021                [Page 6]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
@@ -389,23 +389,12 @@ Internet-Draft          DNS Resolver Information              April 2021
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 7]
+Reddy & Boucadair       Expires October 14, 2021                [Page 7]
 
 Internet-Draft          DNS Resolver Information              April 2021
 
 
 9.2.  Informative References
-
-   [I-D.ietf-add-ddr]
-              Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
-              Jensen, "Discovery of Designated Resolvers", draft-ietf-
-              add-ddr-00 (work in progress), February 2021.
-
-   [I-D.ietf-add-dnr]
-              Boucadair, M., Reddy, T., Wing, D., Cook, N., and T.
-              Jensen, "DHCP and Router Advertisement Options for the
-              Discovery of Network-designated Resolvers (DNR)", draft-
-              ietf-add-dnr-00 (work in progress), February 2021.
 
    [I-D.ietf-dnsop-svcb-https]
               Schwartz, B., Bishop, M., and E. Nygren, "Service binding
@@ -440,16 +429,6 @@ Internet-Draft          DNS Resolver Information              April 2021
               <http://www.iana.org/assignments/dns-parameters/dns-
               parameters.xhtml#dns-parameters-4>.
 
-
-
-
-
-
-Reddy & Boucadair       Expires October 10, 2021                [Page 8]
-
-Internet-Draft          DNS Resolver Information              April 2021
-
-
 Authors' Addresses
 
    Tirumaleswar Reddy
@@ -459,6 +438,16 @@ Authors' Addresses
    India
 
    Email: kondtir@gmail.com
+
+
+
+
+
+
+
+Reddy & Boucadair       Expires October 14, 2021                [Page 8]
+
+Internet-Draft          DNS Resolver Information              April 2021
 
 
    Mohamed Boucadair
@@ -501,4 +490,15 @@ Authors' Addresses
 
 
 
-Reddy & Boucadair       Expires October 10, 2021                [Page 9]
+
+
+
+
+
+
+
+
+
+
+
+Reddy & Boucadair       Expires October 14, 2021                [Page 9]

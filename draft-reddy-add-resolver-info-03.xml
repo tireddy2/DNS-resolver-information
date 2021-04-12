@@ -73,11 +73,10 @@
       means to help stub resolvers to identify the capabilities of the
       resolver are valuable. Typically, stub resolvers can discover and
       authenticate encrypted DNS servers provided by a local network, for
-      example, using the techniques specified in <xref
-      target="I-D.ietf-add-dnr"></xref> and <xref
-      target="I-D.ietf-add-ddr"></xref>. However, these stub resolvers need a
-      means to retrieve information from the discovered recursive resolvers
-      about their capabilities.</t>
+      example, using the techniques specified in [I-D.ietf-add-dnr] and
+      [I-D.ietf-add-ddr]. However, these stub resolvers need a means to
+      retrieve information from the discovered recursive resolvers about their
+      capabilities.</t>
 
       <t>This document fills that void by specifying a method for stub
       resolvers to retrieve such information. To that aim, a new RRtype is
@@ -115,16 +114,14 @@
 
       <t>The client can retrieve the resolver information using the RESINFO
       RRtype and QNAME of the domain name that is used to authenticate the DNS
-      server (referred to as ADN in <xref
-      target="I-D.ietf-add-dnr"></xref>).</t>
+      server (referred to as ADN in [I-D.ietf-add-dnr]).</t>
 
-      <t>If the special use domain name "resolver.arpa" defined in <xref
-      target="I-D.ietf-add-ddr"></xref> is used to discover the Encrypted DNS
-      server, the client may first query the resolver for SVCB record for
-      "dns://resolver.arpa" to retrieve the fully-qualified TargetName (Section 2.1
-      of <xref target="I-D.ietf-dnsop-svcb-https"></xref>) and then retrieve
-      the resolver information using the RESINFO RRtype and QNAME of the
-      TargetName.</t>
+      <t>If the special use domain name "resolver.arpa" defined in
+      [I-D.ietf-add-ddr] is used to discover the Encrypted DNS server, the
+      client may first query the resolver for SVCB record for
+      "dns://resolver.arpa" to retrieve the Encrypted Resolver name (Section 4
+      of [I-D.ietf-add-ddr]) and then retrieve the resolver information using
+      the RESINFO RRtype and QNAME of the resolver name.</t>
     </section>
 
     <section anchor="content-format"
@@ -373,10 +370,6 @@ Reference: [RFCXXXX]
       <?rfc include="reference.RFC.8484"?>
 
       <?rfc include='reference.I-D.pp-add-resinfo'?>
-
-      <?rfc include='reference.I-D.ietf-add-dnr'?>
-
-      <?rfc include='reference.I-D.ietf-add-ddr'?>
 
       <?rfc include='reference.I-D.ietf-dnsop-svcb-https'?>
 
