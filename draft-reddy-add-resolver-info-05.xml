@@ -121,7 +121,7 @@
       <t>If the special use domain name "resolver.arpa" defined in <xref
       target="I-D.ietf-add-ddr"></xref> is used to discover the Encrypted DNS
       server, the client can retrieve the resolver information using the
-      RESINFO RRtype and a QNAME of "resolver.arpa".</t>
+      RESINFO RRtype and QNAME of the designated resolver.</t>
     </section>
 
     <section anchor="content-format"
@@ -166,16 +166,16 @@
           unstructured resolver information (e.g., DoH APIs supported,
           possible HTTP status codes returned by the DoH server, how to report
           a problem) for troubleshooting purpose. The server MUST support the
-          content-type 'text/html'. The DNS client MUST reject the resolver
-          information URI if the scheme is not "https". The client can
-          validate that both the encrypted DNS server and the resolver
-          information server are owned and managed by the same entity by
-          establishing a TLS connection to the domain name in the URL and
-          checking if the server certificate includes the name of the
-          encrypted DNS server. If this match fails, the DNS client MUST
-          ignore the resolver information. As such, the URL should be treated
-          only as diagnostic information for IT staff and it MUST NOT be not
-          displayed to the end user. This is a mandatory attribute. </t>
+          content-type 'text/html'. The DNS client MUST reject the URL if the
+          scheme is not "https". The client MUST validate that both the
+          encrypted DNS server and the resolver information server are owned
+          and managed by the same entity by establishing a TLS connection to
+          the domain name in the URL and checking if the server certificate
+          includes the name of the encrypted DNS server. If this match fails,
+          the client MUST ignore the resolver information. As such, the URL
+          should be treated only as diagnostic information for IT staff and it
+          MUST NOT be not displayed to the end user. This is a mandatory
+          attribute. </t>
         </list></t>
 
       <t>New attributes can be defined as per the procedure defined in <xref
