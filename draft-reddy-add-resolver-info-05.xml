@@ -285,29 +285,12 @@ Reference: [RFCXXXX]
 
           <c>[RFCXXXX]</c>
 
-          <c>clientauth</c>
-
-          <c>boolean</c>
-
-          <c>Indicates whether client authentication is required or not</c>
-
-          <c>[RFCXXXX]</c>
-
           <c>resinfourl</c>
 
           <c>string</c>
 
           <c>Provides an unstructured resolver information that is used for
           troubleshooting</c>
-
-          <c>[RFCXXXX]</c>
-
-          <c>identityurl</c>
-
-          <c>string</c>
-
-          <c>Points to a human-friendly description of the resolver identity
-          to display to the end-user</c>
 
           <c>[RFCXXXX]</c>
         </texttable>
