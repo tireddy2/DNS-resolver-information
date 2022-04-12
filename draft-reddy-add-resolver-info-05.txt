@@ -5,8 +5,8 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                    Akamai
 Intended status: Standards Track                            M. Boucadair
-Expires: October 9, 2022                                          Orange
-                                                           April 7, 2022
+Expires: October 14, 2022                                         Orange
+                                                          April 12, 2022
 
 
                         DNS Resolver Information
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 9, 2022.
+   This Internet-Draft will expire on October 14, 2022.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 1]
+Reddy & Boucadair       Expires October 14, 2022                [Page 1]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 2]
+Reddy & Boucadair       Expires October 14, 2022                [Page 2]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -165,7 +165,7 @@ Internet-Draft          DNS Resolver Information              April 2022
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 3]
+Reddy & Boucadair       Expires October 14, 2022                [Page 3]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -188,11 +188,11 @@ Internet-Draft          DNS Resolver Information              April 2022
       not "https".  The client MUST validate that both the encrypted DNS
       server and the resolver information server are owned and managed
       by the same entity by establishing a TLS connection to the domain
-      name in the URL and checking if the server certificate includes
-      the name of the encrypted DNS server.  If this match fails, the
-      client MUST ignore the resolver information.  As such, the URL
-      should be treated only as diagnostic information for IT staff and
-      it MUST NOT be not displayed to the end user.  This is a mandatory
+      name in the URL and checking if the subjectAltName entry in the
+      server certificate includes the name of the encrypted DNS server.
+      If this match fails, the client MUST ignore the resolver
+      information.  As such, the URL should be treated only as
+      diagnostic information for IT staff.  This is a mandatory
       attribute.
 
    New attributes can be defined as per the procedure defined in
@@ -221,7 +221,7 @@ Internet-Draft          DNS Resolver Information              April 2022
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 4]
+Reddy & Boucadair       Expires October 14, 2022                [Page 4]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -277,7 +277,7 @@ Internet-Draft          DNS Resolver Information              April 2022
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 5]
+Reddy & Boucadair       Expires October 14, 2022                [Page 5]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -333,7 +333,7 @@ Internet-Draft          DNS Resolver Information              April 2022
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 6]
+Reddy & Boucadair       Expires October 14, 2022                [Page 6]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -389,7 +389,7 @@ Internet-Draft          DNS Resolver Information              April 2022
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 7]
+Reddy & Boucadair       Expires October 14, 2022                [Page 7]
 
 Internet-Draft          DNS Resolver Information              April 2022
 
@@ -445,4 +445,4 @@ Authors' Addresses
 
 
 
-Reddy & Boucadair        Expires October 9, 2022                [Page 8]
+Reddy & Boucadair       Expires October 14, 2022                [Page 8]

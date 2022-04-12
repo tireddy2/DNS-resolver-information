@@ -160,7 +160,7 @@
           DNS error (EDE) <xref target="RFC8914"></xref> to return additional
           information about the cause of DNS errors, the parameter lists the
           possible extended DNS error codes that can be returned by the DNS
-          server. This is an optional attribute. </t>
+          server. This is an optional attribute.</t>
 
           <t hangText="resinfourl:">An URL that points to the generic
           unstructured resolver information (e.g., DoH APIs supported,
@@ -170,12 +170,11 @@
           scheme is not "https". The client MUST validate that both the
           encrypted DNS server and the resolver information server are owned
           and managed by the same entity by establishing a TLS connection to
-          the domain name in the URL and checking if the server certificate
-          includes the name of the encrypted DNS server. If this match fails,
-          the client MUST ignore the resolver information. As such, the URL
-          should be treated only as diagnostic information for IT staff and it
-          MUST NOT be not displayed to the end user. This is a mandatory
-          attribute. </t>
+          the domain name in the URL and checking if the subjectAltName entry
+          in the server certificate includes the name of the encrypted DNS
+          server. If this match fails, the client MUST ignore the resolver
+          information. As such, the URL should be treated only as diagnostic
+          information for IT staff. This is a mandatory attribute.</t>
         </list></t>
 
       <t>New attributes can be defined as per the procedure defined in <xref
@@ -209,7 +208,7 @@
       DNS resolver information can be retrieved after the encrypted connection
       is established to the DNS server or retrieved before the encrypted
       connection is established to the DNS server by using local DNSSEC
-      validation. </t>
+      validation.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
