@@ -181,7 +181,7 @@ Internet-Draft          DNS Resolver Information             August 2022
       [RFC8914] to return additional information about the cause of DNS
       errors, the parameter lists the possible extended DNS error codes
       that can be returned by the DNS server.  When multiple values are
-      present, they are seperated by comma.  This is an optional
+      present, these values MUST be comma-separated.  This is an optional
       attribute.
 
    infourl:  An URL that points to the generic unstructured resolver
