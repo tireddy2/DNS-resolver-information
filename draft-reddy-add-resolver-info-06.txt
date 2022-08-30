@@ -154,7 +154,7 @@ Internet-Draft          DNS Resolver Information             August 2022
    it MUST silently ignore them.  The rules for the keys is defined in
    Section 6.4 of [RFC6763].
 
-   All keys MUST either be defined in the IANA registry Section 7.2 or
+   Keys MUST either be defined in the IANA registry Section 7.2 or
    begin with the substring "temp-" for names defined for local use
    only.
 
