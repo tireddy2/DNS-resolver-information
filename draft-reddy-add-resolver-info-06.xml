@@ -120,17 +120,18 @@
 
     <section anchor="content-format"
              title="Format of the Resolver Information">
-      <t>DNS TXT records are used to store key/value pairs conveying the
-      resolver information. The intention of using TXT records is to convey a
-      small amount of useful information about a resolver. The general format
-      rules for DNS TXT records are discussed in Section 6.1 of <xref
+      <t>The resolver information uses the same format as DNS TXT records. The
+      intention of using the same format as TXT records is to convey a small
+      amount of useful information about a resolver. The general format rules
+      for DNS TXT records are discussed in Section 6.1 of <xref
       target="RFC6763"></xref> and the recommendations to limit the TXT record
-      size are discussed in Section 6.2 of <xref target="RFC6763"></xref>.
+      size are discussed in Section 6.2 of <xref target="RFC6763"></xref>. The
+      RESINFO RRtype uses key/value pairs to convey the resolver information.
       Each key/value pair is encoded using the format rules in Section 6.3 of
       DNS-SD <xref target="RFC6763"></xref>. Using standardized key/value
-      syntax within the TXT record makes it easier for additional keys to be
-      defined later. If an implementation sees unknown keys in a resolver TXT
-      record, it MUST silently ignore them. The rules for the keys is defined
+      syntax within the RESINFO RRtype makes it easier for additional keys to
+      be defined later. If an implementation sees unknown keys in a RESINFO
+      RRtype, it MUST silently ignore them. The rules for the keys is defined
       in Section 6.4 of <xref target="RFC6763"></xref>.</t>
 
       <t>All keys MUST either be defined in the IANA registry <xref
@@ -142,21 +143,22 @@
       <t>The resolver information includes the following keys and values:</t>
 
       <t><list style="hanging">
-          <t hangText="qnameminimization:">If the DNS server supports QNAME
+          <t hangText="qnamemin:">If the DNS server supports QNAME
           minimisation <xref target="RFC9156"></xref> to improve DNS privacy,
           the key is present. Note that, as per the rules for the keys is
           defined in Section 6.4 of <xref target="RFC6763"></xref>, if there
-          is no '=' in a resolver TXT record string, then it is a boolean
-          attribute, simply identified as being present, with no value. This
-          is a mandatory attribute.</t>
+          is no '=' in a key, then it is a boolean attribute, simply
+          identified as being present, with no value. This is a mandatory
+          attribute.</t>
 
-          <t hangText="extendeddnserror:">If the DNS server supports extended
-          DNS error (EDE) <xref target="RFC8914"></xref> to return additional
+          <t hangText="exterr:">If the DNS server supports extended DNS error
+          (EDE) <xref target="RFC8914"></xref> to return additional
           information about the cause of DNS errors, the parameter lists the
           possible extended DNS error codes that can be returned by the DNS
-          server. This is an optional attribute.</t>
+          server. When multiple values are present, they are seperated by
+          comma. This is an optional attribute.</t>
 
-          <t hangText="resinfourl:">An URL that points to the generic
+          <t hangText="infourl:">An URL that points to the generic
           unstructured resolver information (e.g., DoH APIs supported,
           possible HTTP status codes returned by the DoH server, how to report
           a problem) for troubleshooting purpose. The server MUST support the
@@ -255,7 +257,7 @@ Reference: [RFCXXXX]
 
           <ttcol>Specification</ttcol>
 
-          <c>qnameminimization</c>
+          <c>qnamemin</c>
 
           <c>boolean</c>
 
@@ -263,7 +265,7 @@ Reference: [RFCXXXX]
 
           <c>[RFCXXXX]</c>
 
-          <c>extendeddnserror</c>
+          <c>exterr</c>
 
           <c>number</c>
 
@@ -271,7 +273,7 @@ Reference: [RFCXXXX]
 
           <c>[RFCXXXX]</c>
 
-          <c>resinfourl</c>
+          <c>infourl</c>
 
           <c>string</c>
 
