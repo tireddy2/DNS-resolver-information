@@ -122,17 +122,19 @@
              title="Format of the Resolver Information">
       <t>The resolver information uses the same format as DNS TXT records. The
       intention of using the same format as TXT records is to convey a small
-      amount of useful information about a resolver. The general format rules
-      for DNS TXT records are discussed in Section 6.1 of <xref
-      target="RFC6763"></xref> and the recommendations to limit the TXT record
-      size are discussed in Section 6.2 of <xref target="RFC6763"></xref>. The
-      RESINFO RRtype uses key/value pairs to convey the resolver information.
-      Each key/value pair is encoded using the format rules in Section 6.3 of
-      DNS-SD <xref target="RFC6763"></xref>. Using standardized key/value
-      syntax within the RESINFO RRtype makes it easier for additional keys to
-      be defined later. If an implementation sees unknown keys in a RESINFO
-      RRtype, it MUST silently ignore them. The rules for the keys is defined
-      in Section 6.4 of <xref target="RFC6763"></xref>.</t>
+      amount of useful information about a resolver. The format rules for TXT
+      records are defined in Section 3.3.14 of the DNS specification <xref
+      target="RFC1035"></xref> and Section 6.1 of the DNS-based Service
+      Discovery <xref target="RFC6763"></xref>. The recommendations to limit
+      the TXT record size are discussed in Section 6.2 of <xref
+      target="RFC6763"></xref>. The RESINFO RRtype uses key/value pairs to
+      convey the resolver information. Each key/value pair is encoded using
+      the format rules defined in Section 6.3 of DNS-SD <xref
+      target="RFC6763"></xref>. Using standardized key/value syntax within the
+      RESINFO RRtype makes it easier for additional keys to be defined later.
+      If an implementation sees unknown keys in a RESINFO RRtype, it MUST
+      silently ignore them. The rules for the keys is defined in Section 6.4
+      of <xref target="RFC6763"></xref>.</t>
 
       <t>All keys MUST either be defined in the IANA registry <xref
       target="resolver-information"></xref> or begin with the substring
@@ -180,9 +182,7 @@
       information.</t>
 
       <figure anchor="poex" title="An Example of Resolver Information">
-        <artwork><![CDATA[  qnameminimization=true
-  extendeddnserror=15,16,17
-  "resinfourl": "https://resolver.example.com/guide"
+        <artwork><![CDATA[  resolver.example.net. 7200  IN RESINFO qnamemin exterr=15,16,17 resinfourl:https://resolver.example.com/guide
 ]]></artwork>
       </figure>
     </section>
@@ -300,6 +300,8 @@ Reference: [RFCXXXX]
   <back>
     <references title="Normative References">
       <?rfc include="reference.RFC.2119"?>
+
+      <?rfc include="reference.RFC.1035"?>
 
       <?rfc include='reference.RFC.8174'?>
 
