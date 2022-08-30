@@ -132,16 +132,16 @@
       the format rules defined in Section 6.3 of DNS-SD <xref
       target="RFC6763"></xref>. Using standardized key/value syntax within the
       RESINFO RRtype makes it easier for additional keys to be defined later.
-      If an implementation sees unknown keys in a RESINFO RRtype, it MUST
-      silently ignore them. The rules for the keys is defined in Section 6.4
-      of <xref target="RFC6763"></xref>.</t>
+      If an DNS client sees unknown keys in a RESINFO RRtype, it MUST silently
+      ignore them. The rules for the keys is defined in Section 6.4 of <xref
+      target="RFC6763"></xref>.</t>
 
-      <t>All keys MUST either be defined in the IANA registry <xref
+      <t>Keys MUST either be defined in the IANA registry <xref
       target="resolver-information"></xref> or begin with the substring
       "temp-" for names defined for local use only.</t>
     </section>
 
-    <section anchor="attributes" title="Resolver Information">
+    <section anchor="attributes" title="Resolver Information Keys/Values">
       <t>The resolver information includes the following keys and values:</t>
 
       <t><list style="hanging">
@@ -157,8 +157,8 @@
           (EDE) <xref target="RFC8914"></xref> to return additional
           information about the cause of DNS errors, the parameter lists the
           possible extended DNS error codes that can be returned by the DNS
-          server. When multiple values are present, they are seperated by
-          comma. This is an optional attribute.</t>
+          server. When multiple values are present, these values MUST be comma
+          separated. This is an optional attribute.</t>
 
           <t hangText="infourl:">An URL that points to the generic
           unstructured resolver information (e.g., DoH APIs supported,
@@ -181,8 +181,8 @@
       <t><xref target="poex"></xref> shows an example of resolver
       information.</t>
 
-      <figure anchor="poex" title="An Example of Resolver Information">
-        <artwork><![CDATA[  resolver.example.net. 7200  IN RESINFO qnamemin exterr=15,16,17 resinfourl:https://resolver.example.com/guide
+      <figure anchor="poex" title="An Example of Resolver Information Record">
+        <artwork><![CDATA[  resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17 resinfourl=https://resolver.example.com/guide
 ]]></artwork>
       </figure>
     </section>
@@ -293,7 +293,9 @@ Reference: [RFCXXXX]
 
       <t>Thanks to Tommy Jensen, Vittorio Bertola, Vinny Parla, Chris Box, Ben
       Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla and Shashank
-      Jain for the discussion and comments.</t>
+      Jain for the discussion and comments. Thanks to Mark Andrews, Joe Abley,
+      Paul Wouters, Tim Wicinski, and Steffen Nurpmeso for the discussion on
+      the RR formatting rules. </t>
     </section>
   </middle>
 
