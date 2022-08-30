@@ -205,7 +205,7 @@ Internet-Draft          DNS Resolver Information             August 2022
 
   resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17 resinfourl=https://resolver.example.com/guide
 
-             Figure 1: An Example of Resolver Information
+             Figure 1: An Example of Resolver Information Record
 
 6.  Security Considerations
 
