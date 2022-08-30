@@ -122,13 +122,16 @@
              title="Format of the Resolver Information">
       <t>DNS TXT records are used to store key/value pairs conveying the
       resolver information. The intention of using TXT records is to convey a
-      small amount of useful information about a resolver. Each key/value pair
-      is encoded using the format rules in Section 6.3 of DNS-SD <xref
-      target="RFC6763"></xref>. Using standardized key/value syntax within the
-      TXT record makes it easier for additional keys to be defined later. If
-      an implementation sees unknown keys in a resolver TXT record, it MUST
-      silently ignore them. The rules for the keys is defined in Section 6.4
-      of <xref target="RFC6763"></xref>.</t>
+      small amount of useful information about a resolver. The general format
+      rules for DNS TXT records are discussed in Section 6.1 of <xref
+      target="RFC6763"></xref> and the recommendations to limit the TXT record
+      size are discussed in Section 6.2 of <xref target="RFC6763"></xref>.
+      Each key/value pair is encoded using the format rules in Section 6.3 of
+      DNS-SD <xref target="RFC6763"></xref>. Using standardized key/value
+      syntax within the TXT record makes it easier for additional keys to be
+      defined later. If an implementation sees unknown keys in a resolver TXT
+      record, it MUST silently ignore them. The rules for the keys is defined
+      in Section 6.4 of <xref target="RFC6763"></xref>.</t>
 
       <t>All keys MUST either be defined in the IANA registry <xref
       target="resolver-information"></xref> or begin with the substring
