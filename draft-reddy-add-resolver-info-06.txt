@@ -64,9 +64,9 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
    3.  Retrieving Resolver Information . . . . . . . . . . . . . . .   3
    4.  Format of the Resolver Information  . . . . . . . . . . . . .   3
-   5.  Resolver Information  . . . . . . . . . . . . . . . . . . . .   3
+   5.  Resolver Information Keys/Values  . . . . . . . . . . . . . .   3
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
      7.1.  RESINFO RRtype  . . . . . . . . . . . . . . . . . . . . .   5
      7.2.  DNS Resolver Information Registration . . . . . . . . . .   5
    8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -150,18 +150,18 @@ Internet-Draft          DNS Resolver Information             August 2022
    value pair is encoded using the format rules defined in Section 6.3
    of DNS-SD [RFC6763].  Using standardized key/value syntax within the
    RESINFO RRtype makes it easier for additional keys to be defined
-   later.  If an implementation sees unknown keys in a RESINFO RRtype,
-   it MUST silently ignore them.  The rules for the keys is defined in
+   later.  If an DNS client sees unknown keys in a RESINFO RRtype, it
+   MUST silently ignore them.  The rules for the keys is defined in
    Section 6.4 of [RFC6763].
 
-   Keys MUST either be defined in the IANA registry Section 7.2 or
-   begin with the substring "temp-" for names defined for local use
-   only.
+   Keys MUST either be defined in the IANA registry Section 7.2 or begin
+   with the substring "temp-" for names defined for local use only.
 
 5.  Resolver Information Keys/Values
 
    The resolver information includes the following keys and values:
 
+   qnamemin:  If the DNS server supports QNAME minimisation [RFC9156] to
 
 
 
@@ -170,7 +170,6 @@ Reddy & Boucadair         Expires 3 March 2023                  [Page 3]
 Internet-Draft          DNS Resolver Information             August 2022
 
 
-   qnamemin:  If the DNS server supports QNAME minimisation [RFC9156] to
       improve DNS privacy, the key is present.  Note that, as per the
       rules for the keys is defined in Section 6.4 of [RFC6763], if
       there is no '=' in a key, then it is a boolean attribute, simply
@@ -181,8 +180,8 @@ Internet-Draft          DNS Resolver Information             August 2022
       [RFC8914] to return additional information about the cause of DNS
       errors, the parameter lists the possible extended DNS error codes
       that can be returned by the DNS server.  When multiple values are
-      present, these values MUST be comma-separated.  This is an optional
-      attribute.
+      present, these values MUST be comma separated.  This is an
+      optional attribute.
 
    infourl:  An URL that points to the generic unstructured resolver
       information (e.g., DoH APIs supported, possible HTTP status codes
@@ -205,7 +204,7 @@ Internet-Draft          DNS Resolver Information             August 2022
 
   resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17 resinfourl=https://resolver.example.com/guide
 
-             Figure 1: An Example of Resolver Information Record
+         Figure 1: An Example of Resolver Information Record
 
 6.  Security Considerations
 
@@ -217,6 +216,7 @@ Internet-Draft          DNS Resolver Information             August 2022
    encrypted connection is established to the DNS server by using local
    DNSSEC validation.
 
+7.  IANA Considerations
 
 
 
@@ -225,8 +225,6 @@ Reddy & Boucadair         Expires 3 March 2023                  [Page 4]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
-
-7.  IANA Considerations
 
       Note to the RFC Editor: Please update [RFCXXXX] with the RFC
       number to be assigned to this document.
@@ -277,6 +275,8 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
+
+
 Reddy & Boucadair         Expires 3 March 2023                  [Page 5]
 
 Internet-Draft          DNS Resolver Information             August 2022
@@ -308,7 +308,9 @@ Internet-Draft          DNS Resolver Information             August 2022
 
    Thanks to Tommy Jensen, Vittorio Bertola, Vinny Parla, Chris Box, Ben
    Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla and Shashank
-   Jain for the discussion and comments. Thanks to Mark Andrews, Joe Abley, Paul Wouters, Tim Wicinski,  and Steffen Nurpmeso for the discussion on the RR formatting rules. 
+   Jain for the discussion and comments.  Thanks to Mark Andrews, Joe
+   Abley, Paul Wouters, Tim Wicinski, and Steffen Nurpmeso for the
+   discussion on the RR formatting rules.
 
 9.  References
 
@@ -326,8 +328,6 @@ Internet-Draft          DNS Resolver Information             August 2022
    [RFC6763]  Cheshire, S. and M. Krochmal, "DNS-Based Service
               Discovery", RFC 6763, DOI 10.17487/RFC6763, February 2013,
               <https://www.rfc-editor.org/info/rfc6763>.
-
-
 
 
 
