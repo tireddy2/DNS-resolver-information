@@ -308,7 +308,7 @@ Internet-Draft          DNS Resolver Information             August 2022
 
    Thanks to Tommy Jensen, Vittorio Bertola, Vinny Parla, Chris Box, Ben
    Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla and Shashank
-   Jain for the discussion and comments.
+   Jain for the discussion and comments. Thanks to Mark Andrews, Joe Abley, Paul Wouters, Tim Wicinski,  and Steffen Nurpmeso for the discussion on the RR formatting rules. 
 
 9.  References
 
