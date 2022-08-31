@@ -53,8 +53,8 @@
 
     <abstract>
       <t>This document specifies a method for DNS resolvers to publish
-      information about themselves. Clients can use the resolver information
-      to identify the capabilities of DNS resolvers.</t>
+      information about themselves. DNS clients can use the resolver
+      information to identify the capabilities of DNS resolvers.</t>
     </abstract>
   </front>
 
@@ -74,7 +74,7 @@
       about their capabilities.</t>
 
       <t>This document fills that void by specifying a method for stub
-      resolvers to retrieve such information. To that aim, a new RRtype is
+      resolvers to retrieve such information. To that aim, a new RR type is
       defined for stub resolvers to query the recursive resolvers. The
       information that a resolver might want to give is defined in <xref
       target="attributes"></xref>.</t>
@@ -99,42 +99,45 @@
 
     <section anchor="resolver-info" title="Retrieving Resolver Information">
       <t>A stub resolver that wants to retrieve the resolver information may
-      use the RRtype "RESINFO" defined in this document (see <xref
+      use the RR type "RESINFO" defined in this document (see <xref
       target="RESINFO"></xref>).</t>
 
-      <t>The content of the RDATA in a response to RRtype query is defined in
+      <t>The content of the RDATA in a response to RR type query is defined in
       <xref target="attributes"></xref>. If the resolver understands the
-      RESINFO RRtype, the RRset in the Answer section MUST have exactly one
+      RESINFO RR type, the RRSet in the Answer section MUST have exactly one
       record.</t>
 
-      <t>The client can retrieve the resolver information using the RESINFO
-      RRtype and QNAME of the domain name that is used to authenticate the DNS
-      server (referred to as ADN in <xref
+      <t>A DNS client can retrieve the resolver information using the RESINFO
+      RR type and QNAME of the domain name that is used to authenticate the
+      DNS server (referred to as ADN in <xref
       target="I-D.ietf-add-dnr"></xref>).</t>
 
       <t>If the special use domain name "resolver.arpa" defined in <xref
       target="I-D.ietf-add-ddr"></xref> is used to discover the Encrypted DNS
       server, the client can retrieve the resolver information using the
-      RESINFO RRtype and QNAME of the designated resolver.</t>
+      RESINFO RR type and QNAME of the designated resolver.</t>
     </section>
 
     <section anchor="content-format"
              title="Format of the Resolver Information">
       <t>The resolver information uses the same format as DNS TXT records. The
       intention of using the same format as TXT records is to convey a small
-      amount of useful information about a resolver. The format rules for TXT
-      records are defined in Section 3.3.14 of the DNS specification <xref
-      target="RFC1035"></xref> and Section 6.1 of the DNS-based Service
-      Discovery <xref target="RFC6763"></xref>. The recommendations to limit
-      the TXT record size are discussed in Section 6.2 of <xref
-      target="RFC6763"></xref>. The RESINFO RRtype uses key/value pairs to
-      convey the resolver information. Each key/value pair is encoded using
-      the format rules defined in Section 6.3 of DNS-SD <xref
-      target="RFC6763"></xref>. Using standardized key/value syntax within the
-      RESINFO RRtype makes it easier for additional keys to be defined later.
-      If an DNS client sees unknown keys in a RESINFO RRtype, it MUST silently
-      ignore them. The rules for the keys is defined in Section 6.4 of <xref
-      target="RFC6763"></xref>.</t>
+      amount of useful information about a DNS resolver. As a reminder, the
+      format rules for TXT records are defined in Section 3.3.14 of the DNS
+      specification <xref target="RFC1035"></xref> and further elaborated in
+      Section 6.1 of the DNS-based Service Discovery (DNS-SD) <xref
+      target="RFC6763"></xref>. The recommendations to limit the TXT record
+      size are discussed in Section 6.2 of <xref target="RFC6763"></xref>.
+      </t>
+
+      <t>Similar to DNS-SD, the RESINFO RR type uses "key/value" pairs to
+      convey the resolver information. Each "key/value" pair is encoded using
+      the format rules defined in Section 6.3 of <xref
+      target="RFC6763"></xref>. Using standardized "key/value" syntax within
+      the RESINFO RR type makes it easier for future keys to be defined. If a
+      DNS client sees unknown keys in a RESINFO RR type, it MUST silently
+      ignore them. The same rules for the keys as those defined in Section 6.4
+      of <xref target="RFC6763"></xref> MUST be followed for RESINFO. </t>
 
       <t>Keys MUST either be defined in the IANA registry <xref
       target="resolver-information"></xref> or begin with the substring
@@ -142,47 +145,50 @@
     </section>
 
     <section anchor="attributes" title="Resolver Information Keys/Values">
-      <t>The resolver information includes the following keys and values:</t>
+      <t>The following resolver information keys are defined:</t>
 
       <t><list style="hanging">
-          <t hangText="qnamemin:">If the DNS server supports QNAME
+          <t hangText="qnamemin:">If the DNS resolver supports QNAME
           minimisation <xref target="RFC9156"></xref> to improve DNS privacy,
-          the key is present. Note that, as per the rules for the keys is
-          defined in Section 6.4 of <xref target="RFC6763"></xref>, if there
-          is no '=' in a key, then it is a boolean attribute, simply
-          identified as being present, with no value. This is a mandatory
+          the key is present. Note that, as per the rules for the keys defined
+          in Section 6.4 of <xref target="RFC6763"></xref>, if there is no '='
+          in a key, then it is a boolean attribute, simply identified as being
+          present, with no value. <vspace blankLines="1" />This is a mandatory
           attribute.</t>
 
-          <t hangText="exterr:">If the DNS server supports extended DNS error
-          (EDE) <xref target="RFC8914"></xref> to return additional
-          information about the cause of DNS errors, the parameter lists the
-          possible extended DNS error codes that can be returned by the DNS
-          server. When multiple values are present, these values MUST be comma
-          separated. This is an optional attribute.</t>
+          <t hangText="exterr:">If the DNS resolver supports extended DNS
+          errors (EDE) <xref target="RFC8914"></xref> to return additional
+          information about the cause of DNS errors, the value of this key
+          lists the possible extended DNS error codes that can be returned by
+          this DNS resolver. When multiple values are present, these values
+          MUST be comma-separated. <vspace blankLines="1" />This is an
+          optional attribute.</t>
 
           <t hangText="infourl:">An URL that points to the generic
           unstructured resolver information (e.g., DoH APIs supported,
           possible HTTP status codes returned by the DoH server, how to report
-          a problem) for troubleshooting purpose. The server MUST support the
-          content-type 'text/html'. The DNS client MUST reject the URL if the
-          scheme is not "https". The client MUST validate that both the
-          encrypted DNS server and the resolver information server are owned
-          and managed by the same entity by establishing a TLS connection to
-          the domain name in the URL and checking if the subjectAltName entry
-          in the server certificate includes the name of the encrypted DNS
-          server. If this match fails, the client MUST ignore the resolver
-          information. As such, the URL should be treated only as diagnostic
-          information for IT staff. This is a mandatory attribute.</t>
+          a problem) for troubleshooting purpose. <vspace blankLines="1" />The
+          server MUST support the content-type 'text/html'. The DNS client
+          MUST reject the URL if the scheme is not "https". The client MUST
+          validate that both the encrypted DNS server and the resolver
+          information server are owned and managed by the same entity by
+          establishing a TLS connection to the domain name in the URL and
+          checking if the subjectAltName entry in the server certificate
+          includes the name of the encrypted DNS server. If this match fails,
+          the client MUST ignore the resolver information. The URL should be
+          treated only as diagnostic information for IT staff. <vspace
+          blankLines="1" />This is a mandatory attribute.</t>
         </list></t>
 
       <t>New keys can be defined as per the procedure defined in <xref
       target="resolver-information"></xref>.</t>
 
-      <t><xref target="poex"></xref> shows an example of resolver
-      information.</t>
+      <t><xref target="poex"></xref> shows an example of published resolver
+      information record:</t>
 
       <figure anchor="poex" title="An Example of Resolver Information Record">
-        <artwork><![CDATA[  resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17 resinfourl=https://resolver.example.com/guide
+        <artwork><![CDATA[  resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17
+                     resinfourl=https://resolver.example.com/guide
 ]]></artwork>
       </figure>
     </section>
@@ -191,7 +197,7 @@
       <t>Unless a DNS request to retrieve the resolver information is
       encrypted (e.g., sent over DNS-over-TLS (DoT) <xref
       target="RFC7858"></xref> or DNS-over- HTTPS (DoH)) <xref
-      target="RFC8484"></xref>, the response is susceptible to forgery. The
+      target="RFC8484"></xref>), the response is susceptible to forgery. The
       DNS resolver information can be retrieved after the encrypted connection
       is established to the DNS server or retrieved before the encrypted
       connection is established to the DNS server by using local DNSSEC
@@ -204,7 +210,7 @@
           number to be assigned to this document.</t>
         </list></t>
 
-      <section anchor="RESINFO" title="RESINFO RRtype">
+      <section anchor="RESINFO" title="RESINFO RR Type">
         <t>This document requests IANA to register a new value from the
         "Resource Record (RR) TYPEs" subregistry of the "Domain Name System
         (DNS) Parameters" registry available at <xref
@@ -220,26 +226,25 @@ Reference: [RFCXXXX]
       </section>
 
       <section anchor="resolver-information"
-               title="DNS Resolver Information Registration">
+               title="DNS Resolver Information Key Registration">
         <t>This document requests IANA to create a new registry entitled "DNS
-        Resolver Information". This registry contains definitions of the names
-        that can be used to provide the resolver information.</t>
+        Resolver Information Keys". This registry contains definitions of the
+        keys that can be used to provide the resolver information.</t>
 
         <t>The registration procedure is Specification Required (Section 4.6
         of <xref target="RFC8126"></xref>).</t>
 
         <t>The structure of the registry is as follows:<list style="hanging">
-            <t hangText="Name:">The name to be used in the key. The name MUST
-            conform to the definition in Section 6.4 of <xref
-            target="RFC6763"></xref>. The IANA registry MUST NOT register
-            names that begin with "temp-", so these names can be used freely
-            by any implementer.</t>
+            <t hangText="Name:">The key name. The name MUST conform to the
+            definition in <xref target="content-format"></xref>. The IANA
+            registry MUST NOT register names that begin with "temp-", so these
+            names can be used freely by any implementer.</t>
 
-            <t hangText="Value Type:">The type of value to be used in the
+            <t hangText="Value Type:">The type of the value to be used in the
             key.</t>
 
-            <t hangText="Description:">Provides a description of the
-            attribute</t>
+            <t hangText="Description:">A description of the registered
+            key.</t>
 
             <t hangText="Specification:">The reference specification for the
             registered element.</t>
@@ -292,10 +297,10 @@ Reference: [RFCXXXX]
       <xref target="I-D.pp-add-resinfo"></xref>.</t>
 
       <t>Thanks to Tommy Jensen, Vittorio Bertola, Vinny Parla, Chris Box, Ben
-      Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla and Shashank
+      Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla, and Shashank
       Jain for the discussion and comments. Thanks to Mark Andrews, Joe Abley,
       Paul Wouters, Tim Wicinski, and Steffen Nurpmeso for the discussion on
-      the RR formatting rules. </t>
+      the RR formatting rules.</t>
     </section>
   </middle>
 

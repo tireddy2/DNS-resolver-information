@@ -5,8 +5,8 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                            M. Boucadair
-Expires: 3 March 2023                                             Orange
-                                                          30 August 2022
+Expires: 4 March 2023                                             Orange
+                                                          31 August 2022
 
 
                         DNS Resolver Information
@@ -15,7 +15,7 @@ Expires: 3 March 2023                                             Orange
 Abstract
 
    This document specifies a method for DNS resolvers to publish
-   information about themselves.  Clients can use the resolver
+   information about themselves.  DNS clients can use the resolver
    information to identify the capabilities of DNS resolvers.
 
 Status of This Memo
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 March 2023.
+   This Internet-Draft will expire on 4 March 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy & Boucadair         Expires 3 March 2023                  [Page 1]
+Reddy & Boucadair         Expires 4 March 2023                  [Page 1]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
@@ -64,11 +64,11 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
    3.  Retrieving Resolver Information . . . . . . . . . . . . . . .   3
    4.  Format of the Resolver Information  . . . . . . . . . . . . .   3
-   5.  Resolver Information Keys/Values  . . . . . . . . . . . . . .   3
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
-     7.1.  RESINFO RRtype  . . . . . . . . . . . . . . . . . . . . .   5
-     7.2.  DNS Resolver Information Registration . . . . . . . . . .   5
+   5.  Resolver Information Keys/Values  . . . . . . . . . . . . . .   4
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
+     7.1.  RESINFO RR Type . . . . . . . . . . . . . . . . . . . . .   5
+     7.2.  DNS Resolver Information Key Registration . . . . . . . .   5
    8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   6
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
@@ -90,8 +90,8 @@ Table of Contents
    their capabilities.
 
    This document fills that void by specifying a method for stub
-   resolvers to retrieve such information.  To that aim, a new RRtype is
-   defined for stub resolvers to query the recursive resolvers.  The
+   resolvers to retrieve such information.  To that aim, a new RR type
+   is defined for stub resolvers to query the recursive resolvers.  The
    information that a resolver might want to give is defined in
    Section 5.
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy & Boucadair         Expires 3 March 2023                  [Page 2]
+Reddy & Boucadair         Expires 4 March 2023                  [Page 2]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
@@ -122,95 +122,115 @@ Internet-Draft          DNS Resolver Information             August 2022
 3.  Retrieving Resolver Information
 
    A stub resolver that wants to retrieve the resolver information may
-   use the RRtype "RESINFO" defined in this document (see Section 7.1).
+   use the RR type "RESINFO" defined in this document (see Section 7.1).
 
-   The content of the RDATA in a response to RRtype query is defined in
-   Section 5.  If the resolver understands the RESINFO RRtype, the RRset
-   in the Answer section MUST have exactly one record.
+   The content of the RDATA in a response to RR type query is defined in
+   Section 5.  If the resolver understands the RESINFO RR type, the
+   RRSet in the Answer section MUST have exactly one record.
 
-   The client can retrieve the resolver information using the RESINFO
-   RRtype and QNAME of the domain name that is used to authenticate the
+   A DNS client can retrieve the resolver information using the RESINFO
+   RR type and QNAME of the domain name that is used to authenticate the
    DNS server (referred to as ADN in [I-D.ietf-add-dnr]).
 
    If the special use domain name "resolver.arpa" defined in
    [I-D.ietf-add-ddr] is used to discover the Encrypted DNS server, the
-   client can retrieve the resolver information using the RESINFO RRtype
-   and QNAME of the designated resolver.
+   client can retrieve the resolver information using the RESINFO RR
+   type and QNAME of the designated resolver.
 
 4.  Format of the Resolver Information
 
    The resolver information uses the same format as DNS TXT records.
    The intention of using the same format as TXT records is to convey a
-   small amount of useful information about a resolver.  The format
-   rules for TXT records are defined in Section 3.3.14 of the DNS
-   specification [RFC1035] and Section 6.1 of the DNS-based Service
-   Discovery [RFC6763].  The recommendations to limit the TXT record
-   size are discussed in Section 6.2 of [RFC6763].  The RESINFO RRtype
-   uses key/value pairs to convey the resolver information.  Each key/
-   value pair is encoded using the format rules defined in Section 6.3
-   of DNS-SD [RFC6763].  Using standardized key/value syntax within the
-   RESINFO RRtype makes it easier for additional keys to be defined
-   later.  If an DNS client sees unknown keys in a RESINFO RRtype, it
-   MUST silently ignore them.  The rules for the keys is defined in
-   Section 6.4 of [RFC6763].
+   small amount of useful information about a DNS resolver.  As a
+   reminder, the format rules for TXT records are defined in
+   Section 3.3.14 of the DNS specification [RFC1035] and further
+   elaborated in Section 6.1 of the DNS-based Service Discovery (DNS-SD)
+   [RFC6763].  The recommendations to limit the TXT record size are
+   discussed in Section 6.2 of [RFC6763].
+
+   Similar to DNS-SD, the RESINFO RR type uses "key/value" pairs to
+   convey the resolver information.  Each "key/value" pair is encoded
+   using the format rules defined in Section 6.3 of [RFC6763].  Using
+   standardized "key/value" syntax within the RESINFO RR type makes it
+   easier for future keys to be defined.  If a DNS client sees unknown
+   keys in a RESINFO RR type, it MUST silently ignore them.  The same
+   rules for the keys as those defined in Section 6.4 of [RFC6763] MUST
+   be followed for RESINFO.
 
    Keys MUST either be defined in the IANA registry Section 7.2 or begin
    with the substring "temp-" for names defined for local use only.
 
-5.  Resolver Information Keys/Values
-
-   The resolver information includes the following keys and values:
-
-   qnamemin:  If the DNS server supports QNAME minimisation [RFC9156] to
 
 
 
-Reddy & Boucadair         Expires 3 March 2023                  [Page 3]
+
+
+Reddy & Boucadair         Expires 4 March 2023                  [Page 3]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
 
-      improve DNS privacy, the key is present.  Note that, as per the
-      rules for the keys is defined in Section 6.4 of [RFC6763], if
-      there is no '=' in a key, then it is a boolean attribute, simply
-      identified as being present, with no value.  This is a mandatory
-      attribute.
+5.  Resolver Information Keys/Values
 
-   exterr:  If the DNS server supports extended DNS error (EDE)
+   The following resolver information keys are defined:
+
+   qnamemin:  If the DNS resolver supports QNAME minimisation [RFC9156]
+      to improve DNS privacy, the key is present.  Note that, as per the
+      rules for the keys defined in Section 6.4 of [RFC6763], if there
+      is no '=' in a key, then it is a boolean attribute, simply
+      identified as being present, with no value.
+
+      This is a mandatory attribute.
+
+   exterr:  If the DNS resolver supports extended DNS errors (EDE)
       [RFC8914] to return additional information about the cause of DNS
-      errors, the parameter lists the possible extended DNS error codes
-      that can be returned by the DNS server.  When multiple values are
-      present, these values MUST be comma separated.  This is an
-      optional attribute.
+      errors, the value of this key lists the possible extended DNS
+      error codes that can be returned by this DNS resolver.  When
+      multiple values are present, these values MUST be comma-separated.
+
+      This is an optional attribute.
 
    infourl:  An URL that points to the generic unstructured resolver
       information (e.g., DoH APIs supported, possible HTTP status codes
       returned by the DoH server, how to report a problem) for
-      troubleshooting purpose.  The server MUST support the content-type
-      'text/html'.  The DNS client MUST reject the URL if the scheme is
-      not "https".  The client MUST validate that both the encrypted DNS
-      server and the resolver information server are owned and managed
-      by the same entity by establishing a TLS connection to the domain
-      name in the URL and checking if the subjectAltName entry in the
-      server certificate includes the name of the encrypted DNS server.
-      If this match fails, the client MUST ignore the resolver
-      information.  As such, the URL should be treated only as
-      diagnostic information for IT staff.  This is a mandatory
-      attribute.
+      troubleshooting purpose.
+
+      The server MUST support the content-type 'text/html'.  The DNS
+      client MUST reject the URL if the scheme is not "https".  The
+      client MUST validate that both the encrypted DNS server and the
+      resolver information server are owned and managed by the same
+      entity by establishing a TLS connection to the domain name in the
+      URL and checking if the subjectAltName entry in the server
+      certificate includes the name of the encrypted DNS server.  If
+      this match fails, the client MUST ignore the resolver information.
+      The URL should be treated only as diagnostic information for IT
+      staff.
+
+      This is a mandatory attribute.
 
    New keys can be defined as per the procedure defined in Section 7.2.
 
-   Figure 1 shows an example of resolver information.
+   Figure 1 shows an example of published resolver information record:
 
-  resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17 resinfourl=https://resolver.example.com/guide
+     resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17
+                        resinfourl=https://resolver.example.com/guide
 
-         Figure 1: An Example of Resolver Information Record
+            Figure 1: An Example of Resolver Information Record
+
+
+
+
+
+Reddy & Boucadair         Expires 4 March 2023                  [Page 4]
+
+Internet-Draft          DNS Resolver Information             August 2022
+
 
 6.  Security Considerations
 
    Unless a DNS request to retrieve the resolver information is
    encrypted (e.g., sent over DNS-over-TLS (DoT) [RFC7858] or DNS-over-
-   HTTPS (DoH)) [RFC8484], the response is susceptible to forgery.  The
+   HTTPS (DoH)) [RFC8484]), the response is susceptible to forgery.  The
    DNS resolver information can be retrieved after the encrypted
    connection is established to the DNS server or retrieved before the
    encrypted connection is established to the DNS server by using local
@@ -218,18 +238,10 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 7.  IANA Considerations
 
-
-
-
-Reddy & Boucadair         Expires 3 March 2023                  [Page 4]
-
-Internet-Draft          DNS Resolver Information             August 2022
-
-
       Note to the RFC Editor: Please update [RFCXXXX] with the RFC
       number to be assigned to this document.
 
-7.1.  RESINFO RRtype
+7.1.  RESINFO RR Type
 
    This document requests IANA to register a new value from the
    "Resource Record (RR) TYPEs" subregistry of the "Domain Name System
@@ -240,47 +252,37 @@ Internet-Draft          DNS Resolver Information             August 2022
    Meaning: Resolver Information as Key/Value Pairs
    Reference: [RFCXXXX]
 
-7.2.  DNS Resolver Information Registration
+7.2.  DNS Resolver Information Key Registration
 
    This document requests IANA to create a new registry entitled "DNS
-   Resolver Information".  This registry contains definitions of the
-   names that can be used to provide the resolver information.
+   Resolver Information Keys".  This registry contains definitions of
+   the keys that can be used to provide the resolver information.
 
    The registration procedure is Specification Required (Section 4.6 of
    [RFC8126]).
 
    The structure of the registry is as follows:
 
-   Name:  The name to be used in the key.  The name MUST conform to the
-      definition in Section 6.4 of [RFC6763].  The IANA registry MUST
-      NOT register names that begin with "temp-", so these names can be
-      used freely by any implementer.
+   Name:  The key name.  The name MUST conform to the definition in
+      Section 4.  The IANA registry MUST NOT register names that begin
+      with "temp-", so these names can be used freely by any
+      implementer.
 
-   Value Type:  The type of value to be used in the key.
+   Value Type:  The type of the value to be used in the key.
 
-   Description:  Provides a description of the attribute
+   Description:  A description of the registered key.
 
    Specification:  The reference specification for the registered
       element.
 
-   The initial content of this registry is provided in Table 1.
 
 
-
-
-
-
-
-
-
-
-
-
-
-Reddy & Boucadair         Expires 3 March 2023                  [Page 5]
+Reddy & Boucadair         Expires 4 March 2023                  [Page 5]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
+
+   The initial content of this registry is provided in Table 1.
 
    +==========+=========+=============================+===============+
    | Name     | Value   | Specification               | Specification |
@@ -307,10 +309,10 @@ Internet-Draft          DNS Resolver Information             August 2022
    [I-D.pp-add-resinfo].
 
    Thanks to Tommy Jensen, Vittorio Bertola, Vinny Parla, Chris Box, Ben
-   Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla and Shashank
-   Jain for the discussion and comments.  Thanks to Mark Andrews, Joe
-   Abley, Paul Wouters, Tim Wicinski, and Steffen Nurpmeso for the
-   discussion on the RR formatting rules.
+   Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla, and
+   Shashank Jain for the discussion and comments.  Thanks to Mark
+   Andrews, Joe Abley, Paul Wouters, Tim Wicinski, and Steffen Nurpmeso
+   for the discussion on the RR formatting rules.
 
 9.  References
 
@@ -331,9 +333,7 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-
-
-Reddy & Boucadair         Expires 3 March 2023                  [Page 6]
+Reddy & Boucadair         Expires 4 March 2023                  [Page 6]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
@@ -363,23 +363,23 @@ Internet-Draft          DNS Resolver Information             August 2022
               Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
               Jensen, "Discovery of Designated Resolvers", Work in
               Progress, Internet-Draft, draft-ietf-add-ddr-10, 5 August
-              2022, <https://datatracker.ietf.org/api/v1/doc/document/
-              draft-ietf-add-ddr/>.
+              2022, <https://www.ietf.org/archive/id/draft-ietf-add-ddr-
+              10.txt>.
 
    [I-D.ietf-add-dnr]
               Boucadair, M., Reddy, T., Wing, D., Cook, N., and T.
               Jensen, "DHCP and Router Advertisement Options for the
               Discovery of Network-designated Resolvers (DNR)", Work in
               Progress, Internet-Draft, draft-ietf-add-dnr-13, 13 August
-              2022, <https://datatracker.ietf.org/api/v1/doc/document/
-              draft-ietf-add-dnr/>.
+              2022, <https://www.ietf.org/archive/id/draft-ietf-add-dnr-
+              13.txt>.
 
    [I-D.pp-add-resinfo]
               Sood, P. and P. Hoffman, "DNS Resolver Information Self-
               publication", Work in Progress, Internet-Draft, draft-pp-
-              add-resinfo-02, 27 June 2020,
-              <https://datatracker.ietf.org/api/v1/doc/document/draft-
-              pp-add-resinfo/>.
+              add-resinfo-02, 30 June 2020,
+              <https://www.ietf.org/archive/id/draft-pp-add-resinfo-
+              02.txt>.
 
    [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
               and P. Hoffman, "Specification for DNS over Transport
@@ -389,7 +389,7 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-Reddy & Boucadair         Expires 3 March 2023                  [Page 7]
+Reddy & Boucadair         Expires 4 March 2023                  [Page 7]
 
 Internet-Draft          DNS Resolver Information             August 2022
 
@@ -445,4 +445,4 @@ Authors' Addresses
 
 
 
-Reddy & Boucadair         Expires 3 March 2023                  [Page 8]
+Reddy & Boucadair         Expires 4 March 2023                  [Page 8]
