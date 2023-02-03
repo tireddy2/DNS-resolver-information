@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.
+There has to be one entity for each item to be referenced.
+An alternate method (rfc include) is described in the references. -->
+
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC1035 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.1035.xml">
+<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
+<!ENTITY RFC8126 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8126.xml">
+<!ENTITY RFC8914 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8914.xml">
+<!ENTITY RFC9156 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9156.xml">
+<!ENTITY RFC6763 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6763.xml">
+<!ENTITY RFC8499 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8499.xml">
+<!ENTITY RFC7858 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7858.xml">
+<!ENTITY RFC8484 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8484.xml">
+<!ENTITY I-D.pp-add-resinfo SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.pp-add-resinfo.xml">
+<!ENTITY I-D.ietf-add-dnr SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-add-dnr.xml">
+<!ENTITY I-D.ietf-add-ddr SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-add-ddr.xml">
+
+
+]>
 <?rfc toc="yes"?>
 <?rfc tocompact="yes"?>
 <?rfc tocdepth="3"?>
@@ -217,10 +237,10 @@
         target="RRTYPE"></xref>:</t>
 
         <t><figure>
-            <artwork><![CDATA[Type: RESINFO 
-Value: TBD 
+            <artwork><![CDATA[Type: RESINFO
+Value: TBD
 Meaning: Resolver Information as Key/Value Pairs
-Reference: [RFCXXXX] 
+Reference: [RFCXXXX]
 ]]></artwork>
           </figure></t>
       </section>
@@ -306,34 +326,22 @@ Reference: [RFCXXXX]
 
   <back>
     <references title="Normative References">
-      <?rfc include="reference.RFC.2119"?>
-
-      <?rfc include="reference.RFC.1035"?>
-
-      <?rfc include='reference.RFC.8174'?>
-
-      <?rfc include="reference.RFC.9156"?>
-
-      <?rfc include="reference.RFC.8126"?>
-
-      <?rfc include='reference.RFC.8914' ?>
-
-      <?rfc include='reference.RFC.6763' ?>
+       &RFC2119;
+       &RFC1035;
+       &RFC8174;
+       &RFC9156;
+       &RFC8126;
+       &RFC8914;
+       &RFC6763;
     </references>
 
     <references title="Informative References">
-      <?rfc include="reference.RFC.8499"?>
-
-      <?rfc include="reference.RFC.7858"?>
-
-      <?rfc include="reference.RFC.8484"?>
-
-      <?rfc include='reference.I-D.pp-add-resinfo'?>
-
-      <?rfc include='reference.I-D.ietf-add-dnr'?>
-
-      <?rfc include='reference.I-D.ietf-add-ddr'?>
-
+       &RFC8499;
+       &RFC7858;
+       &RFC8484;
+       &I-D.pp-add-resinfo;
+       &I-D.ietf-add-dnr;
+       &I-D.ietf-add-ddr;
       <reference anchor="RRTYPE"
                  target="http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4">
         <front>
