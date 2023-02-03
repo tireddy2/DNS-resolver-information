@@ -5,12 +5,12 @@
 ADD WG                                                          T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                            M. Boucadair
-Expires: 4 March 2023                                             Orange
-                                                          31 August 2022
+Expires: 7 August 2023                                            Orange
+                                                         3 February 2023
 
 
                         DNS Resolver Information
-                    draft-reddy-add-resolver-info-06
+                  draft-reddy-add-resolver-info-latest
 
 Abstract
 
@@ -33,11 +33,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 March 2023.
+   This Internet-Draft will expire on 7 August 2023.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 1]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 1]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 2]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 2]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
    This document makes use of the terms defined in [RFC8499].
@@ -165,9 +165,9 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 3]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 3]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
 5.  Resolver Information Keys/Values
@@ -180,7 +180,7 @@ Internet-Draft          DNS Resolver Information             August 2022
       is no '=' in a key, then it is a boolean attribute, simply
       identified as being present, with no value.
 
-      This is a mandatory attribute.
+      This is an optional attribute.
 
    exterr:  If the DNS resolver supports extended DNS errors (EDE)
       [RFC8914] to return additional information about the cause of DNS
@@ -206,11 +206,12 @@ Internet-Draft          DNS Resolver Information             August 2022
       The URL should be treated only as diagnostic information for IT
       staff.
 
-      This is a mandatory attribute.
+      This is a an optional attribute.  For example, a DoT server may
+      not want to host an HTTPS server.
 
    New keys can be defined as per the procedure defined in Section 7.2.
 
-   Figure 1 shows an example of published resolver information record:
+   Figure 1 shows an example of a published resolver information record:
 
      resolver.example.net. 7200 IN RESINFO qnamemin exterr=15,16,17
                         resinfourl=https://resolver.example.com/guide
@@ -220,10 +221,9 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-
-Reddy & Boucadair         Expires 4 March 2023                  [Page 4]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 4]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
 6.  Security Considerations
@@ -277,9 +277,9 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 5]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 5]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
    The initial content of this registry is provided in Table 1.
@@ -289,7 +289,7 @@ Internet-Draft          DNS Resolver Information             August 2022
    |          | Type    |                             |               |
    +==========+=========+=============================+===============+
    | qnamemin | boolean | Indicates whether           | [RFCXXXX]     |
-   |          |         | qnameminimization is        |               |
+   |          |         | 'qnameminimization' is      |               |
    |          |         | enabled or not              |               |
    +----------+---------+-----------------------------+---------------+
    | exterr   | number  | Lists the set of extended   | [RFCXXXX]     |
@@ -309,10 +309,10 @@ Internet-Draft          DNS Resolver Information             August 2022
    [I-D.pp-add-resinfo].
 
    Thanks to Tommy Jensen, Vittorio Bertola, Vinny Parla, Chris Box, Ben
-   Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla, and
-   Shashank Jain for the discussion and comments.  Thanks to Mark
-   Andrews, Joe Abley, Paul Wouters, Tim Wicinski, and Steffen Nurpmeso
-   for the discussion on the RR formatting rules.
+   Schwartz, Tony Finch, Daniel Kahn Gillmor, Eric Rescorla, Shashank
+   Jain, and Richard Baldry for the discussion and comments.  Thanks to
+   Mark Andrews, Joe Abley, Paul Wouters, Tim Wicinski, and Steffen
+   Nurpmeso for the discussion on the RR formatting rules.
 
 9.  References
 
@@ -333,9 +333,9 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 6]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 6]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
@@ -367,7 +367,7 @@ Internet-Draft          DNS Resolver Information             August 2022
               10.txt>.
 
    [I-D.ietf-add-dnr]
-              Boucadair, M., Reddy, T., Wing, D., Cook, N., and T.
+              Boucadair, M., Reddy.K, T., Wing, D., Cook, N., and T.
               Jensen, "DHCP and Router Advertisement Options for the
               Discovery of Network-designated Resolvers (DNR)", Work in
               Progress, Internet-Draft, draft-ietf-add-dnr-13, 13 August
@@ -375,9 +375,9 @@ Internet-Draft          DNS Resolver Information             August 2022
               13.txt>.
 
    [I-D.pp-add-resinfo]
-              Sood, P. and P. Hoffman, "DNS Resolver Information Self-
-              publication", Work in Progress, Internet-Draft, draft-pp-
-              add-resinfo-02, 30 June 2020,
+              Sood, P. and P. E. Hoffman, "DNS Resolver Information
+              Self-publication", Work in Progress, Internet-Draft,
+              draft-pp-add-resinfo-02, 30 June 2020,
               <https://www.ietf.org/archive/id/draft-pp-add-resinfo-
               02.txt>.
 
@@ -389,9 +389,9 @@ Internet-Draft          DNS Resolver Information             August 2022
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 7]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 7]
 
-Internet-Draft          DNS Resolver Information             August 2022
+Internet-Draft          DNS Resolver Information           February 2023
 
 
    [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
@@ -445,4 +445,4 @@ Authors' Addresses
 
 
 
-Reddy & Boucadair         Expires 4 March 2023                  [Page 8]
+Reddy & Boucadair         Expires 7 August 2023                 [Page 8]
